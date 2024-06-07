@@ -1,4 +1,5 @@
-import { colorsPresets } from "../styles/colorsPresets";
+// Импорт стилей
+import { colorsPresets } from "../styles/colorsPresets.ts";
 
 export function FormHeader(){
     return (

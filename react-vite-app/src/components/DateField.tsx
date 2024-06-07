@@ -1,3 +1,4 @@
+// Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
 interface DateFieldProps {

@@ -4,7 +4,7 @@ import { InputField } from "./components/InputField.tsx";
 import { DateField } from "./components/DateField.tsx";
 import { ListSelector } from "./components/ListSelector.tsx";
 import { SubmitButton } from "./components/SubmitButton.tsx";
-import { Navbar } from "./components/NavBar.tsx";
+import { Navbar } from "./NavBar.tsx";
 
 // Импорт компонентов из React
 import { useState } from "react";
@@ -12,10 +12,19 @@ import { useState } from "react";
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
 
+// Получение текущей даты
+const getCurrentDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export function App() {
   const [fromCity, setFromCity] = useState('Москва');
   const [toCity, setToCity] = useState('');
-  const [departureDate, setDepartureDate] = useState('');
+  const [departureDate, setDepartureDate] = useState(getCurrentDate());
   const [returnDate, setReturnDate] = useState('');
 
   const handleFromChange = (value: string) => setFromCity(value);
@@ -31,12 +40,32 @@ export function App() {
           <FormHeader />
           <form className="space-y-4">
             <div className="flex space-x-4">
-              <InputField id="from" label="Откуда" placeholder="Откуда" onChange={handleFromChange} value={fromCity} />
-              <InputField id="to" label="Куда" placeholder="Куда" onChange={handleToChange} value={toCity} />
+              <InputField 
+                id="from" label="Откуда" 
+                placeholder="Откуда" 
+                onChange={handleFromChange} 
+                value={fromCity} 
+              />
+              <InputField 
+                id="to" label="Куда" 
+                placeholder="Куда" 
+                onChange={handleToChange} 
+                value={toCity} 
+              />
             </div>
             <div className="flex space-x-4">
-              <DateField id="departure" label="Дата отправления" placeholder="06 июня" onChange={handleDepartureDateChange} value={departureDate} />
-              <DateField id="return" label="Дата возвращения" placeholder="Дата обратно" onChange={handleReturnDateChange} value={returnDate} />
+              <DateField 
+                id="departure" label="Дата отправления" 
+                placeholder="Дата отправления" 
+                onChange={handleDepartureDateChange} 
+                value={departureDate} 
+              />
+              <DateField 
+                id="return" label="Дата возвращения" 
+                placeholder="Дата обратно" 
+                onChange={handleReturnDateChange} 
+                value={returnDate} 
+              />
             </div>
             <div className="flex items-center justify-between">
               <ListSelector />
