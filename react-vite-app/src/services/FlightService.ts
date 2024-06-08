@@ -3,12 +3,12 @@ import axios from "axios";
 class FlightService{
     URL = 'http://localhost:8081/api/v1/flights'
 
-    async searchFlight(fromCity: string, toCity: string, fromDate: string, toDate: string) {
+    async searchFlight(from: string, to: string, fromDate: string, toDate: string) {
         try {
             const response = await axios.get(`${this.URL}/search`, {
                 params: {
-                    fromCity,
-                    toCity,
+                    from,
+                    to,
                     fromDate,
                     toDate,
                 },
