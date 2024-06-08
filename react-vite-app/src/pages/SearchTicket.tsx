@@ -27,7 +27,7 @@ const getCurrentDate = () => {
 export function SearchTicket() {
   // Дата для поиска билетов
   const [searchData, setsearchData] = useState({
-    fromCity: 'Москва',
+    fromCity: 'CityA',
     toCity: '',
     departureDate: getCurrentDate(),
     returnDate: '',

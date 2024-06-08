@@ -24,10 +24,16 @@ export function SignIn() {
         password: '',
     });
 
+    // Функция для проверки формата email
+    const isEmailValid = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
     // Валидация формы
     const validateForm = () => {
         const newErrors = {
-            email: signInData.email ? '' : 'Электронная почта обязательна',
+            email: !signInData.email ? 'Электронная почта обязательна' : (!isEmailValid(signInData.email) ? 'Неверный формат электронной почты' : ''),
             password: signInData.password ? '' : 'Пароль обязателен',
         };
         setErrors(newErrors);
