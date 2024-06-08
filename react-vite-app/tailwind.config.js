@@ -13,6 +13,7 @@ export default {
       'activeCyan': '#66FCF1',
       'activeBackGray': '#4E4E50',
       'notActiveCyan': '#45A29E',
+      'errorRed': '#DC2626',
     },
   },
   plugins: [],

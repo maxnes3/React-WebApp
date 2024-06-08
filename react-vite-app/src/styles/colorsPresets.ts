@@ -4,8 +4,10 @@ export const colorsPresets = {
     primaryHeaderText: 'text-activeCyan',
     inputBackground: 'bg-activeBackGray',
     inputFocusRing: 'focus:ring-activeCyan',
-    buttonBackground: 'bg-gradient-to-r from-activeCyan to-notActiveCyan',
-    buttonHoverBackground: 'hover:from-activeCyan hover:to-activeCyan',
-    buttonText: 'text-backgroundDark',
+    buttonBackground: 'bg-transparent border-2 border-activeCyan text-activeCyan',
+    buttonHoverBackground: 'hover:bg-activeCyan hover:text-backgroundDark hover:border-transparent',
+    buttonText: 'text-activeCyan',
     buttonFocusRing: 'focus:ring-activeCyan',
+    errorText: 'text-errorRed',
+    errorFocusRing: 'focus:ring-errorRed',
 };

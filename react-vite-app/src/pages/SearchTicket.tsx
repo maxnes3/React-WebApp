@@ -23,7 +23,9 @@ const getCurrentDate = () => {
   return `${year}-${month}-${day}`;
 };
 
+// Поиск авиабилетов
 export function SearchTicket() {
+  // Дата для поиска билетов
   const [searchData, setsearchData] = useState({
     fromCity: 'Москва',
     toCity: '',
@@ -31,6 +33,7 @@ export function SearchTicket() {
     returnDate: '',
   });
 
+  // Функция для изменения данных поиска
   const handleInputChange = useCallback((field: string, value: string) => {
     setsearchData((prevState) => ({
       ...prevState,
@@ -38,6 +41,7 @@ export function SearchTicket() {
     }));
   }, []);
 
+  // Функция для обращения к springboot серверу
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
@@ -54,47 +58,49 @@ export function SearchTicket() {
   };
 
   return (
-      <div className="flex-grow flex items-center justify-center">
-        <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryText} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
-          <FormHeader />
-          <form className="space-y-4">
-            <div className="flex space-x-4">
-              <InputField
-                id="from" label="Откуда"
-                placeholder="Откуда"
-                onChange={(e) => handleInputChange('fromCity', e.target.value)}
-                value={searchData.fromCity}
-              />
-              <InputField
-                id="to" label="Куда"
-                placeholder="Куда"
-                onChange={(e) => handleInputChange('toCity', e.target.value)}
-                value={searchData.toCity}
-              />
-            </div>
-            <div className="flex space-x-4">
-              <DateField
-                id="departure" label="Дата отправления"
-                placeholder="Дата отправления"
-                onChange={(e) => handleInputChange('departureDate', e.target.value)}
-                value={searchData.departureDate}
-              />
-              <DateField
-                id="return" label="Дата возвращения"
-                placeholder="Дата обратно"
-                onChange={(e) => handleInputChange('returnDate', e.target.value)}
-                value={searchData.returnDate}
-              />
-            </div>
-            <div className="flex items-center justify-between">
-              <ListSelector />
-              <SubmitButton
-                label="Поиск"
-                onClick={handleSubmit}
-              />
-            </div>
-          </form>
-        </div>
+    <div className="flex-grow flex items-center justify-center">
+      <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryText} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+        <FormHeader 
+          label="Найти авиабилеты" 
+        />
+        <form className="space-y-4">
+          <div className="flex space-x-4">
+            <InputField
+              id="from" label="Откуда"
+              placeholder="Откуда"
+              onChange={(e) => handleInputChange('fromCity', e.target.value)}
+              value={searchData.fromCity}
+            />
+            <InputField
+              id="to" label="Куда"
+              placeholder="Куда"
+              onChange={(e) => handleInputChange('toCity', e.target.value)}
+              value={searchData.toCity}
+            />
+          </div>
+          <div className="flex space-x-4">
+            <DateField
+              id="departure" label="Дата отправления"
+              placeholder="Дата отправления"
+              onChange={(e) => handleInputChange('departureDate', e.target.value)}
+              value={searchData.departureDate}
+            />
+            <DateField
+              id="return" label="Дата возвращения"
+              placeholder="Дата обратно"
+              onChange={(e) => handleInputChange('returnDate', e.target.value)}
+              value={searchData.returnDate}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <ListSelector />
+            <SubmitButton
+              label="Поиск"
+              onClick={handleSubmit}
+            />
+          </div>
+        </form>
       </div>
+    </div>
   );
 }

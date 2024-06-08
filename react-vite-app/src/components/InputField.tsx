@@ -10,9 +10,10 @@ interface InputFieldProps {
     placeholder: string;
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    error?: string;
 }
   
-export function InputField({ id, label, placeholder, value, onChange }: InputFieldProps){
+export function InputField({ id, label, placeholder, value, onChange, error }: InputFieldProps){
     return (
         <div className="flex-1">
             <label htmlFor={id} className="block mb-2">
@@ -21,11 +22,12 @@ export function InputField({ id, label, placeholder, value, onChange }: InputFie
             <input
                 type="text"
                 id={id}
-                className={`w-full p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} border-none focus:outline-none focus:ring-2 ${colorsPresets.inputFocusRing}`}
+                className={`w-full p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} border-none focus:outline-none focus:ring-2 ${error ? colorsPresets.errorFocusRing : colorsPresets.inputFocusRing}`}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
             />
+            {error && <p className={`mt-2 ${colorsPresets.errorText} text-sm`}>{error}</p>}
         </div>
     );
 }
