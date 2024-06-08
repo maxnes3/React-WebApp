@@ -7,7 +7,10 @@ import { SubmitButton } from "./components/SubmitButton.tsx";
 import { Navbar } from "./NavBar.tsx";
 
 // Импорт компонентов из React
-import { useState } from "react";
+import { useState, useCallback, FormEvent } from "react";
+
+// Импорт сервисов
+import { flightService } from "./services/FlightService.ts";
 
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
@@ -22,15 +25,34 @@ const getCurrentDate = () => {
 };
 
 export function App() {
-  const [fromCity, setFromCity] = useState('Москва');
-  const [toCity, setToCity] = useState('');
-  const [departureDate, setDepartureDate] = useState(getCurrentDate());
-  const [returnDate, setReturnDate] = useState('');
+  const [searchData, setsearchData] = useState({
+    fromCity: 'Москва',
+    toCity: '',
+    departureDate: getCurrentDate(),
+    returnDate: '',
+  });
 
-  const handleFromChange = (value: string) => setFromCity(value);
-  const handleToChange = (value: string) => setToCity(value);
-  const handleDepartureDateChange = (value: string) => setDepartureDate(value);
-  const handleReturnDateChange = (value: string) => setReturnDate(value);
+  const handleInputChange = useCallback((field: string, value: string) => {
+    setsearchData((prevState) => ({
+      ...prevState,
+      [field]: value,
+    }));
+  }, []);
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    try {
+      const flights = await flightService.searchFlight(
+        searchData.fromCity,
+        searchData.toCity,
+        searchData.departureDate,
+        searchData.returnDate
+      );
+      console.log('Flights:', flights);
+    } catch (error) {
+      console.error('Error fetching flights:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -43,33 +65,36 @@ export function App() {
               <InputField 
                 id="from" label="Откуда" 
                 placeholder="Откуда" 
-                onChange={handleFromChange} 
-                value={fromCity} 
+                onChange={(e) => handleInputChange('fromCity', e.target.value)} 
+                value={searchData.fromCity} 
               />
               <InputField 
                 id="to" label="Куда" 
                 placeholder="Куда" 
-                onChange={handleToChange} 
-                value={toCity} 
+                onChange={(e) => handleInputChange('toCity', e.target.value)} 
+                value={searchData.toCity} 
               />
             </div>
             <div className="flex space-x-4">
               <DateField 
                 id="departure" label="Дата отправления" 
                 placeholder="Дата отправления" 
-                onChange={handleDepartureDateChange} 
-                value={departureDate} 
+                onChange={(e) => handleInputChange('departureDate', e.target.value)} 
+                value={searchData.departureDate} 
               />
               <DateField 
                 id="return" label="Дата возвращения" 
                 placeholder="Дата обратно" 
-                onChange={handleReturnDateChange} 
-                value={returnDate} 
+                onChange={(e) => handleInputChange('returnDate', e.target.value)} 
+                value={searchData.returnDate} 
               />
             </div>
             <div className="flex items-center justify-between">
               <ListSelector />
-              <SubmitButton label="Поиск" />
+              <SubmitButton 
+                label="Поиск"
+                onClick={handleSubmit}
+              />
             </div>
           </form>
         </div>
