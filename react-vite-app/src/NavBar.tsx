@@ -10,8 +10,13 @@ export function Navbar(){
                 </div>
                 <div>
                 {/* Можно добавить другие элементы навигации здесь */}
-                <div>
-                    <img src="/login-icon.svg" alt="Войти" className={`h-8 w-8 ${colorsPresets.primaryHeaderText}`} />
+                <div className={"flex space-x-4 p-4"}>
+                    <img src="/login-icon.svg" alt="Войти" className={`h-8 w-8 ${colorsPresets.primaryHeaderText}`}/>
+                    <a href="/survey-creation">
+                        <img src="/moderator-icon.svg" alt="Модератор"
+                             className={`h-8 w-8 ${colorsPresets.primaryHeaderText}`}/>
+                    </a>
+                    <img src="/operator-icon.svg" alt="Оператор" className={`h-8 w-8 ${colorsPresets.primaryHeaderText}`} />
                 </div>
                 </div>
             </div>
