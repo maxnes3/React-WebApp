@@ -14,4 +14,8 @@ export const colorsPresets = {
     buttonFocusRing: 'focus:ring-white',
     errorText: 'text-errorRed',
     errorFocusRing: 'focus:ring-errorRed',
+    buttonRemoveBackground: 'bg-red-500',
+    buttonRemoveHoverBackground: 'hover:bg-red-600', // Updated hover background color
+    buttonRemoveText: 'text-white',
+    buttonRemoveFocusRing: 'focus:ring-red-500',
 };
