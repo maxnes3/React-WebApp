@@ -1,3 +1,6 @@
+// Импорт компонентов из ./components/
+import { LinkIcon } from "./components/LinkIcon.tsx";
+
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
 
@@ -11,21 +14,20 @@ export function Navbar(){
                 <div>
                 {/* Можно добавить другие элементы навигации здесь */}
                 <div className={"flex space-x-4 p-4"}>
-                    <a href="/signin">
-                        <img src="/login-icon.svg" 
-                            alt="Войти" 
-                            className={`h-8 w-8`}
-                        />
-                    </a>
-                    <a href="/survey-creation">
-                        <img src="/moderator-icon.svg" 
-                            alt="Модератор"
-                            className={`h-8 w-8`}
-                        />
-                    </a>
-                    <img src="/operator-icon.svg" 
-                        alt="Оператор" 
-                        className={`h-8 w-8`} 
+                    <LinkIcon
+                        link="/signin"
+                        icon="/login-icon.svg" 
+                        name="Войти"
+                    />
+                    <LinkIcon
+                        link="/survey-creation"
+                        icon="/moderator-icon.svg" 
+                        name="Модератор"
+                    />
+                    <LinkIcon
+                        link="/"
+                        icon="/operator-icon.svg" 
+                        name="Оператор"
                     />
                 </div>
                 </div>

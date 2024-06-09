@@ -2,6 +2,8 @@
 import { FormHeader } from "../components/FormHeader.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { SubmitButton } from "../components/SubmitButton.tsx";
+import { LinkText } from "../components/LinkText.tsx";
+//import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
 
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
@@ -14,11 +16,13 @@ import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Авторизация
 export function SignIn() {
+    // Дата для авторизации
     const [signInData, setSignInData] = useState({
         email: '',
         password: '',
     });
 
+    // Данные для валидации
     const [errors, setErrors] = useState({
         email: '',
         password: '',
@@ -96,10 +100,18 @@ export function SignIn() {
                             value={signInData.password}
                             error={errors.password}
                         />
-                        <SubmitButton
-                            label="Войти"
-                            onClick={handleSubmit}
-                        />
+                        <div className="flex justify-center space-y-4">
+                            <SubmitButton
+                                label="Войти"
+                                onClick={handleSubmit}
+                            />
+                        </div>
+                        <div className="flex justify-center space-y-4">
+                            <LinkText 
+                                label="Ещё нет аккаунта?"
+                                link="/signup"
+                            />
+                        </div>
                     </div>
                 </form>
             </div>

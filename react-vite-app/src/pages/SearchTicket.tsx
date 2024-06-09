@@ -33,17 +33,43 @@ export function SearchTicket() {
     returnDate: '',
   });
 
+  // Данные для валидации
+  const [errors, setErrors] = useState({
+    fromCity: '',
+    toCity: '',
+  });
+
+  // Валидация формы
+  const validateForm = () => {
+    const newErrors = {
+      fromCity: searchData.fromCity ? '' : 'Выберите город',
+      toCity: searchData.toCity ? '' : 'Выберите город',
+    };
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(error => error !== '');
+  };
+
   // Функция для изменения данных поиска
   const handleInputChange = useCallback((field: string, value: string) => {
     setsearchData((prevState) => ({
       ...prevState,
       [field]: value,
     }));
+
+    setErrors((prevState) => ({
+      ...prevState,
+      [field]: '', // Очистка полей с ошибками
+    }));
   }, []);
 
   // Функция для обращения к springboot серверу
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     try {
       const flights = await flightService.searchFlight(
         searchData.fromCity,
@@ -70,12 +96,14 @@ export function SearchTicket() {
               placeholder="Откуда"
               onChange={(e) => handleInputChange('fromCity', e.target.value)}
               value={searchData.fromCity}
+              error={errors.fromCity}
             />
             <InputField
               id="to" label="Куда"
               placeholder="Куда"
               onChange={(e) => handleInputChange('toCity', e.target.value)}
               value={searchData.toCity}
+              error={errors.toCity}
             />
           </div>
           <div className="flex space-x-4">

@@ -14,6 +14,7 @@ export default {
       'activeBackGray': '#4E4E50',
       'notActiveCyan': '#45A29E',
       'errorRed': '#DC2626',
+      'googleBlue': '#4285F4',
     },
   },
   plugins: [],
