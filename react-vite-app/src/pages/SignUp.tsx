@@ -49,8 +49,8 @@ export function SignUp() {
     // Функция для изменения данных поиска
     const handleInputChange = useCallback((field: string, value: string) => {
         setSignUpData((prevState) => ({
-        ...prevState,
-        [field]: value,
+            ...prevState,
+            [field]: value,
         }));
 
         setErrors((prevState) => ({

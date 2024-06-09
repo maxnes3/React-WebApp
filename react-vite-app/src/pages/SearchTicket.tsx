@@ -13,6 +13,7 @@ import { flightService } from "../services/FlightService.ts";
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
+import { IconButton } from "../components/IconButton.tsx";
 
 // Получение текущей даты
 const getCurrentDate = () => {
@@ -26,7 +27,7 @@ const getCurrentDate = () => {
 // Поиск авиабилетов
 export function SearchTicket() {
   // Дата для поиска билетов
-  const [searchData, setsearchData] = useState({
+  const [searchData, setSearchData] = useState({
     fromCity: 'CityA',
     toCity: '',
     departureDate: getCurrentDate(),
@@ -51,7 +52,7 @@ export function SearchTicket() {
 
   // Функция для изменения данных поиска
   const handleInputChange = useCallback((field: string, value: string) => {
-    setsearchData((prevState) => ({
+    setSearchData((prevState) => ({
       ...prevState,
       [field]: value,
     }));
@@ -61,6 +62,22 @@ export function SearchTicket() {
       [field]: '', // Очистка полей с ошибками
     }));
   }, []);
+
+  // Функция для обмена городами
+  const handleSwapCities = () => {
+    setSearchData((prevState) => ({
+      ...prevState,
+      fromCity: prevState.toCity,
+      toCity: prevState.fromCity,
+    }));
+  };
+
+  const handleMoveDate = () => {
+    setSearchData((prevState) => ({
+      ...prevState,
+      returnDate: prevState.departureDate
+    }));
+  };
 
   // Функция для обращения к springboot серверу
   const handleSubmit = async (event: FormEvent) => {
@@ -98,6 +115,13 @@ export function SearchTicket() {
               value={searchData.fromCity}
               error={errors.fromCity}
             />
+            <div className="mt-10">
+              <IconButton
+                icon="/swap-icon.svg"
+                name="swap"
+                onClick={handleSwapCities}
+              />
+            </div>
             <InputField
               id="to" label="Куда"
               placeholder="Куда"
@@ -113,6 +137,13 @@ export function SearchTicket() {
               onChange={(e) => handleInputChange('departureDate', e.target.value)}
               value={searchData.departureDate}
             />
+            <div className="mt-10">
+              <IconButton
+                icon="/move-icon.svg"
+                name="move"
+                onClick={handleMoveDate}
+              />
+            </div>
             <DateField
               id="return" label="Дата возвращения"
               placeholder="Дата обратно"
@@ -120,8 +151,7 @@ export function SearchTicket() {
               value={searchData.returnDate}
             />
           </div>
-          <div className="flex items-center justify-between">
-            <ListSelector />
+          <div className="flex justify-center space-y-4">
             <SubmitButton
               label="Поиск"
               onClick={handleSubmit}
