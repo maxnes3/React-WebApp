@@ -6,6 +6,18 @@ import {ChangeEvent, useState} from "react";
 import MultipleChoiceAnswerComponent from "./MultipleChoiceAnswerComponent.tsx";
 import DateAnswerComponent from "./DateAnswerComponent.tsx";
 
+const answerTypeMapping: Record<AnswerTypeEnum, string> = {
+  [AnswerTypeEnum.TEXT]: 'TEXT',
+  [AnswerTypeEnum.DATE]: 'DATE',
+  [AnswerTypeEnum.MULTIPLE_CHOICE]: 'MULTIPLE_CHOICE',
+};
+
+const reverseAnswerTypeMapping: Record<string, AnswerTypeEnum> = {
+  TEXT: AnswerTypeEnum.TEXT,
+  DATE: AnswerTypeEnum.DATE,
+  MULTIPLE_CHOICE: AnswerTypeEnum.MULTIPLE_CHOICE,
+};
+
 export default function AnswerComponent(props: AnswerProps) {
   const [answer, setAnswer] = useState(props.answer)
   const onAnswerChange = props.onAnswerChange;
@@ -13,7 +25,7 @@ export default function AnswerComponent(props: AnswerProps) {
   const handleAnswerTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newAnswerType = e.target.value as AnswerTypeEnum;
     const updatedAnswer = {...answer,
-      answerType: newAnswerType,
+      answerType: answerTypeMapping[newAnswerType] as AnswerTypeEnum,
       text: undefined,
       choices: undefined,
       startDate: undefined,
@@ -29,7 +41,7 @@ export default function AnswerComponent(props: AnswerProps) {
   };
 
   const renderAnswerComponent = (type: AnswerTypeEnum) => {
-    switch (type) {
+    switch (reverseAnswerTypeMapping[type]) {
       case AnswerTypeEnum.TEXT:
         return <TextAnswerComponent answer={answer} onAnswerChange={handleAnswerChange} />;
       case AnswerTypeEnum.MULTIPLE_CHOICE:

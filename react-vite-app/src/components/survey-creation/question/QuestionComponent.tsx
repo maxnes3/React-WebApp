@@ -9,10 +9,16 @@ import TableQuestionComponent from "./TableQuestionComponent.tsx";
 import ImageQuestionComponent from "./ImageQuestionComponent.tsx";
 import AnswerComponent from "../answer/AnswerComponent.tsx";
 
-const questionTypeMapping = {
+const questionTypeMapping: Record<QuestionTypeEnum, string> = {
   [QuestionTypeEnum.TEXT]: 'TEXT',
   [QuestionTypeEnum.TABLE]: 'TABLE',
   [QuestionTypeEnum.IMAGE]: 'IMAGE',
+};
+
+const reverseQuestionTypeMapping: Record<string, QuestionTypeEnum> = {
+  TEXT: QuestionTypeEnum.TEXT,
+  TABLE: QuestionTypeEnum.TABLE,
+  IMAGE: QuestionTypeEnum.IMAGE,
 };
 
 export default function QuestionComponent(
@@ -27,7 +33,7 @@ export default function QuestionComponent(
   };
 
   const renderQuestionComponent = (type: QuestionTypeEnum) => {
-    switch (type) {
+    switch (reverseQuestionTypeMapping[type]) {
       case QuestionTypeEnum.TEXT:
         return <TextQuestionComponent question={props.question} onQuestionChange={handleQuestionChange} />;
       case QuestionTypeEnum.IMAGE:
@@ -40,7 +46,7 @@ export default function QuestionComponent(
   const handleQuestionTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newQuestionType = e.target.value as QuestionTypeEnum;
     const updatedQuestion = {...question,
-      questionType: newQuestionType,
+      questionType: questionTypeMapping[newQuestionType] as QuestionTypeEnum ,
       subquestions: undefined,
       imageUrl: undefined
     };
@@ -71,7 +77,7 @@ export default function QuestionComponent(
         block w-full`}
       >
         {Object.values(QuestionTypeEnum).map((key) => (
-          <option key={key} value={questionTypeMapping[question.questionType]}>
+          <option key={key} value={key}>
             {key}
           </option>
         ))}

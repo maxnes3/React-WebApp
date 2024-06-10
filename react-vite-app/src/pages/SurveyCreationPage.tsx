@@ -19,8 +19,15 @@ export default function SurveyCreationPage() {
   };
 
   const addQuestion = () => {
-    const answer: AnswerModel = { answerType: AnswerTypeEnum.TEXT, text: "Пример ответа" }
-    const newQuestion: QuestionModel = { text: 'Пример вопроса', questionType: QuestionTypeEnum.TEXT, answer: answer };
+    const answer: AnswerModel = {
+      answerType: 'TEXT' as AnswerTypeEnum,
+      text: "Пример ответа"
+    }
+    const newQuestion: QuestionModel = {
+      text: 'Пример вопроса',
+      questionType: 'TEXT' as QuestionTypeEnum,
+      answer: answer
+    };
     setSurvey({ ...survey, questions: [...survey.questions, newQuestion] });
   };
 

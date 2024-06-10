@@ -7,7 +7,7 @@ export default function TextAnswerComponent(
   props: AnswerProps) {
   const {answer, onAnswerChange} = props;
   const [text, setText]
-    = useState(answer.text);
+    = useState(answer.text || '');
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
