@@ -1,24 +1,18 @@
 import './Question.css'
-import {AnswerModel} from "../../../types/Survey.ts";
 import {TextArea} from "../../TextArea.tsx";
 import {ChangeEvent, useState} from "react";
-
-export type TextQuestionModel = {
-  text: string;
-  answer: AnswerModel;
-}
-
-export interface TextQuestionProps {
-  question: TextQuestionModel;
-}
+import {QuestionProps} from "../../../types/Survey.ts";
 
 export default function TextQuestionComponent(
-  props: TextQuestionProps) {
+  props: QuestionProps) {
+  const { question, onQuestionChange } = props;
   const [questionText, setQuestionText]
-    = useState(props.question.text);
+    = useState(question.text);
+
 
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setQuestionText(e.target.value);
+    onQuestionChange!({...question, text: e.target.value});
   };
 
   return (

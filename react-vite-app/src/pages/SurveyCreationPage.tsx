@@ -38,7 +38,7 @@ export default function SurveyCreationPage() {
   };
 
   const handleSubmit = async () => {
-    console.log((survey));
+    console.log(JSON.stringify(survey));
   }
 
   return (
@@ -58,15 +58,15 @@ export default function SurveyCreationPage() {
               <QuestionComponent key={index}
                                  question={question}
                                  onDelete={() => removeQuestion(index)}
-                                 onUpdate={(updatedQuestion) => updateQuestion(index, updatedQuestion)}/>
+                                 onQuestionChange={(updatedQuestion) => updateQuestion(index, updatedQuestion)}/>
             </div>
         ))}
         </AnimatePresence>
-        <div className="m-2">
+        <div className="m-2 flex ">
           <SubmitButton label={'+'}
                         onClick={addQuestion} />
-          <SubmitButton label="Создать опрос" onClick={handleSubmit} />
         </div>
+        <SubmitButton label="Создать опрос" onClick={handleSubmit} />
       </div>
     </div>
   );

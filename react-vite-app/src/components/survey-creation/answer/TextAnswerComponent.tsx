@@ -1,20 +1,19 @@
 import './Answer.css'
-import {AnswerModel} from "../../../types/Survey.ts";
 import {InputField} from "../../InputField.tsx";
 import {ChangeEvent, useState} from "react";
-
-export interface TextAnswerProps {
-  answer: AnswerModel;
-}
+import {AnswerProps} from "../../../types/Survey.ts";
 
 export default function TextAnswerComponent(
-  props: TextAnswerProps) {
+  props: AnswerProps) {
+  const {answer, onAnswerChange} = props;
   const [text, setText]
-    = useState(props.answer.text);
+    = useState(answer.text);
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
+    onAnswerChange!({...answer, text: e.target.value});
   };
+
   return (
     <div>
       <InputField id="answer-text"

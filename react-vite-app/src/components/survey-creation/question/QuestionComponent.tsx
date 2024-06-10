@@ -3,40 +3,59 @@ import {AnswerModel, QuestionProps, QuestionTypeEnum} from "../../../types/Surve
 import { motion } from 'framer-motion';
 import TextQuestionComponent from './TextQuestionComponent.tsx';
 import {RemoveButton} from "../../RemoveButton.tsx";
-import {ChangeEvent} from "react";
+import {ChangeEvent, useState} from "react";
 import {colorsPresets} from "../../../styles/colorsPresets.ts";
-import MultipleChoiceQuestionComponent from "./MultipleChoiceQuestionComponent.tsx";
 import TableQuestionComponent from "./TableQuestionComponent.tsx";
 import ImageQuestionComponent from "./ImageQuestionComponent.tsx";
 import AnswerComponent from "../answer/AnswerComponent.tsx";
 
+const questionTypeMapping = {
+  [QuestionTypeEnum.TEXT]: 'TEXT',
+  [QuestionTypeEnum.TABLE]: 'TABLE',
+  [QuestionTypeEnum.IMAGE]: 'IMAGE',
+};
 
 export default function QuestionComponent(
   props: QuestionProps) {
-  const question = props.question;
+  const [question, setQuestion] = useState(props.question);
   const onDelete = props.onDelete;
-  const onUpdate = props.onUpdate;
+  const onUpdate = props.onQuestionChange;
+
+  const handleQuestionChange = (updatedQuestion: typeof props.question) => {
+    setQuestion(updatedQuestion);
+    onUpdate!(updatedQuestion);
+  };
 
   const renderQuestionComponent = (type: QuestionTypeEnum) => {
     switch (type) {
       case QuestionTypeEnum.TEXT:
-        return <TextQuestionComponent question={props.question} />;
+        return <TextQuestionComponent question={props.question} onQuestionChange={handleQuestionChange} />;
       case QuestionTypeEnum.IMAGE:
-        return <ImageQuestionComponent question={props.question} />;
+        return <ImageQuestionComponent question={props.question} onQuestionChange={handleQuestionChange} />;
       case QuestionTypeEnum.TABLE:
-        return <TableQuestionComponent question={props.question} />;
-      case QuestionTypeEnum.MULTIPLE_CHOICE:
-        return <MultipleChoiceQuestionComponent question={props.question} />;
+        return <TableQuestionComponent question={props.question} onQuestionChange={handleQuestionChange} />;
     }
   }
 
   const handleQuestionTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newQuestionType = e.target.value as QuestionTypeEnum;
-    onUpdate!({ ...question, questionType: newQuestionType });
+    const updatedQuestion = {...question,
+      questionType: newQuestionType,
+      subquestions: undefined,
+      imageUrl: undefined
+    };
+    setQuestion(updatedQuestion);
+    onUpdate!(updatedQuestion);
   };
 
-  const handleAnswerTypeChange = (updatedAnswer: AnswerModel) => {
-    onUpdate!({ ...question, answer: updatedAnswer });
+  const updateAnswer = (updatedAnswer: AnswerModel) => {
+    const updatedQuestion = { ...question,
+      answer: updatedAnswer };
+    const updatedQuestion2 = { ...updatedQuestion, answer: updatedAnswer };
+    console.log(updatedAnswer);
+    console.log(updatedQuestion2);
+    setQuestion(updatedQuestion);
+    onUpdate!(updatedQuestion);
   };
 
   return (
@@ -49,21 +68,22 @@ export default function QuestionComponent(
       style={{overflow: 'hidden'}}
     >
       <select
-        value={question.questionType}
         onChange={handleQuestionTypeChange}
-        className={`p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} 
+        className={`p-3 mb-2 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} 
         border-none focus:outline-none focus:ring-2 ${colorsPresets.buttonFocusRing}
         block w-full`}
       >
-        {Object.values(QuestionTypeEnum).map((type) => (
-          <option key={type} value={type}>
-            {type}
+        {Object.values(QuestionTypeEnum).map((key) => (
+          <option key={key} value={questionTypeMapping[question.questionType]}>
+            {key}
           </option>
         ))}
       </select>
-      {renderQuestionComponent(question.questionType)}
+      <div className="border p-2 mb-2 rounded-lg">
+        {renderQuestionComponent(question.questionType)}
+      </div>
       <hr className="m-2 mb-4" />
-      <AnswerComponent answer={question.answer} onUpdate={handleAnswerTypeChange}/>
+      <AnswerComponent answer={question.answer} onAnswerChange={(updatedAnswer) => {updateAnswer(updatedAnswer)}}/>
       <RemoveButton label={"x"} onClick={onDelete!} className={"mt-4"}/>
     </motion.div>
 

@@ -1,14 +1,13 @@
 export enum QuestionTypeEnum {
-  TEXT = 'TEXT',
-  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE',
-  TABLE = 'TABLE',
-  IMAGE = 'IMAGE',
+  TEXT = 'Текстовый вопрос',
+  TABLE = 'Вопрос в виде таблицы',
+  IMAGE = 'Вопрос с изображением',
 }
 
 export enum AnswerTypeEnum {
-  TEXT = 'TEXT',
-  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE',
-  DATE = 'DATE'
+  TEXT = 'Ответ в виде текста',
+  MULTIPLE_CHOICE = 'Ответ с выбором',
+  DATE = 'Ответ в виде даты'
 }
 
 export type AnswerModel = {
@@ -21,7 +20,7 @@ export type AnswerModel = {
 
 export interface AnswerProps {
   answer: AnswerModel;
-  onUpdate?: (updatedAnswer: AnswerModel) => void;
+  onAnswerChange?: (answer: AnswerModel) => void;
 }
 
 export type QuestionModel = {
@@ -32,10 +31,14 @@ export type QuestionModel = {
   answer: AnswerModel;
 }
 
+export type SubQuestionModel = {
+  text: string;
+}
+
 export interface QuestionProps {
   question: QuestionModel;
   onDelete?: () => void;
-  onUpdate?: (updatedQuestion: QuestionModel) => void;
+  onQuestionChange?: (question: QuestionModel) => void;
 }
 
 export type SurveyModel = {
