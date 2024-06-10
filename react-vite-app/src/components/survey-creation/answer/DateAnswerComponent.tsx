@@ -12,7 +12,6 @@ export default function DateAnswerComponent(
     = useState(answer.endDate || '');
 
   const handleStartDateChange = (e: ChangeEvent<HTMLDataElement>) => {
-    console.log(e.target.value);
     setStartDate(e.target.value);
     onAnswerChange!({...answer, startDate: e.target.value});
   };

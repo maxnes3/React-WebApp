@@ -51,9 +51,6 @@ export default function QuestionComponent(
   const updateAnswer = (updatedAnswer: AnswerModel) => {
     const updatedQuestion = { ...question,
       answer: updatedAnswer };
-    const updatedQuestion2 = { ...updatedQuestion, answer: updatedAnswer };
-    console.log(updatedAnswer);
-    console.log(updatedQuestion2);
     setQuestion(updatedQuestion);
     onUpdate!(updatedQuestion);
   };
