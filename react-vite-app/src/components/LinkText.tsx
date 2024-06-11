@@ -1,3 +1,5 @@
+import { colorsPresets } from "../styles/colorsPresets";
+
 interface LinkTextProps {
     link: string,
     label: string
@@ -5,7 +7,7 @@ interface LinkTextProps {
 
 export function LinkText({ link, label }: LinkTextProps) {
     return (
-        <a href={link}>
+        <a href={link} className={`${colorsPresets.primaryTextBlack}`}>
             {label}
         </a>
     );

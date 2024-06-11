@@ -15,13 +15,13 @@ interface DateFieldProps {
 export function DateField({ id, label, placeholder, value, onChange }: DateFieldProps){
     return (
         <div className="flex-1">
-            <label htmlFor={id} className="block mb-2">
+            <label htmlFor={id} className={`block mb-2 ${colorsPresets.primaryTextBlack} font-bold`}>
                 {label}
             </label>
             <input
                 type="date"
                 id={id}
-                className={`w-full p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} border-none focus:outline-none focus:ring-2 ${colorsPresets.inputFocusRing}`}
+                className={`w-full p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryTextWhite} border-none focus:outline-none focus:ring-2 ${colorsPresets.inputFocusRing}`}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}

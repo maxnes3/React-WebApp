@@ -80,7 +80,7 @@ export function SignIn() {
 
     return (
         <div className="flex-grow flex items-center justify-center">
-            <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryText} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+            <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
                 <FormHeader 
                     label="Авторизация"
                 />

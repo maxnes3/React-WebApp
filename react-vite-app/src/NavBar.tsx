@@ -6,9 +6,9 @@ import { colorsPresets } from "./styles/colorsPresets.ts";
 
 export function Navbar(){
     return (
-        <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryText} p-4 shadow-md`}>
+        <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} p-4 shadow-md`}>
             <div className="container mx-auto flex justify-between items-center">
-                <div className={`text-2xl ${colorsPresets.primaryText} font-bold`}>
+                <div className={`text-2xl ${colorsPresets.primaryTextBlack} font-bold`}>
                     SkyWingsExpress
                 </div>
                 <div>

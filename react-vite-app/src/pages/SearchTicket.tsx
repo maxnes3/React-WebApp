@@ -2,8 +2,9 @@
 import { FormHeader } from "../components/FormHeader.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { DateField } from "../components/DateField.tsx";
-import { ListSelector } from "../components/ListSelector.tsx";
 import { SubmitButton } from "../components/SubmitButton.tsx";
+import { IconButton } from "../components/IconButton.tsx";
+import { ListFlights } from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
@@ -13,7 +14,6 @@ import { flightService } from "../services/FlightService.ts";
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
-import { IconButton } from "../components/IconButton.tsx";
 
 // Получение текущей даты
 const getCurrentDate = () => {
@@ -38,6 +38,12 @@ export function SearchTicket() {
   const [errors, setErrors] = useState({
     fromCity: '',
     toCity: '',
+  });
+
+  // Состояние для хранения найденных рейсов
+  const [flights, setFlights] = useState({
+    departureFlights: [],
+    returnFlights: [],
   });
 
   // Валидация формы
@@ -94,6 +100,7 @@ export function SearchTicket() {
         searchData.departureDate,
         searchData.returnDate
       );
+      setFlights(flights)
       console.log('Flights:', flights);
     } catch (error) {
       console.error('Error fetching flights:', error);
@@ -102,7 +109,7 @@ export function SearchTicket() {
 
   return (
     <div className="flex-grow flex items-center justify-center">
-      <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryText} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+      <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
         <FormHeader 
           label="Найти авиабилеты" 
         />
@@ -159,6 +166,9 @@ export function SearchTicket() {
           </div>
         </form>
       </div>
+      <ListFlights 
+        flights={flights.departureFlights}
+      />
     </div>
   );
 }
