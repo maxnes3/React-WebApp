@@ -1,3 +1,6 @@
+// Импорт стилей
+import { colorsPresets } from "../styles/colorsPresets.ts";
+
 interface FormHeaderProps{
     label: string,
     color: string,

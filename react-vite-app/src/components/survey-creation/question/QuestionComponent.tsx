@@ -1,13 +1,14 @@
 import './Question.css'
 import {AnswerModel, QuestionProps, QuestionTypeEnum} from "../../../types/Survey.ts";
-import { motion } from 'framer-motion';
 import TextQuestionComponent from './TextQuestionComponent.tsx';
-import {RemoveButton} from "../../RemoveButton.tsx";
+import {RemoveButton} from "../../ui/RemoveButton.tsx";
 import {ChangeEvent, useState} from "react";
 import {colorsPresets} from "../../../styles/colorsPresets.ts";
 import TableQuestionComponent from "./TableQuestionComponent.tsx";
 import ImageQuestionComponent from "./ImageQuestionComponent.tsx";
 import AnswerComponent from "../answer/AnswerComponent.tsx";
+import {FormHeader} from "../../ui/FormHeader.tsx";
+import { motion } from 'framer-motion';
 
 const questionTypeMapping: Record<QuestionTypeEnum, string> = {
   [QuestionTypeEnum.TEXT]: 'TEXT',
@@ -63,32 +64,37 @@ export default function QuestionComponent(
 
   return (
     <motion.div
-      initial={{x: '-100%', opacity: 0}}
-      animate={{x: 0, opacity: 1}}
-      exit={{x: '3%', opacity: 0}}
-      transition={{duration: 0.5}}
-      className="flex flex-col items-stretch border rounded-lg p-4 w-full"
-      style={{overflow: 'hidden'}}
+      initial={{ x: '-100%', opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: '3%', opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="my-2 flex flex-col items-stretch border rounded-lg w-full"
+      style={{ overflow: 'hidden' }}
     >
-      <select
-        onChange={handleQuestionTypeChange}
-        className={`p-3 mb-2 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} 
+      <div className={`p-4 ${colorsPresets.primaryBackground} ${colorsPresets.primaryText}`}>
+        <FormHeader
+          label={"Вопрос #"+props.questionKey!.toString()}/>
+        <select
+          onChange={handleQuestionTypeChange}
+          className={`p-3 mb-2 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} 
         border-none focus:outline-none focus:ring-2 ${colorsPresets.buttonFocusRing}
         block w-full`}
-      >
-        {Object.values(QuestionTypeEnum).map((key) => (
-          <option key={key} value={key}>
-            {key}
-          </option>
-        ))}
-      </select>
-      <div className="border p-2 mb-2 rounded-lg">
-        {renderQuestionComponent(question.questionType)}
+        >
+          {Object.values(QuestionTypeEnum).map((key) => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </select>
+        <div className="border p-2 mb-2 rounded-lg">
+          {renderQuestionComponent(question.questionType)}
+        </div>
+        <hr className="m-2 mb-4"/>
+        <AnswerComponent answer={question.answer} onAnswerChange={(updatedAnswer) => {
+          updateAnswer(updatedAnswer)
+        }}/>
+        <RemoveButton label={"x"} onClick={onDelete!} className={"mt-4"}/>
       </div>
-      <hr className="m-2 mb-4" />
-      <AnswerComponent answer={question.answer} onAnswerChange={(updatedAnswer) => {updateAnswer(updatedAnswer)}}/>
-      <RemoveButton label={"x"} onClick={onDelete!} className={"mt-4"}/>
     </motion.div>
-
-  );
+);
 }

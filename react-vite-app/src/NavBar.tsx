@@ -11,7 +11,7 @@ import { localStorageService } from './services/LocalStorageService.ts';
 
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
-import {LinkIcon} from "./components/LinkIcon.tsx";
+import {LinkIcon} from "./components/ui/LinkIcon.tsx";
 
 interface NavbarProps{
     isAuth: boolean,

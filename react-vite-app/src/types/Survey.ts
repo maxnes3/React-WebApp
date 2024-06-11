@@ -24,6 +24,7 @@ export interface AnswerProps {
 }
 
 export type QuestionModel = {
+  id?: string;
   text: string;
   questionType: QuestionTypeEnum;
   subquestions?: string[];
@@ -37,6 +38,7 @@ export type SubQuestionModel = {
 
 export interface QuestionProps {
   question: QuestionModel;
+  questionKey?: number;
   onDelete?: () => void;
   onQuestionChange?: (question: QuestionModel) => void;
 }

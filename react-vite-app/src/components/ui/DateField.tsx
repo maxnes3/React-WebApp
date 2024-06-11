@@ -2,7 +2,7 @@
 import { ChangeEvent } from "react";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import { colorsPresets } from "../../styles/colorsPresets.ts";
 
 interface DateFieldProps {
     id: string;

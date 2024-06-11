@@ -1,8 +1,8 @@
 import './Answer.css'
-import {InputField} from "../../InputField.tsx";
+import {InputField} from "../../ui/InputField.tsx";
 import {useEffect, useState} from "react";
 import {AnswerProps} from "../../../types/Survey.ts";
-import {SubmitButton} from "../../SubmitButton.tsx";
+import {SubmitButton} from "../../ui/SubmitButton.tsx";
 
 export default function MultipleChoiceAnswerComponent(
   props: AnswerProps) {

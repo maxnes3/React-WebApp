@@ -1,5 +1,5 @@
 import './Question.css'
-import {TextArea} from "../../TextArea.tsx";
+import {TextArea} from "../../ui/TextArea.tsx";
 import {QuestionProps} from "../../../types/Survey.ts";
 import {ChangeEvent, useState} from "react";
 
