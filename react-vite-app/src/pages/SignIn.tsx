@@ -3,7 +3,7 @@ import { FormHeader } from "../components/FormHeader.tsx";
 import { InputField } from "../components/InputField.tsx";
 import { SubmitButton } from "../components/SubmitButton.tsx";
 import { LinkText } from "../components/LinkText.tsx";
-//import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
+import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
 
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
@@ -113,6 +113,9 @@ export function SignIn() {
                                 label="Ещё нет аккаунта?"
                                 link="/signup"
                             />
+                        </div>
+                        <div className="flex justify-center space-y-4">
+                            <SignInGoogleButton />
                         </div>
                     </div>
                 </form>

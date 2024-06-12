@@ -49,26 +49,33 @@ export function FlightCard({ flight }: FlightCardProps) {
                 </div>
                 <IconButton 
                     icon="/plus-icon.svg" 
+                    size="8"
                     name="plus"
                     onClick={handleExpandButtons}
                 />
             </div>
             {isExpanded && (
-                <div className="flex space-x-4">
+                <div className="flex space-x-2">
                     <IconButton 
                         icon="/share-icon.svg" 
+                        size="6" 
                         name="share"
                         onClick={() => console.log("Share")}
+                        text="Поделиться"
                     />
                     <IconButton 
-                        icon="/favorite-icon.svg" 
+                        icon="/favorite-icon.svg"
+                        size="6"  
                         name="favorite"
                         onClick={() => console.log("Favorite")}
+                        text="Избраное"
                     />
                     <IconButton 
-                        icon="/buy-icon.svg" 
+                        icon="/buy-icon.svg"
+                        size="6" 
                         name="buy"
                         onClick={() => console.log("Buy")}
+                        text="Купить"
                     />
                 </div>
             )}

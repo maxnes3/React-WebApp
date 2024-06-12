@@ -126,6 +126,7 @@ export function SearchTicket() {
             <div className="mt-10">
               <IconButton
                 icon="/swap-icon.svg"
+                size="8"
                 name="swap"
                 onClick={handleSwapCities}
               />
@@ -148,6 +149,7 @@ export function SearchTicket() {
             <div className="mt-10">
               <IconButton
                 icon="/move-icon.svg"
+                size="8"
                 name="move"
                 onClick={handleMoveDate}
               />
