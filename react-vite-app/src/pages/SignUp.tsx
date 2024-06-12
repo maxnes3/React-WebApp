@@ -75,8 +75,8 @@ export function SignUp() {
         }
 
         try {
-            const accessToken = await signInService.registration(data);
-            console.log('Access Token:', accessToken);
+            const responce = await signInService.registration(data);
+            console.log('Responce:', responce);
         } catch (error) {
             console.error('Error during sign in:', error);
         }
@@ -84,9 +84,10 @@ export function SignUp() {
 
     return (
         <div className="flex-grow flex items-center justify-center">
-            <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryText} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+            <div className={`${colorsPresets.primaryBackground} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
                 <FormHeader 
                     label="Регистрация"
+                    color={colorsPresets.primaryTextWhite}
                 />
                 <form className="space-y-4">
                     <div className="space-y-4">

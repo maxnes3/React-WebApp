@@ -12,24 +12,24 @@ export function Navbar(){
                     SkyWingsExpress
                 </div>
                 <div>
-                {/* Можно добавить другие элементы навигации здесь */}
-                <div className={"flex space-x-4 p-4"}>
-                    <LinkIcon
-                        link="/signin"
-                        icon="/login-icon.svg" 
-                        name="Войти"
-                    />
-                    <LinkIcon
-                        link="/survey-creation"
-                        icon="/moderator-icon.svg" 
-                        name="Модератор"
-                    />
-                    <LinkIcon
-                        link="/"
-                        icon="/operator-icon.svg" 
-                        name="Оператор"
-                    />
-                </div>
+                    {/* Можно добавить другие элементы навигации здесь */}
+                    <div className={"flex space-x-4 p-4"}>
+                        <LinkIcon
+                            link="/signin"
+                            icon="/login-icon.svg" 
+                            name="Войти"
+                        />
+                        <LinkIcon
+                            link="/survey-creation"
+                            icon="/moderator-icon.svg" 
+                            name="Модератор"
+                        />
+                        <LinkIcon
+                            link="/"
+                            icon="/operator-icon.svg" 
+                            name="Оператор"
+                        />
+                    </div>
                 </div>
             </div>
         </nav>

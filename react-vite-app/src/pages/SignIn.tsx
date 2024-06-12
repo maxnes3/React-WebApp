@@ -71,8 +71,9 @@ export function SignIn() {
         }
 
         try {
-            const accessToken = await signInService.authorization(data);
-            console.log('Access Token:', accessToken);
+            const authToken = await signInService.authorization(data);
+            localStorage.setItem('access', authToken.access_token)
+            localStorage.setItem('refresh', authToken.refresh_token)
         } catch (error) {
             console.error('Error during sign in:', error);
         }
@@ -83,6 +84,7 @@ export function SignIn() {
             <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
                 <FormHeader 
                     label="Авторизация"
+                    color={colorsPresets.primaryTextWhite}
                 />
                 <form className="space-y-4">
                     <div className="space-y-4">

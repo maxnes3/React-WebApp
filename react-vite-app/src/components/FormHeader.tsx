@@ -1,13 +1,11 @@
-// Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
-
 interface FormHeaderProps{
-    label: string
+    label: string,
+    color: string,
 }
 
-export function FormHeader({ label }: FormHeaderProps){
+export function FormHeader({ label, color }: FormHeaderProps){
     return (
-        <h1 className={`text-4xl font-bold mb-8 ${colorsPresets.primaryTextWhite}`}>
+        <h1 className={`text-4xl font-bold mb-8 ${color}`}>
            {label}
         </h1>
     );

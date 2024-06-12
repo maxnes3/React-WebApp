@@ -108,10 +108,11 @@ export function SearchTicket() {
   };
 
   return (
-    <div className="flex-grow flex items-center justify-center">
+    <div className="flex-grow flex flex-col items-center justify-center space-y-8">
       <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
         <FormHeader 
           label="Найти авиабилеты" 
+          color={colorsPresets.primaryTextWhite}
         />
         <form className="space-y-4">
           <div className="flex space-x-4">
@@ -168,6 +169,11 @@ export function SearchTicket() {
       </div>
       <ListFlights 
         flights={flights.departureFlights}
+        exception="Прямые рейсы не найдены"
+      />
+      <ListFlights
+        flights={flights.returnFlights}
+        exception="Обратные рейсы не найдены"
       />
     </div>
   );
