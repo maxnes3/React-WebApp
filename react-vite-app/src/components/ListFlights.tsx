@@ -13,7 +13,7 @@ interface ListFlightsProps {
 export function ListFlights({ flights, exception }: ListFlightsProps) {
     return (
         <div className="space-y-4">
-            {flights.length > 0 ? (
+            {flights !== null && flights.length > 0 ? (
                 flights.map((flight) => (
                     <FlightCard key={flight.id} flight={flight} />))
             ) : (

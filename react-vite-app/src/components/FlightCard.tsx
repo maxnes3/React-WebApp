@@ -27,9 +27,44 @@ export function FlightCard({ flight }: FlightCardProps) {
 
     return (
         <div className="flex flex-col items-center justify-between p-4 rounded-lg shadow-md space-y-4">
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full space-x-4">
                 <div className="text-2xl font-bold">{flight.ticketPrice}₽</div>
-                <div className="flex items-center space-x-2">
+                <div className="flex flex-col items-center">
+                    <div className="text-xl font-bold">
+                        {formatTime(departureDate)}
+                    </div>
+                    <div className="text-sm">
+                        {formatDate(departureDate)}
+                    </div>
+                    <div className="text-sm">
+                        {flight.route.origin}
+                    </div>
+                </div>
+                <div className="flex flex-row items-center space-x-2">
+                    <img src="/start-icon.svg" 
+                        alt="start_icon" 
+                        className={`h-6 w-6`}
+                    />
+                    <div className="font-bold">
+                        {duration} ч в пути
+                    </div>
+                    <img src="/end-icon.svg" 
+                        alt="end_icon" 
+                        className={`h-6 w-6`}
+                    />
+                </div>
+                <div className="flex flex-col items-center">
+                    <div className="text-xl font-bold">
+                        {formatTime(arrivalDate)}
+                    </div>
+                    <div className="text-sm">
+                        {formatDate(arrivalDate)}
+                    </div>
+                    <div className="text-sm">
+                        {flight.route.destination}
+                    </div>
+                </div>
+                {/* <div className="flex items-center space-x-2">
                     <div className="flex flex-col items-center">
                         <div className="px-2 py-1 rounded-lg">
                             {formatDate(departureDate)}
@@ -46,7 +81,7 @@ export function FlightCard({ flight }: FlightCardProps) {
                             {flight.route.origin} - {flight.route.destination}
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <IconButton 
                     icon="/plus-icon.svg" 
                     size="8"

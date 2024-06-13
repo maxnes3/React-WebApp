@@ -75,8 +75,8 @@ export function SignUp() {
         }
 
         try {
-            const responce = await signInService.registration(data);
-            console.log('Responce:', responce);
+            const response = await signInService.registration(data);
+            console.log('Response:', response);
         } catch (error) {
             console.error('Error during sign in:', error);
         }

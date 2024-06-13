@@ -14,7 +14,6 @@ export default {
       'gray': '#2B7A78',
       'light': '#DEF2F1',
       'errorRed': '#BE185D',
-      'googleBlue': '#1D4EB8',
     },
   },
   plugins: [],

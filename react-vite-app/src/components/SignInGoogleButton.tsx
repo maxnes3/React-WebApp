@@ -1,12 +1,21 @@
+import { GoogleLogin } from "@react-oauth/google";
+
 export function SignInGoogleButton(){
+    const handleLoginSuccess = (credentialResponse: object) => {
+        console.log('Login Success:', credentialResponse);
+    };
+
+    const handleLoginFailure = () => {
+        console.log('Login Failed');
+    };
+
     return (
-        <button type="submit" 
-            className={`flex items-center space-x-2 p-2 px-6 py-3 bg-transparent border-2 border-googleBlue text-white font-bold rounded-md hover:bg-googleBlue hover:border-transparent focus:outline-none focus:ring-2 focus:ring-googleBlue`}>
-            <img src="/google-icon.svg" 
-                alt="google"
-                className={`h-4 w-4`}
-            />
-            <span>Sign in with Google</span>
-        </button>
+        <GoogleLogin
+            onSuccess={handleLoginSuccess}
+            onError={handleLoginFailure}
+            type="standard"
+            theme="filled_black"
+            logo_alignment="left"
+        />
     );
 }
