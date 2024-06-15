@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class SignInService{
-    URL = 'http://localhost:8081/api/v1/signin'
+    URL = 'http://localhost:8081/api/v1/auth'
 
     async registration(dto: SignUpDto){
         try{
@@ -15,7 +15,7 @@ class SignInService{
 
     async authorization(dto: SignInDto){
         try{
-            const response = await axios.post(this.URL, dto)
+            const response = await axios.post(`${this.URL}/signIn`, dto)
             return response.data
         } catch (error) { 
             console.error('Error fetching flights:', error);

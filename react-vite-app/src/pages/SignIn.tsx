@@ -7,6 +7,7 @@ import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
 
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
@@ -115,7 +116,9 @@ export function SignIn() {
                             />
                         </div>
                         <div className="flex justify-center space-y-4">
-                            <SignInGoogleButton />
+                            <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+                                <SignInGoogleButton />
+                            </GoogleOAuthProvider>
                         </div>
                     </div>
                 </form>
