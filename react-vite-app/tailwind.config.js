@@ -25,8 +25,6 @@ export default {
         700: '#B91C1C',
         800: '#991B1B',
       },
-      'errorRed': '#DC2626',
-      'googleBlue': '#4285F4',
     },
   },
   plugins: [],
