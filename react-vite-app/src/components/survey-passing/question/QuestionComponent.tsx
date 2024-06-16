@@ -8,7 +8,7 @@ import TextQuestionComponent from './TextQuestionComponent.tsx';
 import {colorsPresets} from "../../../styles/colorsPresets.ts";
 import TableQuestionComponent from "./TableQuestionComponent.tsx";
 import ImageQuestionComponent from "./ImageQuestionComponent.tsx";
-import {FormHeader} from "../../ui/FormHeader.tsx";
+import {FormHeader} from "../../FormHeader.tsx";
 import AnswerComponent from "../answer/AnswerComponent.tsx";
 
 const reverseQuestionTypeMapping: Record<string, QuestionTypeEnum> = {

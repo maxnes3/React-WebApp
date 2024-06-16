@@ -119,7 +119,7 @@ export function SearchTicket() {
             <InputField
               id="from" label="Откуда"
               placeholder="Откуда"
-              onChange={(e) => handleInputChange('fromCity', e.target.value)}
+              onChange={(e: { target: { value: string; }; }) => handleInputChange('fromCity', e.target.value)}
               value={searchData.fromCity}
               error={errors.fromCity}
             />
@@ -134,7 +134,7 @@ export function SearchTicket() {
             <InputField
               id="to" label="Куда"
               placeholder="Куда"
-              onChange={(e) => handleInputChange('toCity', e.target.value)}
+              onChange={(e: { target: { value: string; }; }) => handleInputChange('toCity', e.target.value)}
               value={searchData.toCity}
               error={errors.toCity}
             />
@@ -143,7 +143,7 @@ export function SearchTicket() {
             <DateField
               id="departure" label="Дата отправления"
               placeholder="Дата отправления"
-              onChange={(e) => handleInputChange('departureDate', e.target.value)}
+              onChange={(e: { target: { value: string; }; }) => handleInputChange('departureDate', e.target.value)}
               value={searchData.departureDate}
             />
             <div className="mt-8">
@@ -157,7 +157,7 @@ export function SearchTicket() {
             <DateField
               id="return" label="Дата возвращения"
               placeholder="Дата обратно"
-              onChange={(e) => handleInputChange('returnDate', e.target.value)}
+              onChange={(e: { target: { value: string; }; }) => handleInputChange('returnDate', e.target.value)}
               value={searchData.returnDate}
             />
           </div>

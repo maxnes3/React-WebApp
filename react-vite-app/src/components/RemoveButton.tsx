@@ -1,4 +1,4 @@
-import {colorsPresets} from "../../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface RemoveButtonProps {
   label: string;

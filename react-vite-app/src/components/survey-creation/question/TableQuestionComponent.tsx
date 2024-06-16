@@ -1,8 +1,8 @@
 import {ChangeEvent, useState} from 'react';
 import {QuestionProps} from '../../../types/Survey.ts';
-import {InputField} from "../../ui/InputField.tsx";
-import {SubmitButton} from "../../ui/SubmitButton.tsx";
-import {TextArea} from "../../ui/TextArea.tsx";
+import {InputField} from "../../InputField.tsx";
+import {SubmitButton} from "../../SubmitButton.tsx";
+import {TextArea} from "../../TextArea.tsx";
 
 export default function TableQuestionComponent(
   props: QuestionProps) {

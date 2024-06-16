@@ -1,12 +1,12 @@
 import '../../components/survey-creation/Survey.css'
 import {colorsPresets} from "../../styles/colorsPresets.ts";
-import {FormHeader} from "../../components/ui/FormHeader.tsx";
-import {InputField} from "../../components/ui/InputField.tsx";
+import {FormHeader} from "../../components/FormHeader.tsx";
+import {InputField} from "../../components/InputField.tsx";
 import {SurveyDto} from "../../types/Survey.ts";
 import {ChangeEvent, useEffect, useState} from "react";
 import SurveyService from "../../services/SurveyService.ts";
 import {useLocation, useNavigate} from "react-router-dom";
-import {SubmitButton} from "../../components/ui/SubmitButton.tsx";
+import {SubmitButton} from "../../components/SubmitButton.tsx";
 import SurveyCardComponent from "../../components/surveys/SurveyCardComponent.tsx";
 import {AxiosResponse} from "axios";
 
@@ -80,9 +80,9 @@ export default function SurveysPage() {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center mx-4 w-full max-w-2xl">
-        <div className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryText}`}>
+        <div className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite}`}>
           <FormHeader
-            label="Поиск опроса"/>
+            label="Поиск опроса" color={""}/>
           <div className="flex items-center">
             <InputField id="survey-title"
                         label=""

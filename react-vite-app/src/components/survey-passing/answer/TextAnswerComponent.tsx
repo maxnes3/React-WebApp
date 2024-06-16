@@ -1,5 +1,5 @@
 import './Answer.css'
-import {InputField} from "../../ui/InputField.tsx";
+import {InputField} from "../../InputField.tsx";
 import {ChangeEvent, useState} from "react";
 import {AnswerApiProps} from "../../../types/Survey.ts";
 

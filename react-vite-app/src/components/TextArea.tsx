@@ -2,7 +2,7 @@
 import {ChangeEvent} from "react";
 
 // Импорт стилей
-import {colorsPresets} from "../../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface TextAreaProps {
   id: string;
@@ -20,7 +20,7 @@ export function TextArea({ id, label, placeholder, value, onChange }: TextAreaPr
       </label>
       <textarea
         id={id}
-        className={`w-full p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} border-none focus:outline-none focus:ring-2 ${colorsPresets.inputFocusRing}`}
+        className={`w-full p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryTextBlack} border-none focus:outline-none focus:ring-2 ${colorsPresets.inputFocusRing}`}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

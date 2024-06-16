@@ -1,7 +1,7 @@
 import './Answer.css'
 import {ChangeEvent, useState} from "react";
 import {AnswerProps} from "../../../types/Survey.ts";
-import {DateField} from "../../ui/DateField.tsx";
+import {DateField} from "../../DateField.tsx";
 
 export default function DateAnswerComponent(
   props: AnswerProps) {

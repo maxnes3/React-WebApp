@@ -11,7 +11,7 @@ import { localStorageService } from './services/LocalStorageService.ts';
 
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
-import {LinkIcon} from "./components/ui/LinkIcon.tsx";
+import {LinkIcon} from "./components/LinkIcon.tsx";
 
 interface NavbarProps{
     isAuth: boolean,
@@ -73,6 +73,11 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                             link="/survey-creation"
                             icon="/moderator-icon.svg" 
                             name="Модератор"
+                        />
+                        <LinkIcon
+                          link="/surveys"
+                          icon="/survey-icon.svg"
+                          name="Модератор"
                         />
                         <LinkIcon
                             link="/"

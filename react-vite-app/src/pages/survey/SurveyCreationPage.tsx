@@ -1,12 +1,12 @@
 import '../../components/survey-creation/Survey.css'
-import {SubmitButton} from "../../components/ui/SubmitButton.tsx";
+import {SubmitButton} from "../../components/SubmitButton.tsx";
 import {ChangeEvent, useState} from "react";
 import {AnswerModel, AnswerTypeEnum, QuestionModel, QuestionTypeEnum, SurveyModel} from "../../types/Survey.ts";
 import QuestionComponent from "../../components/survey-creation/question/QuestionComponent.tsx";
-import {InputField} from "../../components/ui/InputField.tsx";
+import {InputField} from "../../components/InputField.tsx";
 import {AnimatePresence, motion} from "framer-motion";
 import {colorsPresets} from "../../styles/colorsPresets.ts";
-import {FormHeader} from "../../components/ui/FormHeader.tsx";
+import {FormHeader} from "../../components/FormHeader.tsx";
 import SurveyService from "../../services/SurveyService.ts";
 
 export default function SurveyCreationPage() {

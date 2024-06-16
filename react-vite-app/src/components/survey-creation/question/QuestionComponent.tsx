@@ -1,13 +1,13 @@
 import './Question.css'
 import {AnswerModel, QuestionProps, QuestionTypeEnum} from "../../../types/Survey.ts";
 import TextQuestionComponent from './TextQuestionComponent.tsx';
-import {RemoveButton} from "../../ui/RemoveButton.tsx";
+import {RemoveButton} from "../../RemoveButton.tsx";
 import {ChangeEvent, useState} from "react";
 import {colorsPresets} from "../../../styles/colorsPresets.ts";
 import TableQuestionComponent from "./TableQuestionComponent.tsx";
 import ImageQuestionComponent from "./ImageQuestionComponent.tsx";
 import AnswerComponent from "../answer/AnswerComponent.tsx";
-import {FormHeader} from "../../ui/FormHeader.tsx";
+import {FormHeader} from "../../FormHeader.tsx";
 import {motion} from 'framer-motion';
 
 const questionTypeMapping: Record<QuestionTypeEnum, string> = {

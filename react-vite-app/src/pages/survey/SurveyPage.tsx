@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {colorsPresets} from "../../styles/colorsPresets.ts";
 import {AnswerPassingModel, SurveyApiDto, SurveyPassingModel} from "../../types/Survey.ts";
-import {FormHeader} from "../../components/ui/FormHeader.tsx";
+import {FormHeader} from "../../components/FormHeader.tsx";
 import QuestionComponent from "../../components/survey-passing/question/QuestionComponent.tsx";
-import {SubmitButton} from "../../components/ui/SubmitButton.tsx";
+import {SubmitButton} from "../../components/SubmitButton.tsx";
 import {useParams} from "react-router-dom";
 import SurveyService from "../../services/SurveyService.ts";
 
@@ -46,9 +46,9 @@ export default function SurveyPage() {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center mx-4 w-full max-w-2xl">
-        <div className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryText}`}>
+        <div className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack}`}>
           <FormHeader
-            label={survey?.title}/>
+            label={survey?.title} color={""}/>
         </div>
         {survey.questions.map((question) => {
           return (
