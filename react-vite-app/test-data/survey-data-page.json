@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "title": "Пример опроса",
+    "questions": [
+      {
+        "id": 1,
+        "text": "Вопрос с текстом",
+        "questionType": "TEXT",
+        "answerType": "TEXT"
+      },
+      {
+        "id": 2,
+        "text": "Вопрос в виде таблицы",
+        "questionType": "TABLE",
+        "subquestions": [
+          {
+            "id": 1,
+            "text": "Москва"
+          },
+          {
+            "id": 2,
+            "text": "Ульяновск"
+          },
+          {
+            "id": 3,
+            "text": "Санкт-Петербург"
+          }
+        ],
+        "answerType": "MULTIPLE_CHOICE"
+      },
+      {
+        "id": 3,
+        "text": "Вопрос с картинкой",
+        "questionType": "IMAGE",
+        "imageUrl": "../../../public/moderator-icon.svg",
+        "answerType": "DATE"
+      }
+    ]
+  }
+]

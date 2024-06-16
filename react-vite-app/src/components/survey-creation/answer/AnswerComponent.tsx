@@ -19,7 +19,7 @@ const reverseAnswerTypeMapping: Record<string, AnswerTypeEnum> = {
 };
 
 export default function AnswerComponent(props: AnswerProps) {
-  const [answer, setAnswer] = useState(props.answer)
+  const [answer, setAnswer] = useState(props.correctAnswer)
   const onAnswerChange = props.onAnswerChange;
 
   const handleAnswerTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -43,11 +43,11 @@ export default function AnswerComponent(props: AnswerProps) {
   const renderAnswerComponent = (type: AnswerTypeEnum) => {
     switch (reverseAnswerTypeMapping[type]) {
       case AnswerTypeEnum.TEXT:
-        return <TextAnswerComponent answer={answer} onAnswerChange={handleAnswerChange} />;
+        return <TextAnswerComponent correctAnswer={answer} onAnswerChange={handleAnswerChange} />;
       case AnswerTypeEnum.MULTIPLE_CHOICE:
-        return <MultipleChoiceAnswerComponent answer={answer} onAnswerChange={handleAnswerChange} />;
+        return <MultipleChoiceAnswerComponent correctAnswer={answer} onAnswerChange={handleAnswerChange} />;
       case AnswerTypeEnum.DATE:
-        return <DateAnswerComponent answer={answer} onAnswerChange={handleAnswerChange} />;
+        return <DateAnswerComponent correctAnswer={answer} onAnswerChange={handleAnswerChange} />;
     }
   };
 

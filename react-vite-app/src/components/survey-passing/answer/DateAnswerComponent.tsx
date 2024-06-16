@@ -1,36 +1,45 @@
 import './Answer.css'
 import {ChangeEvent, useState} from "react";
-import {AnswerProps} from "../../../types/Survey.ts";
 import {DateField} from "../../ui/DateField.tsx";
+import {AnswerApiProps} from "../../../types/Survey.ts";
 
 export default function DateAnswerComponent(
-  props: AnswerProps) {
-  const {correctAnswer, onAnswerChange} = props;
+  props: AnswerApiProps) {
+  const {answerType, onAnswerChange} = props;
   const [startDate, setStartDate]
-    = useState(correctAnswer.startDate || '');
+    = useState('');
   const [endDate, setEndDate]
-    = useState(correctAnswer.endDate || '');
+    = useState('');
 
   const handleStartDateChange = (e: ChangeEvent<HTMLDataElement>) => {
-    setStartDate(e.target.value);
-    onAnswerChange!({...correctAnswer, startDate: e.target.value});
+    const value = e.target.value;
+    setStartDate(value);
+    if (onAnswerChange) {
+      onAnswerChange({answerType: answerType, startDate: value, endDate});
+    }
   };
 
   const handleEndDateChange = (e: ChangeEvent<HTMLDataElement>) => {
+    const value = e.target.value;
     setEndDate(e.target.value);
-    onAnswerChange!({...correctAnswer, endDate: e.target.value});
+    if (onAnswerChange) {
+      onAnswerChange({answerType: answerType, startDate, endDate: value});
+    }
   };
+
 
   return (
     <div>
       <DateField id="startDate"
+                 key={1}
                  label="С: "
                  placeholder=""
                  value={startDate!}
                  onChange={handleStartDateChange} />
       <DateField id="endDate"
+                 key={2}
                  label="По: "
-                 placeholder="2024.01.02"
+                 placeholder=""
                  value={endDate!}
                  onChange={handleEndDateChange} />
     </div>

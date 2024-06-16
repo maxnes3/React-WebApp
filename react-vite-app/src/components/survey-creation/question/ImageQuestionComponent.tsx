@@ -21,9 +21,9 @@ export default function ImageQuestionComponent(
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImage(base64String);
-        onQuestionChange!({...question, imageUrl: base64String});
+        const base64String = reader.result?.toString();
+        setImage(base64String!);
+        onQuestionChange!({...question, imageUrl: base64String?.split(',')[1]});
       };
       reader.readAsDataURL(file);
     }

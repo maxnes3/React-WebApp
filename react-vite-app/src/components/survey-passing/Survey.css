@@ -1,0 +1,41 @@
+.table-container.columns-1 .custom-table {
+    grid-template-columns: 1fr;
+}
+
+.table-container.columns-2 .custom-table {
+    grid-template-columns: 1fr 1fr;
+}
+
+.table-container.columns-3 .custom-table {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.table-container {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.custom-table th {
+    background-color: #f4f4f4;
+}
+
+.table-cell {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.table-cell.selected {
+    background-color: #66fcf1;
+}

@@ -8,7 +8,7 @@ import TableQuestionComponent from "./TableQuestionComponent.tsx";
 import ImageQuestionComponent from "./ImageQuestionComponent.tsx";
 import AnswerComponent from "../answer/AnswerComponent.tsx";
 import {FormHeader} from "../../ui/FormHeader.tsx";
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 
 const questionTypeMapping: Record<QuestionTypeEnum, string> = {
   [QuestionTypeEnum.TEXT]: 'TEXT',
@@ -29,6 +29,7 @@ export default function QuestionComponent(
   const onUpdate = props.onQuestionChange;
 
   const handleQuestionChange = (updatedQuestion: typeof props.question) => {
+    console.log(updatedQuestion);
     setQuestion(updatedQuestion);
     onUpdate!(updatedQuestion);
   };
@@ -57,7 +58,8 @@ export default function QuestionComponent(
 
   const updateAnswer = (updatedAnswer: AnswerModel) => {
     const updatedQuestion = { ...question,
-      answer: updatedAnswer };
+      correctAnswer: updatedAnswer };
+    console.log(updatedAnswer);
     setQuestion(updatedQuestion);
     onUpdate!(updatedQuestion);
   };
@@ -90,7 +92,7 @@ export default function QuestionComponent(
           {renderQuestionComponent(question.questionType)}
         </div>
         <hr className="m-2 mb-4"/>
-        <AnswerComponent answer={question.answer} onAnswerChange={(updatedAnswer) => {
+        <AnswerComponent correctAnswer={question.correctAnswer!} onAnswerChange={(updatedAnswer) => {
           updateAnswer(updatedAnswer)
         }}/>
         <RemoveButton label={"x"} onClick={onDelete!} className={"mt-4"}/>

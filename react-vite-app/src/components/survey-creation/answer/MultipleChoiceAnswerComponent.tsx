@@ -6,31 +6,33 @@ import {SubmitButton} from "../../ui/SubmitButton.tsx";
 
 export default function MultipleChoiceAnswerComponent(
   props: AnswerProps) {
-  const {answer, onAnswerChange} = props;
+  const {correctAnswer, onAnswerChange} = props;
   const [choices, setChoices]
-    = useState(answer.choices || [''])
+    = useState(correctAnswer.choices || [''])
 
   useEffect(() => {
-    setChoices(answer.choices || ['']);
-  }, [answer]);
+    setChoices(correctAnswer.choices || ['']);
+  }, [correctAnswer]);
 
   const handleInputChange = (index: number, value: string) => {
     const newChoices = [...choices];
     newChoices[index] = value;
     setChoices(newChoices);
-    onAnswerChange!({ ...answer, choices: newChoices });
+    onAnswerChange!({ ...correctAnswer, choices: newChoices });
   };
 
   const addRow = () => {
-    setChoices([...choices, '']);
-    onAnswerChange!({ ...answer, choices: [...choices, ''] });
+    if (choices.length < 9) {
+      setChoices([...choices, '']);
+      onAnswerChange!({...correctAnswer, choices: [...choices, '']});
+    }
   };
 
   const removeRow = () => {
     if (choices.length > 1) {
       const newChoices = choices.slice(0, -1);
       setChoices(newChoices);
-      onAnswerChange!({ ...answer, choices: newChoices });
+      onAnswerChange!({ ...correctAnswer, choices: newChoices });
     }
   };
 

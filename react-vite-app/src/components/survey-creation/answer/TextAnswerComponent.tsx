@@ -5,13 +5,13 @@ import {AnswerProps} from "../../../types/Survey.ts";
 
 export default function TextAnswerComponent(
   props: AnswerProps) {
-  const {answer, onAnswerChange} = props;
+  const {correctAnswer, onAnswerChange} = props;
   const [text, setText]
-    = useState(answer.text || '');
+    = useState(correctAnswer.text || '');
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
-    onAnswerChange!({...answer, text: e.target.value});
+    onAnswerChange!({...correctAnswer, text: e.target.value});
   };
 
   return (

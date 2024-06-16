@@ -1,5 +1,5 @@
 import {ChangeEvent, useState} from 'react';
-import { QuestionProps } from '../../../types/Survey.ts';
+import {QuestionProps} from '../../../types/Survey.ts';
 import {InputField} from "../../ui/InputField.tsx";
 import {SubmitButton} from "../../ui/SubmitButton.tsx";
 import {TextArea} from "../../ui/TextArea.tsx";
@@ -29,8 +29,10 @@ export default function TableQuestionComponent(
   };
 
   const addRow = () => {
-    setRows(rows + 1);
-    setSubquestions([...subquestions!, ...Array(cols).fill('')]);
+    if (rows < 3) {
+      setRows(rows + 1);
+      setSubquestions([...subquestions!, ...Array(cols).fill('')]);
+    }
   };
 
   const removeRow = () => {
@@ -41,12 +43,14 @@ export default function TableQuestionComponent(
   };
 
   const addCol = () => {
-    setCols(cols + 1);
-    const newSubquestions = [];
-    for (let i = 0; i < rows; i++) {
-      newSubquestions.push(...subquestions!.slice(i * cols, (i + 1) * cols), '');
+    if (cols < 3) {
+      setCols(cols + 1);
+      const newSubquestions = [];
+      for (let i = 0; i < rows; i++) {
+        newSubquestions.push(...subquestions!.slice(i * cols, (i + 1) * cols), '');
+      }
+      setSubquestions(newSubquestions);
     }
-    setSubquestions(newSubquestions);
   };
 
   const removeCol = () => {

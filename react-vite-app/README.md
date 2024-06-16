@@ -19,7 +19,7 @@ export default {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    project: ['./survey-data-page.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
 }

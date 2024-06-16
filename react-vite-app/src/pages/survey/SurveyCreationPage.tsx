@@ -1,17 +1,13 @@
 import '../../components/survey-creation/Survey.css'
 import {SubmitButton} from "../../components/ui/SubmitButton.tsx";
 import {ChangeEvent, useState} from "react";
-import {
-  AnswerTypeEnum,
-  QuestionTypeEnum,
-  AnswerModel, QuestionModel, SurveyModel
-} from "../../types/Survey.ts";
+import {AnswerModel, AnswerTypeEnum, QuestionModel, QuestionTypeEnum, SurveyModel} from "../../types/Survey.ts";
 import QuestionComponent from "../../components/survey-creation/question/QuestionComponent.tsx";
 import {InputField} from "../../components/ui/InputField.tsx";
 import {AnimatePresence, motion} from "framer-motion";
 import {colorsPresets} from "../../styles/colorsPresets.ts";
 import {FormHeader} from "../../components/ui/FormHeader.tsx";
-import SurveyModeratorService from "../../services/SurveyService.ts";
+import SurveyService from "../../services/SurveyService.ts";
 
 export default function SurveyCreationPage() {
   const [survey, setSurvey]
@@ -27,15 +23,15 @@ export default function SurveyCreationPage() {
       text: "Пример ответа"
     }
     const newQuestion: QuestionModel = {
-      id: new Date().getTime().toString(),
+      id: new Date().getTime().valueOf(),
       text: 'Пример вопроса',
       questionType: 'TEXT' as QuestionTypeEnum,
-      answer: answer
+      correctAnswer: answer
     };
     setSurvey({ ...survey, questions: [...survey.questions, newQuestion] });
   };
 
-  const removeQuestion = (id: string) => {
+  const removeQuestion = (id: number) => {
     setSurvey((prevSurvey) => {
       const updatedQuestions
         = prevSurvey.questions.filter((_) => _.id !== id);
@@ -43,7 +39,7 @@ export default function SurveyCreationPage() {
     });
   };
 
-  const updateQuestion = (id: string, updatedQuestion: QuestionModel) => {
+  const updateQuestion = (id: number, updatedQuestion: QuestionModel) => {
     const updatedQuestions = survey.questions
       .map((q) => (q.id === id ? updatedQuestion : q));
     setSurvey({ ...survey, questions: updatedQuestions });
@@ -56,7 +52,7 @@ export default function SurveyCreationPage() {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .map(({ id, ...rest }) => rest)
     };
-    await SurveyModeratorService.create(surveyToSubmit)
+    await SurveyService.create(surveyToSubmit)
   }
 
   return (
@@ -96,7 +92,9 @@ export default function SurveyCreationPage() {
           <SubmitButton label='+'
                         onClick={addQuestion}/>
         </div>
-        <SubmitButton label="Создать опрос" onClick={handleSubmit}/>
+        <div className="m-2 flex ">
+          <SubmitButton label="Создать опрос" onClick={handleSubmit}/>
+        </div>
       </div>
     </div>
 );
