@@ -1,0 +1,3 @@
+interface AuthGoogleDto{
+    token: string
+}

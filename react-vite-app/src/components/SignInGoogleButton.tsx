@@ -1,12 +1,16 @@
-// import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from '@react-oauth/google';
 
+// Импорт сервисов
 import { googleAuthService } from '../services/GoogleAuthService';
 
 export function SignInGoogleButton(){
 
     const login = useGoogleLogin({
-        onSuccess: codeResponse => googleAuthService.authorizationWithGoogle(codeResponse.code),
+        onSuccess: async codeResponse => {
+            const authToken = await googleAuthService.authorizationWithGoogle(codeResponse.code);
+            localStorage.setItem('access', authToken.access_token);
+            localStorage.setItem('refresh', authToken.refresh_token);
+        },
         flow: 'auth-code',
     });
 

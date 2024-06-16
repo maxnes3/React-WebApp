@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton } from "./IconButton";
+import { IconButton } from "./IconButton.tsx";
 
 interface FlightCardProps {
     flight: Flight;
@@ -64,24 +64,6 @@ export function FlightCard({ flight }: FlightCardProps) {
                         {flight.route.destination}
                     </div>
                 </div>
-                {/* <div className="flex items-center space-x-2">
-                    <div className="flex flex-col items-center">
-                        <div className="px-2 py-1 rounded-lg">
-                            {formatDate(departureDate)}
-                        </div>
-                        <div className="text-sm">
-                            {formatTime(departureDate)} - {formatTime(arrivalDate)}
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <div className="text-sm">
-                            {duration} ч в пути / Прямой
-                        </div>
-                        <div className="text-sm">
-                            {flight.route.origin} - {flight.route.destination}
-                        </div>
-                    </div>
-                </div> */}
                 <IconButton 
                     icon="/plus-icon.svg" 
                     size="8"

@@ -35,10 +35,13 @@ class GoogleAuthService{
             console.log('Access Token:', googleToken.access_token);
             console.log('Refresh Token:', googleToken.refresh_token);
 
-            const response = await axios.post(this.URL, googleToken.access_token)
+            const data: AuthGoogleDto = {
+                token: googleToken.access_token
+            }
 
-            console.log('Access Token:', response.data.access_token);
-            console.log('Refresh Token:', response.data.refresh_token);
+            const response = await axios.post(this.URL, data);
+
+            return response.data;
         } catch (error) {
             console.error('Error fetching tokens:', error);
         }
