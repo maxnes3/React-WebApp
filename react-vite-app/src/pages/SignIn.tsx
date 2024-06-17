@@ -6,7 +6,7 @@ import { LinkText } from "../components/LinkText.tsx";
 import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent } from "react";
+import { useState, useCallback, FormEvent, SetStateAction } from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom';
 
@@ -17,8 +17,13 @@ import { localStorageService } from '../services/LocalStorageService.ts';
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+interface SignInProps{
+    setIsAuth: (e: SetStateAction<boolean>) => void,
+    isAuthBoolean: () => boolean
+}
+
 // Авторизация
-export function SignIn() {
+export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
     // Навигация
     const navigate = useNavigate();
 
@@ -91,7 +96,7 @@ export function SignIn() {
             try {
                 const authToken = await signInService.authorization(data);
                 localStorageService.setTokenToStorage(authToken);
-                console.log(localStorageService.getEmailFromToken());
+                setIsAuth(isAuthBoolean());
                 navigate('/');
                 return;
             } catch (error) {
@@ -108,6 +113,7 @@ export function SignIn() {
         try {
             const authToken = await signInService.authorizationTwoFactor(data);
             localStorageService.setTokenToStorage(authToken);
+            setIsAuth(isAuthBoolean());
             navigate('/');
         } catch (error) {
             console.error('Error during sign in:', error);

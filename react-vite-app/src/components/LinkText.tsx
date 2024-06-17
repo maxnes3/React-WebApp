@@ -1,5 +1,5 @@
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets";
+import { colorsPresets } from "../styles/colorsPresets.ts";
 
 interface LinkTextProps {
     link: string,

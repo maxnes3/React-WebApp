@@ -1,10 +1,36 @@
 // Импорт компонентов из ./components/
 import { LinkIcon } from "./components/LinkIcon.tsx";
+import { DropdownButton } from "./components/DropdownButton.tsx";
+
+// Импорт компонентов из React
+import { SetStateAction } from "react";
+import { useNavigate } from 'react-router-dom';
+
+// Импорт сервисов
+import { localStorageService } from './services/LocalStorageService.ts';
 
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
 
-export function Navbar(){
+interface NavbarProps{
+    isAuth: boolean,
+    setIsAuth: (e: SetStateAction<boolean>) => void,
+    isAuthBoolean: () => boolean
+}
+
+export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
+    // Навигация
+    const navigate = useNavigate();
+
+    const handleTwoFactor = () => {
+        navigate('/twofactor');
+    }
+
+    const handleLogout = () => {
+        localStorageService.removeTokenFromStorage();
+        setIsAuth(isAuthBoolean());
+    }
+
     return (
         <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} p-4 shadow-md`}>
             <div className="container mx-auto flex justify-between items-center">
@@ -12,13 +38,28 @@ export function Navbar(){
                     SkyWingsExpress
                 </div>
                 <div>
-                    {/* Можно добавить другие элементы навигации здесь */}
                     <div className={"flex space-x-4 p-4"}>
-                        <LinkIcon
-                            link="/signin"
-                            icon="/login-icon.svg" 
-                            name="Войти"
-                        />
+                        {!isAuth ? (
+                            <LinkIcon
+                                link="/signin"
+                                icon="/login-icon.svg" 
+                                name="Войти"
+                            />
+                        ) : (
+                            <DropdownButton 
+                                icon="/user-icon.svg"
+                                list={[
+                                    {
+                                        label: 'Двухфакторная',
+                                        onClick: handleTwoFactor
+                                    },
+                                    {
+                                        label: 'Выйти',
+                                        onClick: handleLogout
+                                    }
+                                ]}
+                            />
+                        )}
                         <LinkIcon
                             link="/survey-creation"
                             icon="/moderator-icon.svg" 

@@ -35,6 +35,11 @@ class LocalStorageService {
             return null;
         }
     }
+
+    removeTokenFromStorage(){
+        localStorage.removeItem(this.accessName);
+        localStorage.removeItem(this.refreshName);
+    }
 }
 
 export const localStorageService = new LocalStorageService()
