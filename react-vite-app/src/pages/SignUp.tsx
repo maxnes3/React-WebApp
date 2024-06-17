@@ -6,6 +6,7 @@ import { LinkText } from "../components/LinkText.tsx";
 
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
+import { useNavigate } from 'react-router-dom';
 
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
@@ -15,6 +16,9 @@ import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Регистрация
 export function SignUp() {
+    // Навигация
+    const navigate = useNavigate();
+
     // Дата для регистрации
     const [signUpData, setSignUpData] = useState({
         email: '',
@@ -77,6 +81,7 @@ export function SignUp() {
         try {
             const response = await signInService.registration(data);
             console.log('Response:', response);
+            navigate('/signin');
         } catch (error) {
             console.error('Error during sign in:', error);
         }

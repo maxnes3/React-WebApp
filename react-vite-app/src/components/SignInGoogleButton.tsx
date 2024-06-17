@@ -1,15 +1,15 @@
 import { useGoogleLogin } from '@react-oauth/google';
 
 // Импорт сервисов
-import { googleAuthService } from '../services/GoogleAuthService';
+import { googleAuthService } from '../services/GoogleAuthService.ts';
+import { localStorageService } from '../services/LocalStorageService.ts';
 
 export function SignInGoogleButton(){
 
     const login = useGoogleLogin({
         onSuccess: async codeResponse => {
             const authToken = await googleAuthService.authorizationWithGoogle(codeResponse.code);
-            localStorage.setItem('access', authToken.access_token);
-            localStorage.setItem('refresh', authToken.refresh_token);
+            localStorageService.setTokenToStorage(authToken);
         },
         flow: 'auth-code',
     });

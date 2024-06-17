@@ -8,25 +8,33 @@ import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import { useNavigate } from 'react-router-dom';
 
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
+import { localStorageService } from '../services/LocalStorageService.ts';
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Авторизация
 export function SignIn() {
+    // Навигация
+    const navigate = useNavigate();
+
     // Дата для авторизации
     const [signInData, setSignInData] = useState({
         email: '',
         password: '',
+        isTwoFactor: false,
+        codeTwoFactor: ''
     });
 
     // Данные для валидации
     const [errors, setErrors] = useState({
         email: '',
         password: '',
+        codeTwoFactor: ''
     });
 
     // Функция для проверки формата email
@@ -40,6 +48,7 @@ export function SignIn() {
         const newErrors = {
             email: !signInData.email ? 'Электронная почта обязательна' : (!isEmailValid(signInData.email) ? 'Неверный формат электронной почты' : ''),
             password: signInData.password ? '' : 'Пароль обязателен',
+            codeTwoFactor: signInData.isTwoFactor ? (signInData.codeTwoFactor ? '' : 'Код авторизации обязателен') : ''
         };
         setErrors(newErrors);
         return !Object.values(newErrors).some(error => error !== '');
@@ -66,15 +75,40 @@ export function SignIn() {
             return;
         }
 
-        const data: SignInDto = {
+        if (!signInData.isTwoFactor) {
+            const data: SignInDto = {
+                email: signInData.email,
+                password: signInData.password,
+            }
+
+            const response = await signInService.checkTwoFactor(data);
+            
+            if (response){
+                signInData.codeTwoFactor = response;
+                return;
+            }
+
+            try {
+                const authToken = await signInService.authorization(data);
+                localStorageService.setTokenToStorage(authToken);
+                console.log(localStorageService.getEmailFromToken());
+                navigate('/');
+                return;
+            } catch (error) {
+                console.error('Error during sign in:', error);
+            }
+        }
+        
+        const data: SignInWithOtp = {
             email: signInData.email,
             password: signInData.password,
+            otp: signInData.codeTwoFactor
         }
 
         try {
-            const authToken = await signInService.authorization(data);
-            localStorage.setItem('access', authToken.access_token)
-            localStorage.setItem('refresh', authToken.refresh_token)
+            const authToken = await signInService.authorizationTwoFactor(data);
+            localStorageService.setTokenToStorage(authToken);
+            navigate('/');
         } catch (error) {
             console.error('Error during sign in:', error);
         }
@@ -103,6 +137,15 @@ export function SignIn() {
                             value={signInData.password}
                             error={errors.password}
                         />
+                        {signInData.isTwoFactor && (
+                            <InputField
+                                id="codeTwoFactor" label="Код авторизации"
+                                placeholder="codeTwoFactor"
+                                onChange={(e) => handleInputChange('codeTwoFactor', e.target.value)}
+                                value={signInData.codeTwoFactor}
+                                error={errors.codeTwoFactor}
+                            />
+                        )}
                         <div className="flex justify-center space-y-4">
                             <SubmitButton
                                 label="Войти"
