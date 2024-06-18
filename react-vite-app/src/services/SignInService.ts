@@ -61,7 +61,11 @@ class SignInService{
 
     async submitTwoFactorCode(dto: SubmitTwoFaDto) {
         try{
-            const response = await axios.post(`${this.URL}/submit2faCode`, dto);
+            const response = await axios.post(`${this.URL}/submit2faCode`, dto, {
+                headers: {
+                    'Authorization': `Bearer ${localStorageService.getAccessToken()}`
+                }
+            });
             return response.data;
         } catch (error) { 
             console.error('Error fetching auth:', error);

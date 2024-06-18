@@ -1,12 +1,20 @@
+// Импорт компонентов из React
 import { useState } from "react";
 import { IconButton } from "./IconButton.tsx";
 
+// Импорт сервисов
+import { favoritesService } from "../services/FavoritesService.ts";
+import { localStorageService } from "../services/LocalStorageService.ts";
+
 interface FlightCardProps {
-    flight: Flight;
+    flight: Flight,
+    updateFavorites?: () => void
 }
 
-export function FlightCard({ flight }: FlightCardProps) {
+export function FlightCard({ flight, updateFavorites }: FlightCardProps) {
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const [inFavorite, setInFavorite] = useState(false);
 
     const departureDate = new Date(flight.departureTime);
     const arrivalDate = new Date(flight.arrivalTime);
@@ -21,8 +29,29 @@ export function FlightCard({ flight }: FlightCardProps) {
 
     const duration = Math.round((arrivalDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60) * 10) / 10;
 
+    const checkFavorite = async () => {
+        const token = localStorageService.getAccessToken();
+        if(!token)
+            return;
+        const response = await favoritesService.checkInFavorites(flight.id.toString());
+        setInFavorite(response);
+    };
+
     const handleExpandButtons = () => {
+        checkFavorite();
         setIsExpanded(!isExpanded);
+    };
+
+    const handleAddToFavorite = async () => {
+        if (inFavorite) {
+            const response = await favoritesService.removeFromFavorites(flight.id.toString());
+            console.log(response);
+            if (updateFavorites) 
+                updateFavorites();
+            return;
+        }
+        const response = await favoritesService.addToFavorites(flight.id.toString());
+        console.log(response);
     };
 
     return (
@@ -81,10 +110,10 @@ export function FlightCard({ flight }: FlightCardProps) {
                         text="Поделиться"
                     />
                     <IconButton 
-                        icon="/favorite-icon.svg"
+                        icon={inFavorite ? "/remove-icon.svg" : "/favorite-icon.svg"}
                         size="6"  
                         name="favorite"
-                        onClick={() => console.log("Favorite")}
+                        onClick={handleAddToFavorite}
                         text="Избраное"
                     />
                     <IconButton 

@@ -98,7 +98,6 @@ export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
                 localStorageService.setTokenToStorage(authToken);
                 setIsAuth(isAuthBoolean());
                 navigate('/');
-                return;
             } catch (error) {
                 console.error('Error during sign in:', error);
             }
@@ -128,47 +127,48 @@ export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
                     color={colorsPresets.primaryTextWhite}
                 />
                 <form className="space-y-4">
-                    <div className="space-y-4">
+                    <InputField
+                        id="email" label="Электронная почта"
+                        placeholder="example@gmail.com"
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        value={signInData.email}
+                        error={errors.email}
+                    />
+                    <InputField
+                        id="password" label="Пароль"
+                        placeholder="password"
+                        onChange={(e) => handleInputChange('password', e.target.value)}
+                        value={signInData.password}
+                        error={errors.password}
+                    />
+                    {signInData.isTwoFactor && (
                         <InputField
-                            id="email" label="Электронная почта"
-                            placeholder="example@gmail.com"
-                            onChange={(e) => handleInputChange('email', e.target.value)}
-                            value={signInData.email}
-                            error={errors.email}
+                            id="codeTwoFactor" label="Код авторизации"
+                            placeholder="codeTwoFactor"
+                            onChange={(e) => handleInputChange('codeTwoFactor', e.target.value)}
+                            value={signInData.codeTwoFactor}
+                            error={errors.codeTwoFactor}
                         />
-                        <InputField
-                            id="password" label="Пароль"
-                            placeholder="password"
-                            onChange={(e) => handleInputChange('password', e.target.value)}
-                            value={signInData.password}
-                            error={errors.password}
+                    )}
+                    <div className="flex justify-center space-y-4">
+                        <SubmitButton
+                            label="Войти"
+                            onClick={handleSubmit}
                         />
-                        {signInData.isTwoFactor && (
-                            <InputField
-                                id="codeTwoFactor" label="Код авторизации"
-                                placeholder="codeTwoFactor"
-                                onChange={(e) => handleInputChange('codeTwoFactor', e.target.value)}
-                                value={signInData.codeTwoFactor}
-                                error={errors.codeTwoFactor}
+                    </div>
+                    <div className="flex justify-center space-y-4">
+                        <LinkText 
+                            label="Ещё нет аккаунта?"
+                            link="/signup"
+                        />
+                    </div>
+                    <div className="flex justify-center space-y-4">
+                        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+                            <SignInGoogleButton 
+                                setIsAuth={setIsAuth} 
+                                isAuthBoolean={isAuthBoolean}
                             />
-                        )}
-                        <div className="flex justify-center space-y-4">
-                            <SubmitButton
-                                label="Войти"
-                                onClick={handleSubmit}
-                            />
-                        </div>
-                        <div className="flex justify-center space-y-4">
-                            <LinkText 
-                                label="Ещё нет аккаунта?"
-                                link="/signup"
-                            />
-                        </div>
-                        <div className="flex justify-center space-y-4">
-                            <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-                                <SignInGoogleButton />
-                            </GoogleOAuthProvider>
-                        </div>
+                        </GoogleOAuthProvider>
                     </div>
                 </form>
             </div>

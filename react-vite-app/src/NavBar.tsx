@@ -22,14 +22,18 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
 
+    const handleFavorites = () => {
+        navigate('/favorites');
+    };
+
     const handleTwoFactor = () => {
         navigate('/twofactor');
-    }
+    };
 
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
-    }
+    };
 
     return (
         <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} p-4 shadow-md`}>
@@ -49,6 +53,10 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                             <DropdownButton 
                                 icon="/user-icon.svg"
                                 list={[
+                                    {
+                                        label: 'Избранное',
+                                        onClick: handleFavorites
+                                    },
                                     {
                                         label: 'Двухфакторная',
                                         onClick: handleTwoFactor

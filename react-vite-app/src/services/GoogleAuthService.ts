@@ -32,9 +32,6 @@ class GoogleAuthService{
         try {
             const googleToken = await this.getGoogleToken(authCode);
 
-            console.log('Access Token:', googleToken.access_token);
-            console.log('Refresh Token:', googleToken.refresh_token);
-
             const data: AuthGoogleDto = {
                 token: googleToken.access_token
             }

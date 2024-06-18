@@ -6,6 +6,7 @@ import Survey from "./components/survey-creation/Survey.tsx";
 import { SignIn } from "./pages/SignIn.tsx";
 import { SignUp } from "./pages/SignUp.tsx";
 import { AddTwoFactor } from "./pages/AddTwoFactor.tsx";
+import { Favorites } from "./pages/Favorites.tsx";
 
 // Импорт компонентов из React
 import { useState } from "react";
@@ -19,7 +20,7 @@ export default function App() {
     if(!token)
         return false;
     return true;
-  }
+  };
 
   const [isAuth, setIsAuth] = useState(isAuthBoolean());
 
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/signin" element={<SignIn setIsAuth={setIsAuth} isAuthBoolean={isAuthBoolean}/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/twofactor" element={<AddTwoFactor/>}/>
+          <Route path="/favorites" element={<Favorites/>}/>
         </Routes>
       </BrowserRouter>
     </div>

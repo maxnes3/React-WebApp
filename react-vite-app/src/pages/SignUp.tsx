@@ -119,7 +119,7 @@ export function SignUp() {
                         />
                         <div className="flex justify-center space-y-4">
                             <SubmitButton
-                                label="Готово"
+                                label="Подтвердить"
                                 onClick={handleSubmit}
                             />
                         </div>

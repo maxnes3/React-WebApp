@@ -1,15 +1,27 @@
 import { useGoogleLogin } from '@react-oauth/google';
+import { SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Импорт сервисов
 import { googleAuthService } from '../services/GoogleAuthService.ts';
 import { localStorageService } from '../services/LocalStorageService.ts';
 
-export function SignInGoogleButton(){
+interface SignInGoogleButtonProps{
+    setIsAuth: (e: SetStateAction<boolean>) => void,
+    isAuthBoolean: () => boolean
+}
 
+export function SignInGoogleButton({ setIsAuth, isAuthBoolean }: SignInGoogleButtonProps){
+    // Навигация
+    const navigate = useNavigate();
+
+    // Функция для работы с @react-oauth/google
     const login = useGoogleLogin({
         onSuccess: async codeResponse => {
             const authToken = await googleAuthService.authorizationWithGoogle(codeResponse.code);
             localStorageService.setTokenToStorage(authToken);
+            setIsAuth(isAuthBoolean());
+            navigate('/');
         },
         flow: 'auth-code',
     });

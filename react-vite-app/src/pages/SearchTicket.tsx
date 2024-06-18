@@ -123,7 +123,7 @@ export function SearchTicket() {
               value={searchData.fromCity}
               error={errors.fromCity}
             />
-            <div className="mt-10">
+            <div className="mt-8">
               <IconButton
                 icon="/swap-icon.svg"
                 size="8"
@@ -146,7 +146,7 @@ export function SearchTicket() {
               onChange={(e) => handleInputChange('departureDate', e.target.value)}
               value={searchData.departureDate}
             />
-            <div className="mt-10">
+            <div className="mt-8">
               <IconButton
                 icon="/move-icon.svg"
                 size="8"
