@@ -2,7 +2,7 @@
 import { ListFlights } from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 
 // Импорт сервисов
 import { favoritesService } from "../services/FavoritesService.ts";

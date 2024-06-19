@@ -37,6 +37,10 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
         navigate('/twofactor');
     };
 
+    const handleTickets = () => {
+        navigate('/tickets');
+    };
+
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
@@ -57,6 +61,10 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
         {
             label: 'Избранное',
             onClick: handleFavorites
+        },
+        {
+            label: 'Купленные Билеты',
+            onClick: handleTickets
         },
         {
             label: 'Выйти',
@@ -80,25 +88,8 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                             />
                         ) : (
                             <DropdownButton 
-                                icon="/user-icon.svg"
-                                list={[
-                                    {
-                                        label: 'Профиль',
-                                        onClick: handleProfile
-                                    },
-                                    {
-                                        label: 'Избранное',
-                                        onClick: handleFavorites
-                                    },
-                                    {
-                                        label: 'Двухфакторная',
-                                        onClick: handleTwoFactor
-                                    },
-                                    {
-                                        label: 'Выйти',
-                                        onClick: handleLogout
-                                    }
-                                ]}
+                                icon={isTwoFactor ? "/verified-icon.svg" : "/user-icon.svg"}
+                                list={isTwoFactor ? listIsTwoFactor : listIsNotTwoFactor()}
                             />
                         )}
                         {role === "ROLE_MODERATOR" && (

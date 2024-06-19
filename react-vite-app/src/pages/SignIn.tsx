@@ -74,6 +74,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
         }));
     }, []);
 
+    // Добавление токенов в storage и обнавлении данных в App.tsx
     const addTokenToStorage = (authToken: any) => {
         localStorageService.setTokenToStorage(authToken);
         setIsAuth(isAuthBoolean());
@@ -89,6 +90,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
             return;
         }
 
+        // Проверка на наличие двухфакторной аунтефикации
         if (!signInData.isTwoFactor) {
             const data: SignInDto = {
                 email: signInData.email,
@@ -101,7 +103,8 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                 signInData.codeTwoFactor = response;
                 return;
             }
-
+            
+            // Авторизация без двухфакторной аунтефикации
             try {
                 const authToken = await signInService.authorization(data);
                 localStorageService.setTokenToStorage(authToken);
@@ -119,6 +122,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
             otp: signInData.codeTwoFactor
         }
 
+        // Авторизация с двухфакторной аунтефикации
         try {
             const authToken = await signInService.authorizationTwoFactor(data);
             localStorageService.setTokenToStorage(authToken);

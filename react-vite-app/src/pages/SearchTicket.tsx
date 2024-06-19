@@ -7,7 +7,7 @@ import { IconButton } from "../components/IconButton.tsx";
 import { ListFlights } from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent } from "react";
+import { useState, useCallback, FormEvent, SetStateAction } from "react";
 
 // Импорт сервисов
 import { flightService } from "../services/FlightService.ts";

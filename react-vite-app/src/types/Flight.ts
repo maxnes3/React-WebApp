@@ -9,6 +9,7 @@ interface Flight {
   arrivalTime: string;
   ticketPrice: number;
   discountPercentage: number;
+  priceChangePercentage: number;
 }
 
 export interface NewFlightDto {

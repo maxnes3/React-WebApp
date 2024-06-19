@@ -1,17 +1,21 @@
 // Импорт компонентов из React
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { IconButton } from "./IconButton.tsx";
+import { useNavigate } from 'react-router-dom';
 
 // Импорт сервисов
 import { favoritesService } from "../services/FavoritesService.ts";
 import { localStorageService } from "../services/LocalStorageService.ts";
 
-interface FlightCardProps {
+interface ListFlightCardProps {
     flight: Flight,
     updateFavorites?: () => void
 }
 
-export function FlightCard({ flight, updateFavorites }: FlightCardProps) {
+export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps) {
+    // Навигация
+    const navigate = useNavigate();
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const [inFavorite, setInFavorite] = useState(false);
@@ -54,6 +58,11 @@ export function FlightCard({ flight, updateFavorites }: FlightCardProps) {
         console.log(response);
     };
 
+
+    const handleSetBuyFlight = () => {
+        navigate(`/buyticket/${flight.id}`);
+    };
+
     return (
         <div className="flex flex-col items-center justify-between p-4 rounded-lg shadow-md space-y-4">
             <div className="flex items-center justify-between w-full space-x-4">
@@ -75,7 +84,7 @@ export function FlightCard({ flight, updateFavorites }: FlightCardProps) {
                         className={`h-6 w-6`}
                     />
                     <div className="font-bold">
-                        {duration} ч в пути
+                        {duration} ч
                     </div>
                     <img src="/end-icon.svg" 
                         alt="end_icon" 
@@ -120,7 +129,7 @@ export function FlightCard({ flight, updateFavorites }: FlightCardProps) {
                         icon="/buy-icon.svg"
                         size="6" 
                         name="buy"
-                        onClick={() => console.log("Buy")}
+                        onClick={handleSetBuyFlight}
                         text="Купить"
                     />
                 </div>

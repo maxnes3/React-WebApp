@@ -6,6 +6,7 @@ import { SignIn } from "./pages/SignIn.tsx";
 import { SignUp } from "./pages/SignUp.tsx";
 import { AddTwoFactor } from "./pages/AddTwoFactor.tsx";
 import { Favorites } from "./pages/Favorites.tsx";
+import { Tickets } from "./pages/Tickets.tsx";
 
 // Импорт компонентов из React
 import { useState } from "react";
@@ -17,6 +18,7 @@ import SurveysPage from "./pages/survey/SurveysPage.tsx";
 import SurveyPage from "./pages/survey/SurveyPage.tsx";
 import FlightCreationPage from "./pages/flight/FlightCreationPage.tsx";
 import RouteCreationPage from "./pages/flight/RouteCreationPage.tsx";
+import { BuyTickets } from "./pages/BuyTickets.tsx";
 
 export default function App() {
   const isAuthBoolean = () => {
@@ -76,6 +78,7 @@ export default function App() {
                 setRole={setRole}
                 setIsAuth={setIsAuth}
                 isAuthBoolean={isAuthBoolean}
+                setIsTwoFactor={setIsTwoFactor}
               />
             }
           />
@@ -85,10 +88,14 @@ export default function App() {
           />
           <Route
             path="/twofactor"
-            element={<AddTwoFactor/>}
+            element={
+              <AddTwoFactor
+                setIsTwoFactor={setIsTwoFactor}
+              />
+            }
           />
-          <Route
-            path="/favorites"
+          <Route 
+            path="/favorites" 
             element={<Favorites/>}
           />
           <Route
@@ -102,6 +109,14 @@ export default function App() {
           <Route
             path="/survey/:surveyId"
             element={<SurveyPage/>}
+          />
+          <Route
+            path="/tickets"
+            element={<Tickets />}
+          />
+          <Route
+            path="/buyticket/:flightId"
+            element={<BuyTickets />}
           />
         </Routes>
       </BrowserRouter>
