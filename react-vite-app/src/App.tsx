@@ -36,6 +36,7 @@ export default function App() {
           setIsAuth={setIsAuth} 
           isAuthBoolean={isAuthBoolean}
           isTwoFactor={isTwoFactor}
+          setIsTwoFactor={setIsTwoFactor}
         />
         <Routes>
           <Route 

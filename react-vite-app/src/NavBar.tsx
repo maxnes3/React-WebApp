@@ -16,10 +16,11 @@ interface NavbarProps{
     isAuth: boolean,
     setIsAuth: (e: SetStateAction<boolean>) => void,
     isAuthBoolean: () => boolean,
-    isTwoFactor: boolean
+    isTwoFactor: boolean,
+    setIsTwoFactor: (e: SetStateAction<boolean>) => void
 }
 
-export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: NavbarProps){
+export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwoFactor }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
+        setIsTwoFactor(localStorageService.setIsTwoFactor(false));
         navigate('/');
     };
 
