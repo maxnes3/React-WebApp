@@ -36,6 +36,26 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
         setIsAuth(isAuthBoolean());
     };
 
+    const listIsNotTwoFactor = () => {
+        const newList = listIsTwoFactor;
+        newList.unshift({
+            label: 'Двухфакторная',
+            onClick: handleTwoFactor
+        });
+        return newList;
+    }
+
+    const listIsTwoFactor = [
+        {
+            label: 'Избранное',
+            onClick: handleFavorites
+        },
+        {
+            label: 'Выйти',
+            onClick: handleLogout
+        }
+    ];
+
     return (
         <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} p-4 shadow-md`}>
             <div className="container mx-auto flex justify-between items-center">
@@ -53,29 +73,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
                         ) : (
                             <DropdownButton 
                                 icon={isTwoFactor ? "/verified-icon.svg" : "/user-icon.svg"}
-                                list={isTwoFactor ? [
-                                    {
-                                        label: 'Избранное',
-                                        onClick: handleFavorites
-                                    },
-                                    {
-                                        label: 'Выйти',
-                                        onClick: handleLogout
-                                    }
-                                ] : [
-                                    {
-                                        label: 'Избранное',
-                                        onClick: handleFavorites
-                                    },
-                                    {
-                                        label: 'Двухфакторная',
-                                        onClick: handleTwoFactor
-                                    },
-                                    {
-                                        label: 'Выйти',
-                                        onClick: handleLogout
-                                    }
-                                ]}
+                                list={isTwoFactor ? listIsTwoFactor : listIsNotTwoFactor()}
                             />
                         )}
                         <LinkIcon

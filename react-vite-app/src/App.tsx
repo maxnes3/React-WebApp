@@ -24,7 +24,7 @@ export default function App() {
 
   const [isAuth, setIsAuth] = useState(isAuthBoolean());
   
-  const [isTwoFactor, setIsTwoFactor] = useState(localStorageService.setIsTwoFactor(false));
+  const [isTwoFactor, setIsTwoFactor] = useState(localStorageService.getIsTwoFactor());
 
   return (
     <div className="min-h-screen flex flex-col">
