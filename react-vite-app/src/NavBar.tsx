@@ -21,7 +21,7 @@ interface NavbarProps{
     isTwoFactor: boolean
 }
 
-export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
+export function Navbar({ role, setRole, isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
 
@@ -59,6 +59,10 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
 
     const listIsTwoFactor = [
         {
+            label: 'Профиль',
+            onClick: handleProfile
+        },
+        {
             label: 'Избранное',
             onClick: handleFavorites
         },
@@ -87,10 +91,17 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                                 name="Войти"
                             />
                         ) : (
+                          <>
                             <DropdownButton 
                                 icon={isTwoFactor ? "/verified-icon.svg" : "/user-icon.svg"}
                                 list={isTwoFactor ? listIsTwoFactor : listIsNotTwoFactor()}
                             />
+                            <LinkIcon
+                            link="/surveys"
+                            icon="/survey-icon.svg"
+                            name="Опросы"
+                            />
+                          </>
                         )}
                         {role === "ROLE_MODERATOR" && (
                             <LinkIcon
@@ -114,14 +125,9 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                           </>
                         )}
                         <LinkIcon
-                          link="/surveys"
-                          icon="/survey-icon.svg"
-                          name="Опросы"
-                        />
-                        <LinkIcon
                             link="/"
                             icon="/operator-icon.svg" 
-                            name="Оператор"
+                            name="Поиск билетов"
                         />
                     </div>
                 </div>

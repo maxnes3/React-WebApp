@@ -25,7 +25,7 @@ interface SignInProps{
 }
 
 // Авторизация
-export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps) {
+export function SignIn({setRole, setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps) {
     // Навигация
     const navigate = useNavigate();
 

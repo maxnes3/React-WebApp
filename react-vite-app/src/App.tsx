@@ -94,9 +94,17 @@ export default function App() {
               />
             }
           />
-          <Route 
-            path="/favorites" 
+          <Route
+            path="/favorites"
             element={<Favorites/>}
+          />
+          <Route
+            path="/tickets"
+            element={<Tickets />}
+          />
+          <Route
+            path="/buyticket/:flightId"
+            element={<BuyTickets />}
           />
           <Route
             path="/profile"
@@ -109,14 +117,6 @@ export default function App() {
           <Route
             path="/survey/:surveyId"
             element={<SurveyPage/>}
-          />
-          <Route
-            path="/tickets"
-            element={<Tickets />}
-          />
-          <Route
-            path="/buyticket/:flightId"
-            element={<BuyTickets />}
           />
         </Routes>
       </BrowserRouter>
