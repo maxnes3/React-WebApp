@@ -20,8 +20,11 @@ export default class SurveyService extends CommonService{
 
   static async create(survey: SurveyModel) {
     axios.post(`${this.API_URL}/moderator/surveys`,
-      this.removeUndefinedFields(survey)
-    )
+      this.removeUndefinedFields(survey),{
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("access")}`,
+      }
+    })
       .then(response => {
         console.log(response.data);
       })
@@ -36,16 +39,27 @@ export default class SurveyService extends CommonService{
         {params: {
                   page,
                   size
+              },
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem("access")}`,
               }});
   }
 
   static async search(page: number, size = 5, search: string) {
     page = page-1;
     return axios.get(`${this.API_URL}/surveys/search`,
-      {params: {search, page, size}});
+      {params: {search, page, size},
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("access")}`,
+        }});
   }
 
   static async getSurvey(surveyId: string) {
-    return axios.get(`${this.API_URL}/surveys/${surveyId}`);
+    return axios.get(`${this.API_URL}/surveys/${surveyId}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("access")}`,
+        }
+      });
   }
 }

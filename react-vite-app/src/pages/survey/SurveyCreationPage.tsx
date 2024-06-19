@@ -58,9 +58,9 @@ export default function SurveyCreationPage() {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center mx-4 w-full max-w-2xl">
-        <div className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryText}`}>
+        <div className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack}`}>
           <FormHeader
-            label="Название опроса"/>
+            label="Название опроса" color={""}/>
           <InputField id="survey-title"
                       label=""
                       placeholder="Название опроса"
@@ -88,11 +88,11 @@ export default function SurveyCreationPage() {
             )
           })}
         </AnimatePresence>
-        <div className="m-2 flex ">
+        <div className={`m-2 p-2 flex ${colorsPresets.primaryBackground}`}>
           <SubmitButton label='+'
                         onClick={addQuestion}/>
         </div>
-        <div className="m-2 flex ">
+        <div className={`m-2 p-2 flex ${colorsPresets.primaryBackground}`}>
           <SubmitButton label="Создать опрос" onClick={handleSubmit}/>
         </div>
       </div>

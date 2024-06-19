@@ -70,6 +70,11 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                             />
                         )}
                         <LinkIcon
+                          link="/profile"
+                          icon="/login-icon2.svg"
+                          name="Профиль"
+                        />
+                        <LinkIcon
                             link="/survey-creation"
                             icon="/moderator-icon.svg" 
                             name="Модератор"
