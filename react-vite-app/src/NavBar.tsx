@@ -14,12 +14,13 @@ import { colorsPresets } from "./styles/colorsPresets.ts";
 
 interface NavbarProps{
     role: string,
+    setRole: (e: SetStateAction<string>) => void,
     isAuth: boolean,
     setIsAuth: (e: SetStateAction<boolean>) => void,
     isAuthBoolean: () => boolean
 }
 
-export function Navbar({ role, isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
+export function Navbar({ role, setRole, isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ export function Navbar({ role, isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
+        setRole("");
         navigate('/signin');
     };
 
@@ -84,6 +86,20 @@ export function Navbar({ role, isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                             icon="/moderator-icon.svg"
                             name="Модератор"
                             />
+                        )}
+                        {role === "ROLE_OPERATOR" && (
+                          <>
+                              <LinkIcon
+                                link="/route-creation"
+                                icon="/route-icon.svg"
+                                name="Оператор"
+                              />
+                              <LinkIcon
+                                link="/flight-creation"
+                                icon="/flight-icon.svg"
+                                name="Оператор"
+                              />
+                          </>
                         )}
                         <LinkIcon
                           link="/surveys"

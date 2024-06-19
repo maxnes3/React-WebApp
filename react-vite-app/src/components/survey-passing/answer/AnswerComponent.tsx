@@ -13,8 +13,6 @@ export default function AnswerComponent(
   props: AnswerApiProps) {
   const { answerType, onAnswerChange } = props
 
-  console.log(answerType)
-
   const renderAnswerComponent = (type: AnswerTypeEnum) => {
     switch (type) {
       case AnswerTypeEnum.TEXT:

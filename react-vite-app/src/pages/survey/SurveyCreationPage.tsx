@@ -8,6 +8,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {colorsPresets} from "../../styles/colorsPresets.ts";
 import {FormHeader} from "../../components/FormHeader.tsx";
 import SurveyService from "../../services/SurveyService.ts";
+import {useNavigate} from "react-router-dom";
 
 export default function SurveyCreationPage() {
   const [survey, setSurvey]
@@ -16,6 +17,8 @@ export default function SurveyCreationPage() {
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSurvey({ ...survey, title: e.target.value });
   };
+
+  const navigate = useNavigate();
 
   const addQuestion = () => {
     const answer: AnswerModel = {
@@ -52,6 +55,7 @@ export default function SurveyCreationPage() {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .map(({ id, ...rest }) => rest)
     };
+    navigate("/surveys")
     await SurveyService.create(surveyToSubmit)
   }
 

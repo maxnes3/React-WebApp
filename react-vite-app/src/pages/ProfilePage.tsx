@@ -1,5 +1,10 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import ProfileService from "../services/ProfileService.ts";
+import SurveyService from "../services/SurveyService.ts";
+import SurveyCardComponent from "../components/surveys/SurveyCardComponent.tsx";
+import {colorsPresets} from "../styles/colorsPresets.ts";
+import {SubmitButton} from "../components/SubmitButton.tsx";
+import {useNavigate} from "react-router-dom";
 
 export interface UserProfile {
   id?: number;
@@ -10,6 +15,12 @@ export interface UserProfile {
   twoFactor: boolean;
   childMode: boolean;
   childModePassword: string;
+}
+
+interface PassedSurveys {
+  id: number;
+  title: string;
+  correctAnswersCount: number;
 }
 
 export default function ProfilePage() {
@@ -24,13 +35,21 @@ export default function ProfilePage() {
     childModePassword: '',
   });
   const [showPasswordInput, setShowPasswordInput] = useState(false);
-
+  const [passedSurveys, setPassedSurveys] = useState<PassedSurveys[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProfile = async () => {
       const response = await ProfileService.getProfileData();
       const profile = response.data;
       setProfile({...profile});
+      const responseSurveys = await ProfileService.getPassedSurveys(currentPage, 2);
+      const surveys = responseSurveys.data.content;
+      setTotalPages(responseSurveys.data.totalPages);
+      setPassedSurveys(surveys)
+      console.log(surveys);
     };
 
     getProfile();
@@ -60,6 +79,26 @@ export default function ProfilePage() {
     await ProfileService.deleteProfile();
     // Дополнительные действия после удаления профиля
   };
+
+  const handlePageChange = async (newPage: number) => {
+    if (newPage > totalPages || newPage < 1) return
+    setCurrentPage(newPage);
+    const response = await ProfileService.getPassedSurveys(newPage, 2);
+    console.log(response);
+    setPassedSurveys(response.data.content);
+  };
+
+  const openSurvey = (id: number) => {
+    navigate(`/survey/${id}`);
+  };
+
+  if (!passedSurveys) {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -165,15 +204,35 @@ export default function ProfilePage() {
           >
             Обновить
           </button>
-          <button
+          {/*<button
             type="button"
             onClick={handleDelete}
             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
           >
             Удалить аккаунт
-          </button>
+          </button>*/}
         </div>
       </form>
+      <div className="flex">
+        {passedSurveys.map((survey, index) => (
+          <div key={index} className="m-2 p-2 border border-gray-300 rounded-md">
+            <h2 onClick={() => openSurvey(survey.id)} >{survey.title}</h2>
+            <p>Рекорд: {survey.correctAnswersCount}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-between">
+        <div className={`mt-2 items-center ${colorsPresets.primaryBackground}`}>
+          <SubmitButton onClick={() => handlePageChange(currentPage - 1)}
+                        label="Предыдущая"/>
+        </div>
+        <span className="px-4 py-2">{`Страница ${currentPage} из ${totalPages}`}</span>
+        <div className={`mt-2 items-center ${colorsPresets.primaryBackground}`}>
+          <SubmitButton onClick={() => handlePageChange(currentPage + 1)}
+                        label="Следующая"/>
+        </div>
+      </div>
     </div>
   );
 }

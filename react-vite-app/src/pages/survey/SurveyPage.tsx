@@ -30,7 +30,7 @@ export default function SurveyPage() {
   }
 
   const handleSubmit = () => {
-    console.log(surveyPassing)
+    SurveyService.passSurvey(surveyPassing)
   }
 
   const handleAnswerChange = (answer: AnswerPassingModel) => {
@@ -50,7 +50,7 @@ export default function SurveyPage() {
           <FormHeader
             label={survey?.title} color={""}/>
         </div>
-        {survey.questions.map((question) => {
+        {survey.questions.map((question, index) => {
           return (
             <div
               key={question.id}
@@ -59,11 +59,12 @@ export default function SurveyPage() {
               <QuestionComponent
                 key={question.id}
                 question={question}
+                index={index}
                 onAnswerChange={handleAnswerChange}/>
             </div>
           )
         })}
-        <div className="m-2 flex ">
+        <div className={`m-2 flex ${colorsPresets.primaryBackground}`}>
           <SubmitButton label="Отправить" onClick={handleSubmit}/>
         </div>
       </div>

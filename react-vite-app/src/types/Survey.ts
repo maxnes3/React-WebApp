@@ -70,6 +70,7 @@ export interface QuestionProps {
 
 export interface QuestionApiProps {
   id?: number;
+  index?: number;
   question: QuestionApiDto;
   onAnswerChange?: (answer: AnswerPassingModel) => void;
 }

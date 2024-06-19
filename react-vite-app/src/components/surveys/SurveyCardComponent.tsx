@@ -16,9 +16,9 @@ export default function SurveyCardComponent(
 
   return (
     <div onClick={handleCardClick} className={`border p-4 mb-4 rounded-lg w-full transition-all duration-300 
-                    ${colorsPresets.primaryBackground} ${colorsPresets.primaryText} 
+                    ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} 
                     hover:bg-notActiveCyan`}>
-      <h2 className={`text-xl font-bold ${colorsPresets.primaryHeaderText}`}>{props.survey.title}</h2>
+      <h2 className={`text-xl font-bold ${colorsPresets.primaryTextBlack}`}>{props.survey.title}</h2>
       <p><strong>Вопросов:</strong> {survey.numOfQuestions}</p>
     </div>
   );

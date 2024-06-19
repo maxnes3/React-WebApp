@@ -10,9 +10,10 @@ interface DateFieldProps {
     placeholder: string;
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
-export function DateField({ id, label, placeholder, value, onChange }: DateFieldProps){
+export function DateField({ id, label, placeholder, value, onChange, error }: DateFieldProps){
     return (
         <div className="flex-1">
             <label htmlFor={id} className={`block mb-2 ${colorsPresets.primaryTextBlack} font-bold`}>
@@ -26,6 +27,7 @@ export function DateField({ id, label, placeholder, value, onChange }: DateField
                 value={value}
                 onChange={onChange}
             />
+          {error && <p className={`mt-2 ${colorsPresets.errorText} font-bold text-sm`}>{error}</p>}
         </div>
     );
 }

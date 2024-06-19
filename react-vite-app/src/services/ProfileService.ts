@@ -4,7 +4,7 @@ import {UserProfile} from "../pages/ProfilePage.tsx";
 
 export default class ProfileService extends CommonService {
   static async getProfileData() {
-    return axios.get(`${this.API_URL}/profile`,{
+    return await axios.get(`${this.API_URL}/profile`,{
       headers: {
         'Authorization': `Bearer ${localStorage.getItem("access")}`,
       }
@@ -13,7 +13,7 @@ export default class ProfileService extends CommonService {
 
   static async updateProfile(profile: UserProfile) {
     console.log(profile)
-    axios.patch(`${this.API_URL}/profile`, profile,{
+    await axios.patch(`${this.API_URL}/profile`, profile,{
       headers: {
         'Authorization': `Bearer ${localStorage.getItem("access")}`,
       }
@@ -21,7 +21,20 @@ export default class ProfileService extends CommonService {
   }
 
   static async deleteProfile() {
-    axios.delete(`${this.API_URL}/profile`,{
+    await axios.delete(`${this.API_URL}/profile`,{
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("access")}`,
+      }
+    });
+  }
+
+  static async getPassedSurveys(page: number, size = 2) {
+    page = page-1;
+    return await axios.get(`${this.API_URL}/profile/passedSurveys`, {
+      params: {
+        page,
+        size
+      },
       headers: {
         'Authorization': `Bearer ${localStorage.getItem("access")}`,
       }

@@ -15,6 +15,8 @@ import { localStorageService } from './services/LocalStorageService.ts';
 import ProfilePage from "./pages/ProfilePage.tsx";
 import SurveysPage from "./pages/survey/SurveysPage.tsx";
 import SurveyPage from "./pages/survey/SurveyPage.tsx";
+import FlightCreationPage from "./pages/flight/FlightCreationPage.tsx";
+import RouteCreationPage from "./pages/flight/RouteCreationPage.tsx";
 
 export default function App() {
   const isAuthBoolean = () => {
@@ -25,7 +27,7 @@ export default function App() {
   };
 
   const getUserRoleFromToken = () => {
-    return localStorageService.getUserRoleFromToken()
+    return localStorageService.getUserRoleFromToken() || ''
   }
 
   const [isAuth, setIsAuth] = useState(isAuthBoolean());
@@ -34,19 +36,28 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <BrowserRouter>
-        <Navbar role={role || "ROLE_USER"} isAuth={isAuth} setIsAuth={setIsAuth} isAuthBoolean={isAuthBoolean}/>
+        <Navbar
+          role={role || "ROLE_USER"}
+          setRole={setRole}
+          isAuth={isAuth}
+          setIsAuth={setIsAuth}
+          isAuthBoolean={isAuthBoolean}
+          //isTwoFactor={isTwoFactor}
+        />
         <Routes>
           <Route path="/" element={<SearchTicket/>}/>
           {role === "ROLE_MODERATOR" && (
             <Route path="/survey-creation" element={<SurveyCreationPage/>}/>
           )}
-          {/*{role === "ROLE_OPERATOR" && (
-            <Route path="/flight-creation" element={<FlightCreationPage/>}/>
-            <Route path="/route-creation" element={<RouteCreationPage/>}/>
-          )}*/}
+          {role === "ROLE_OPERATOR" && (
+            <>
+              <Route path="/flight-creation" element={<FlightCreationPage/>}/>
+              <Route path="/route-creation" element={<RouteCreationPage/>}/>
+            </>
+          )}
           <Route path="/surveys" element={<SurveysPage/>}/>
           <Route path="/survey/:surveyId" element={<SurveyPage/>}/>
-          <Route path="/signin" element={<SignIn setIsAuth={setIsAuth} isAuthBoolean={isAuthBoolean}/>}/>
+          <Route path="/signin" element={<SignIn setRole={setRole} setIsAuth={setIsAuth} isAuthBoolean={isAuthBoolean}/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/twofactor" element={<AddTwoFactor/>}/>
           <Route path="/favorites" element={<Favorites/>}/>

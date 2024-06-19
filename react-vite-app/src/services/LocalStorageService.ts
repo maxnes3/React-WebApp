@@ -52,7 +52,7 @@ class LocalStorageService {
         if (token) {
             try {
                 const decodedToken = jwtDecode<RoleJwtPayload>(token).realm_access;
-                return decodedToken.roles.find(r => r.includes("ROLE_"));
+                return decodedToken.roles.find(r => r.includes("ROLE_")) || "ROLE_USER";
             } catch (error) {
                 console.error('Error decoding token:', error);
                 return "ROLE_USER";

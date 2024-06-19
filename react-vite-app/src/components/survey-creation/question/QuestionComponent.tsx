@@ -73,12 +73,13 @@ export default function QuestionComponent(
       className="my-2 flex flex-col items-stretch border rounded-lg w-full"
       style={{ overflow: 'hidden' }}
     >
-      <div className={`p-4 ${colorsPresets.primaryBackground} ${colorsPresets.primaryText}`}>
+      <div className={`p-4 ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack}`}>
         <FormHeader
+          color={""}
           label={"Вопрос #"+props.questionKey!.toString()}/>
         <select
           onChange={handleQuestionTypeChange}
-          className={`p-3 mb-2 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryText} 
+          className={`p-3 mb-2 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryTextBlack} 
         border-none focus:outline-none focus:ring-2 ${colorsPresets.buttonFocusRing}
         block w-full`}
         >

@@ -18,12 +18,13 @@ import { localStorageService } from '../services/LocalStorageService.ts';
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
 interface SignInProps{
+    setRole:  (e: SetStateAction<string>) => void,
     setIsAuth: (e: SetStateAction<boolean>) => void,
     isAuthBoolean: () => boolean
 }
 
 // Авторизация
-export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
+export function SignIn({ setRole, setIsAuth, isAuthBoolean }: SignInProps) {
     // Навигация
     const navigate = useNavigate();
 
@@ -97,6 +98,7 @@ export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
                 const authToken = await signInService.authorization(data);
                 localStorageService.setTokenToStorage(authToken);
                 setIsAuth(isAuthBoolean());
+                setRole(localStorageService.getUserRoleFromToken() || '')
                 navigate('/');
             } catch (error) {
                 console.error('Error during sign in:', error);

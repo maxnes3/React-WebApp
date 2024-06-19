@@ -77,10 +77,15 @@ export default function SurveysPage() {
     navigate({ search: params.toString() });
   };
 
+  if (!surveys) return (
+    <div>Loading...</div>
+  );
+
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center mx-4 w-full max-w-2xl">
-        <div className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite}`}>
+        <div
+          className={`m-2 p-4 rounded-md w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite}`}>
           <FormHeader
             label="Поиск опроса" color={""}/>
           <div className="flex items-center">
@@ -97,15 +102,18 @@ export default function SurveysPage() {
         </div>
 
         {surveys.map((survey) => (
-          <SurveyCardComponent key={survey.id} survey={survey} />
+          <SurveyCardComponent key={survey.id} survey={survey}/>
         ))}
-
-        <div className="flex justify-between mt-2 items-center">
-          <SubmitButton onClick={() => handlePageChange(currentPage - 1)}
-                        label="Предыдущая"/>
+        <div className="flex justify-between">
+          <div className={`mt-2 items-center ${colorsPresets.primaryBackground}`}>
+            <SubmitButton onClick={() => handlePageChange(currentPage - 1)}
+                          label="Предыдущая"/>
+          </div>
           <span className="px-4 py-2">{`Страница ${currentPage} из ${totalPages}`}</span>
-          <SubmitButton onClick={() => handlePageChange(currentPage + 1)}
-                        label="Следующая"/>
+          <div className={`mt-2 items-center ${colorsPresets.primaryBackground}`}>
+            <SubmitButton onClick={() => handlePageChange(currentPage + 1)}
+                          label="Следующая"/>
+          </div>
         </div>
       </div>
     </div>

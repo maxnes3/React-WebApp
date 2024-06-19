@@ -20,7 +20,6 @@ const reverseQuestionTypeMapping: Record<string, QuestionTypeEnum> = {
 export default function QuestionComponent(
   props: QuestionApiProps) {
   const { question, onAnswerChange } = props;
-console.log(question)
   const handleAnswerChange = (answer: AnswerApiDto) => {
     if (onAnswerChange) {
       onAnswerChange({questionId: question.id, answer: answer});
@@ -49,9 +48,10 @@ console.log(question)
       className="my-2 flex flex-col items-stretch border rounded-lg w-full"
       style={{ overflow: 'hidden' }}
     >
-      <div className={`p-4 ${colorsPresets.primaryBackground} ${colorsPresets.primaryText}`}>
+      <div className={`p-4 ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack}`}>
         <FormHeader
-          label={"Вопрос #"+question.id.toString()}/>
+          color={""}
+          label={"Вопрос #"+(props.index!+1)}/>
         <div className="border p-2 mb-2 rounded-lg">
           {renderQuestionComponent(reverseQuestionTypeMapping[question.questionType])}
         </div>
