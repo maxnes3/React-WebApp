@@ -8,10 +8,11 @@ import { localStorageService } from '../services/LocalStorageService.ts';
 
 interface SignInGoogleButtonProps{
     setIsAuth: (e: SetStateAction<boolean>) => void,
-    isAuthBoolean: () => boolean
+    isAuthBoolean: () => boolean,
+    setIsTwoFactor: (e: SetStateAction<boolean>) => void
 }
 
-export function SignInGoogleButton({ setIsAuth, isAuthBoolean }: SignInGoogleButtonProps){
+export function SignInGoogleButton({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInGoogleButtonProps){
     // Навигация
     const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ export function SignInGoogleButton({ setIsAuth, isAuthBoolean }: SignInGoogleBut
             const authToken = await googleAuthService.authorizationWithGoogle(codeResponse.code);
             localStorageService.setTokenToStorage(authToken);
             setIsAuth(isAuthBoolean());
+            setIsTwoFactor(localStorageService.setIsTwoFactor(true));
             navigate('/');
         },
         flow: 'auth-code',

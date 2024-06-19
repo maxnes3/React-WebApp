@@ -53,7 +53,16 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
                         ) : (
                             <DropdownButton 
                                 icon={isTwoFactor ? "/verified-icon.svg" : "/user-icon.svg"}
-                                list={[
+                                list={isTwoFactor ? [
+                                    {
+                                        label: 'Избранное',
+                                        onClick: handleFavorites
+                                    },
+                                    {
+                                        label: 'Выйти',
+                                        onClick: handleLogout
+                                    }
+                                ] : [
                                     {
                                         label: 'Избранное',
                                         onClick: handleFavorites

@@ -172,6 +172,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                             <SignInGoogleButton 
                                 setIsAuth={setIsAuth} 
                                 isAuthBoolean={isAuthBoolean}
+                                setIsTwoFactor={setIsTwoFactor}
                             />
                         </GoogleOAuthProvider>
                     </div>
