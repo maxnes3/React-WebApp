@@ -7,12 +7,14 @@ import { SignIn } from "./pages/SignIn.tsx";
 import { SignUp } from "./pages/SignUp.tsx";
 import { AddTwoFactor } from "./pages/AddTwoFactor.tsx";
 import { Favorites } from "./pages/Favorites.tsx";
+import { Tickets } from "./pages/Tickets.tsx";
 
 // Импорт компонентов из React
 import { useState } from "react";
 
 // Импорт сервисов
 import { localStorageService } from './services/LocalStorageService.ts';
+import { BuyTickets } from "./pages/BuyTickets.tsx";
 
 export default function App() {
   const isAuthBoolean = () => {
@@ -38,7 +40,7 @@ export default function App() {
         <Routes>
           <Route 
             path="/" 
-            element={<SearchTicket/>}
+            element={<SearchTicket />}
           /> 
           <Route 
             path="/survey-creation" 
@@ -68,7 +70,15 @@ export default function App() {
           />
           <Route 
             path="/favorites" 
-            element={<Favorites/>}
+            element={<Favorites />}
+          />
+          <Route 
+            path="/tickets"
+            element={<Tickets />}
+          />
+          <Route 
+            path="/buyticket/:flightId"
+            element={<BuyTickets />}
           />
         </Routes>
       </BrowserRouter>

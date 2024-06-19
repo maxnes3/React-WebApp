@@ -31,9 +31,14 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
         navigate('/twofactor');
     };
 
+    const handleTickets = () => {
+        navigate('/tickets');
+    };
+
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
+        navigate('/');
     };
 
     const listIsNotTwoFactor = () => {
@@ -51,9 +56,13 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
             onClick: handleFavorites
         },
         {
+            label: 'Купленные Билеты',
+            onClick: handleTickets
+        },
+        {
             label: 'Выйти',
             onClick: handleLogout
-        }
+        },
     ];
 
     return (

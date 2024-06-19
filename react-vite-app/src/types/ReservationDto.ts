@@ -1,0 +1,3 @@
+interface ReservationDto{
+    reservationTicket: string[];
+}
