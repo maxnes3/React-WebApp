@@ -18,6 +18,7 @@ import { localStorageService } from '../services/LocalStorageService.ts';
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
 interface SignInProps{
+    setRole:  (e: SetStateAction<string>) => void,
     setIsAuth: (e: SetStateAction<boolean>) => void,
     isAuthBoolean: () => boolean,
     setIsTwoFactor: (e: SetStateAction<boolean>) => void
@@ -96,15 +97,17 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
 
             const response = await signInService.checkTwoFactor(data);
             console.log(response);
-            
             if (response){
-                handleInputChange('isTwoFactor', response);
+                signInData.codeTwoFactor = response;
                 return;
             }
 
             try {
                 const authToken = await signInService.authorization(data);
-                addTokenToStorage(authToken);
+                localStorageService.setTokenToStorage(authToken);
+                setIsAuth(isAuthBoolean());
+                setRole(localStorageService.getUserRoleFromToken() || '')
+                navigate('/');
             } catch (error) {
                 console.error('Error during sign in:', error);
             }
@@ -118,7 +121,9 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
 
         try {
             const authToken = await signInService.authorizationTwoFactor(data);
-            addTokenToStorage(authToken);
+            localStorageService.setTokenToStorage(authToken);
+            setIsAuth(isAuthBoolean());
+            navigate('/');
         } catch (error) {
             console.error('Error during sign in:', error);
         }

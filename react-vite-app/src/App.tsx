@@ -1,8 +1,7 @@
-// Импорт страниц из "./pages/"
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { SearchTicket } from "./pages/SearchTicket.tsx";
-import { Navbar } from "./NavBar.tsx";
-import Survey from "./components/survey-creation/Survey.tsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {SearchTicket} from "./pages/SearchTicket.tsx";
+import {Navbar} from "./NavBar.tsx";
+import SurveyCreationPage from "./pages/survey/SurveyCreationPage.tsx";
 import { SignIn } from "./pages/SignIn.tsx";
 import { SignUp } from "./pages/SignUp.tsx";
 import { AddTwoFactor } from "./pages/AddTwoFactor.tsx";
@@ -13,6 +12,11 @@ import { useState } from "react";
 
 // Импорт сервисов
 import { localStorageService } from './services/LocalStorageService.ts';
+import ProfilePage from "./pages/ProfilePage.tsx";
+import SurveysPage from "./pages/survey/SurveysPage.tsx";
+import SurveyPage from "./pages/survey/SurveyPage.tsx";
+import FlightCreationPage from "./pages/flight/FlightCreationPage.tsx";
+import RouteCreationPage from "./pages/flight/RouteCreationPage.tsx";
 
 export default function App() {
   const isAuthBoolean = () => {
@@ -22,53 +26,82 @@ export default function App() {
     return true;
   };
 
+  const getUserRoleFromToken = () => {
+    return localStorageService.getUserRoleFromToken() || ''
+  }
+
   const [isAuth, setIsAuth] = useState(isAuthBoolean());
-  
+  const [role, setRole] = useState(getUserRoleFromToken)
+
   const [isTwoFactor, setIsTwoFactor] = useState(localStorageService.getIsTwoFactor());
 
   return (
     <div className="min-h-screen flex flex-col">
       <BrowserRouter>
-        <Navbar 
-          isAuth={isAuth} 
-          setIsAuth={setIsAuth} 
+        <Navbar
+          role={role || "ROLE_USER"}
+          setRole={setRole}
+          isAuth={isAuth}
+          setIsAuth={setIsAuth}
           isAuthBoolean={isAuthBoolean}
           isTwoFactor={isTwoFactor}
         />
         <Routes>
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={<SearchTicket/>}
-          /> 
-          <Route 
-            path="/survey-creation" 
-            element={<Survey/>}
           />
-          <Route 
-            path="/signin" 
+          {role === "ROLE_MODERATOR" && (
+            <Route
+              path="/survey-creation"
+              element={<SurveyCreationPage/>}
+            />
+          )}
+          {role === "ROLE_OPERATOR" && (
+            <>
+              <Route
+                path="/flight-creation"
+                element={<FlightCreationPage/>}
+              />
+              <Route
+                path="/route-creation"
+                element={<RouteCreationPage/>}
+              />
+            </>
+          )}
+          <Route
+            path="/signin"
             element={
-              <SignIn 
-                setIsAuth={setIsAuth} 
+              <SignIn
+                setRole={setRole}
+                setIsAuth={setIsAuth}
                 isAuthBoolean={isAuthBoolean}
-                setIsTwoFactor={setIsTwoFactor}
               />
             }
           />
-          <Route 
-            path="/signup" 
+          <Route
+            path="/signup"
             element={<SignUp/>}
           />
-          <Route 
-            path="/twofactor" 
-            element={
-              <AddTwoFactor
-                setIsTwoFactor={setIsTwoFactor}
-              />
-            }
+          <Route
+            path="/twofactor"
+            element={<AddTwoFactor/>}
           />
-          <Route 
-            path="/favorites" 
+          <Route
+            path="/favorites"
             element={<Favorites/>}
+          />
+          <Route
+            path="/profile"
+            element={<ProfilePage/>}
+          />
+          <Route
+            path="/surveys"
+            element={<SurveysPage/>}
+          />
+          <Route
+            path="/survey/:surveyId"
+            element={<SurveyPage/>}
           />
         </Routes>
       </BrowserRouter>

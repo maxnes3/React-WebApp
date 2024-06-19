@@ -10,3 +10,12 @@ interface Flight {
   ticketPrice: number;
   discountPercentage: number;
 }
+
+export interface NewFlightDto {
+  routeId: number;
+  arrivalTime: string;
+  departureTime: string;
+  totalSeats: number;
+  ticketPrice: number;
+  discountPercentage: number;
+}

@@ -1,8 +1,8 @@
 // Импорт компонентов из React
-import { ChangeEvent } from "react";
+import {ChangeEvent} from "react";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface InputFieldProps {
     id: string;

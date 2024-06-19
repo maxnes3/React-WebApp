@@ -13,15 +13,21 @@ import { localStorageService } from './services/LocalStorageService.ts';
 import { colorsPresets } from "./styles/colorsPresets.ts";
 
 interface NavbarProps{
+    role: string,
+    setRole: (e: SetStateAction<string>) => void,
     isAuth: boolean,
     setIsAuth: (e: SetStateAction<boolean>) => void,
     isAuthBoolean: () => boolean,
     isTwoFactor: boolean
 }
 
-export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: NavbarProps){
+export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
+
+    const handleProfile = () => {
+        navigate('/profile');
+    };
 
     const handleFavorites = () => {
         navigate('/favorites');
@@ -34,6 +40,8 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
+        setRole("");
+        navigate('/signin');
     };
 
     const listIsNotTwoFactor = () => {
@@ -72,14 +80,52 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: Navbar
                             />
                         ) : (
                             <DropdownButton 
-                                icon={isTwoFactor ? "/verified-icon.svg" : "/user-icon.svg"}
-                                list={isTwoFactor ? listIsTwoFactor : listIsNotTwoFactor()}
+                                icon="/user-icon.svg"
+                                list={[
+                                    {
+                                        label: 'Профиль',
+                                        onClick: handleProfile
+                                    },
+                                    {
+                                        label: 'Избранное',
+                                        onClick: handleFavorites
+                                    },
+                                    {
+                                        label: 'Двухфакторная',
+                                        onClick: handleTwoFactor
+                                    },
+                                    {
+                                        label: 'Выйти',
+                                        onClick: handleLogout
+                                    }
+                                ]}
                             />
                         )}
-                        <LinkIcon
+                        {role === "ROLE_MODERATOR" && (
+                            <LinkIcon
                             link="/survey-creation"
                             icon="/moderator-icon.svg" 
                             name="Модератор"
+                            />
+                        )}
+                        {role === "ROLE_OPERATOR" && (
+                          <>
+                              <LinkIcon
+                                link="/route-creation"
+                                icon="/route-icon.svg"
+                                name="Оператор"
+                              />
+                              <LinkIcon
+                                link="/flight-creation"
+                                icon="/flight-icon.svg"
+                                name="Оператор"
+                              />
+                          </>
+                        )}
+                        <LinkIcon
+                          link="/surveys"
+                          icon="/survey-icon.svg"
+                          name="Опросы"
                         />
                         <LinkIcon
                             link="/"
