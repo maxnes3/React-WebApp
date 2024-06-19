@@ -33,6 +33,8 @@ export default function App() {
   const [isAuth, setIsAuth] = useState(isAuthBoolean());
   const [role, setRole] = useState(getUserRoleFromToken)
 
+  const [isTwoFactor, setIsTwoFactor] = useState(localStorageService.getIsTwoFactor());
+
   return (
     <div className="min-h-screen flex flex-col">
       <BrowserRouter>
@@ -42,26 +44,65 @@ export default function App() {
           isAuth={isAuth}
           setIsAuth={setIsAuth}
           isAuthBoolean={isAuthBoolean}
-          //isTwoFactor={isTwoFactor}
+          isTwoFactor={isTwoFactor}
         />
         <Routes>
-          <Route path="/" element={<SearchTicket/>}/>
+          <Route
+            path="/"
+            element={<SearchTicket/>}
+          />
           {role === "ROLE_MODERATOR" && (
-            <Route path="/survey-creation" element={<SurveyCreationPage/>}/>
+            <Route
+              path="/survey-creation"
+              element={<SurveyCreationPage/>}
+            />
           )}
           {role === "ROLE_OPERATOR" && (
             <>
-              <Route path="/flight-creation" element={<FlightCreationPage/>}/>
-              <Route path="/route-creation" element={<RouteCreationPage/>}/>
+              <Route
+                path="/flight-creation"
+                element={<FlightCreationPage/>}
+              />
+              <Route
+                path="/route-creation"
+                element={<RouteCreationPage/>}
+              />
             </>
           )}
-          <Route path="/surveys" element={<SurveysPage/>}/>
-          <Route path="/survey/:surveyId" element={<SurveyPage/>}/>
-          <Route path="/signin" element={<SignIn setRole={setRole} setIsAuth={setIsAuth} isAuthBoolean={isAuthBoolean}/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/twofactor" element={<AddTwoFactor/>}/>
-          <Route path="/favorites" element={<Favorites/>}/>
-          <Route path="/profile" element={<ProfilePage/>}/>
+          <Route
+            path="/signin"
+            element={
+              <SignIn
+                setRole={setRole}
+                setIsAuth={setIsAuth}
+                isAuthBoolean={isAuthBoolean}
+              />
+            }
+          />
+          <Route
+            path="/signup"
+            element={<SignUp/>}
+          />
+          <Route
+            path="/twofactor"
+            element={<AddTwoFactor/>}
+          />
+          <Route
+            path="/favorites"
+            element={<Favorites/>}
+          />
+          <Route
+            path="/profile"
+            element={<ProfilePage/>}
+          />
+          <Route
+            path="/surveys"
+            element={<SurveysPage/>}
+          />
+          <Route
+            path="/survey/:surveyId"
+            element={<SurveyPage/>}
+          />
         </Routes>
       </BrowserRouter>
     </div>
