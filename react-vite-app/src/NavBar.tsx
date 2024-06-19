@@ -11,17 +11,21 @@ import { localStorageService } from './services/LocalStorageService.ts';
 
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
-import {LinkIcon} from "./components/LinkIcon.tsx";
 
 interface NavbarProps{
+    role: string,
     isAuth: boolean,
     setIsAuth: (e: SetStateAction<boolean>) => void,
     isAuthBoolean: () => boolean
 }
 
-export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
+export function Navbar({ role, isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
+
+    const handleProfile = () => {
+        navigate('/profile');
+    };
 
     const handleFavorites = () => {
         navigate('/favorites');
@@ -34,6 +38,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
+        navigate('/signin');
     };
 
     return (
@@ -55,6 +60,10 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                                 icon="/user-icon.svg"
                                 list={[
                                     {
+                                        label: 'Профиль',
+                                        onClick: handleProfile
+                                    },
+                                    {
                                         label: 'Избранное',
                                         onClick: handleFavorites
                                     },
@@ -69,20 +78,17 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                                 ]}
                             />
                         )}
-                        <LinkIcon
-                          link="/profile"
-                          icon="/login-icon2.svg"
-                          name="Профиль"
-                        />
-                        <LinkIcon
+                        {role === "ROLE_MODERATOR" && (
+                            <LinkIcon
                             link="/survey-creation"
-                            icon="/moderator-icon.svg" 
+                            icon="/moderator-icon.svg"
                             name="Модератор"
-                        />
+                            />
+                        )}
                         <LinkIcon
                           link="/surveys"
                           icon="/survey-icon.svg"
-                          name="Модератор"
+                          name="Опросы"
                         />
                         <LinkIcon
                             link="/"

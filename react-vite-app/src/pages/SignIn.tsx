@@ -87,7 +87,7 @@ export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
             }
 
             const response = await signInService.checkTwoFactor(data);
-            
+            console.log(response);
             if (response){
                 signInData.codeTwoFactor = response;
                 return;

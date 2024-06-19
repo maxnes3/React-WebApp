@@ -8,6 +8,8 @@ export interface UserProfile {
   email: string;
   password: string;
   twoFactor: boolean;
+  childMode: boolean;
+  childModePassword: string;
 }
 
 export default function ProfilePage() {
@@ -17,8 +19,12 @@ export default function ProfilePage() {
     surname: '',
     email: '',
     password: '',
-    twoFactor: false,
+    twoFactor: false as boolean,
+    childMode: false as boolean,
+    childModePassword: '',
   });
+  const [showPasswordInput, setShowPasswordInput] = useState(false);
+
 
   useEffect(() => {
     const getProfile = async () => {
@@ -32,6 +38,9 @@ export default function ProfilePage() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
+    if (name === 'childMode') {
+      setShowPasswordInput(checked);
+    }
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: type === 'checkbox' ? checked : value,
@@ -113,7 +122,7 @@ export default function ProfilePage() {
             type="checkbox"
             name="twoFactor"
             id="twoFactor"
-            checked={profile.twoFactor}
+            checked={profile.twoFactor || false}
             onChange={handleChange}
             className="mr-2"
           />
@@ -121,6 +130,34 @@ export default function ProfilePage() {
             Включить двухфакторную аутентификацию
           </label>
         </div>
+        <div className="mb-4 flex items-center">
+          <input
+            type="checkbox"
+            name="childMode"
+            id="childMode"
+            checked={profile.childMode || false}
+            onChange={handleChange}
+            className="mr-2"
+          />
+          <label htmlFor="childMode" className="block text-sm font-medium text-gray-700">
+            Включить детский режим
+          </label>
+        </div>
+        {showPasswordInput && (
+          <div className="mb-4">
+            <label htmlFor="childModePassword" className="block text-sm font-medium text-gray-700">
+              Пароль для детского режима
+            </label>
+            <input
+              type="childModePassword"
+              name="childModePassword"
+              id="childModePassword"
+              value={profile.childModePassword || ''}
+              onChange={handleChange}
+              className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+            />
+          </div>
+        )}
         <div className="flex justify-between">
           <button
             type="submit"

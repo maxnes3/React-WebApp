@@ -1,8 +1,8 @@
 // Импорт компонентов из ./components/
-import { FormHeader } from "../components/ui/FormHeader.tsx";
-import { InputField } from "../components/ui/InputField.tsx";
-import { SubmitButton } from "../components/ui/SubmitButton.tsx";
-import { LinkText } from "../components/ui/LinkText.tsx";
+import { FormHeader } from "../components/FormHeader.tsx";
+import { InputField } from "../components/InputField.tsx";
+import { SubmitButton } from "../components/SubmitButton.tsx";
+import { LinkText } from "../components/LinkText.tsx";
 
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
