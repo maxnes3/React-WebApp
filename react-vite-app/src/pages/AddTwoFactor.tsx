@@ -1,18 +1,24 @@
 // Импорт компонентов из ./components/
 import { InputField } from "../components/InputField.tsx";
 import { SubmitButton } from "../components/SubmitButton.tsx";
+import { FormHeader } from "../components/FormHeader.tsx";
 
 // Импорт компонентов из React
-import { useState, useEffect, useCallback, FormEvent } from "react";
+import { useState, useEffect, useCallback, FormEvent, SetStateAction } from "react";
 import { useNavigate } from 'react-router-dom';
 
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
+import { localStorageService } from "../services/LocalStorageService.ts";
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
-export function AddTwoFactor(){
+interface AddTwoFactorProps{
+    setIsTwoFactor: (e: SetStateAction<boolean>) => void
+}
+
+export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
     // Навигация
     const navigate = useNavigate();
 
@@ -68,6 +74,8 @@ export function AddTwoFactor(){
 
             const response = await signInService.submitTwoFactorCode(data);
             console.log(response);
+            setIsTwoFactor(true);
+            setIsTwoFactor(localStorageService.setIsTwoFactor(true));
             navigate('/');
         } catch (error) {
             console.error('Error two factor:', error);
@@ -77,12 +85,23 @@ export function AddTwoFactor(){
     return (
         <div className="flex-grow flex items-center justify-center">
             <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+                <FormHeader 
+                    label="Инструкция:"
+                    color={colorsPresets.primaryTextWhite}
+                />
+                <div className={`text-xl ${colorsPresets.primaryTextBlack} font-bold mb-10`}>
+                    <p>1. Отсканируйте QRcode с помощью Google Authefication</p>
+                    <p>2. Введите код в поле</p>
+                    <p>3. Нажмите "Подтвердить"</p>
+                </div>
                 <form className="space-y-4">
-                    <img 
-                        src={`data:image/png;base64,${twoFactorData.qrcode}`}
-                        alt="QR Code"
-                        className="h-100 w-100"
-                    />
+                    <div className="flex justify-center space-y-4">
+                        <img 
+                            src={`data:image/png;base64,${twoFactorData.qrcode}`}
+                            alt="QR Code"
+                            className="h-100 w-100"
+                        />
+                    </div>
                     <InputField 
                         id="code" label="Код подтверждения"
                         placeholder="code"

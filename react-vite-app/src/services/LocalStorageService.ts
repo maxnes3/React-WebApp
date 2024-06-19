@@ -7,6 +7,7 @@ interface MailJwtPayload extends JwtPayload {
 class LocalStorageService {
     private accessName = 'access';
     private refreshName = 'refresh';
+    private isTwoFactorName = 'isTwoFactor';
 
     setTokenToStorage(token: any) {
         try {
@@ -39,6 +40,15 @@ class LocalStorageService {
     removeTokenFromStorage(){
         localStorage.removeItem(this.accessName);
         localStorage.removeItem(this.refreshName);
+    }
+
+    getIsTwoFactor(){
+        return JSON.parse(localStorage.getItem(this.isTwoFactorName) || 'false');
+    }
+
+    setIsTwoFactor(value: boolean){
+        localStorage.setItem(this.isTwoFactorName, `${value}`);
+        return this.getIsTwoFactor();
     }
 }
 

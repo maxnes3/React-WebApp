@@ -15,10 +15,11 @@ import { colorsPresets } from "./styles/colorsPresets.ts";
 interface NavbarProps{
     isAuth: boolean,
     setIsAuth: (e: SetStateAction<boolean>) => void,
-    isAuthBoolean: () => boolean
+    isAuthBoolean: () => boolean,
+    isTwoFactor: boolean
 }
 
-export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
+export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
 
@@ -51,7 +52,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean }: NavbarProps){
                             />
                         ) : (
                             <DropdownButton 
-                                icon="/user-icon.svg"
+                                icon={isTwoFactor ? "/verified-icon.svg" : "/user-icon.svg"}
                                 list={[
                                     {
                                         label: 'Избранное',

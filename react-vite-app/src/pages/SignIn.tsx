@@ -19,11 +19,12 @@ import { colorsPresets } from "../styles/colorsPresets.ts";
 
 interface SignInProps{
     setIsAuth: (e: SetStateAction<boolean>) => void,
-    isAuthBoolean: () => boolean
+    isAuthBoolean: () => boolean,
+    setIsTwoFactor: (e: SetStateAction<boolean>) => void
 }
 
 // Авторизация
-export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
+export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps) {
     // Навигация
     const navigate = useNavigate();
 
@@ -72,6 +73,13 @@ export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
         }));
     }, []);
 
+    const addTokenToStorage = (authToken: any) => {
+        localStorageService.setTokenToStorage(authToken);
+        setIsAuth(isAuthBoolean());
+        setIsTwoFactor(localStorageService.setIsTwoFactor(signInData.isTwoFactor));
+        navigate('/');
+    }
+
     // Функция для обращения к springboot серверу
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -87,17 +95,16 @@ export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
             }
 
             const response = await signInService.checkTwoFactor(data);
+            console.log(response);
             
             if (response){
-                signInData.codeTwoFactor = response;
+                handleInputChange('isTwoFactor', response);
                 return;
             }
 
             try {
                 const authToken = await signInService.authorization(data);
-                localStorageService.setTokenToStorage(authToken);
-                setIsAuth(isAuthBoolean());
-                navigate('/');
+                addTokenToStorage(authToken);
             } catch (error) {
                 console.error('Error during sign in:', error);
             }
@@ -111,9 +118,7 @@ export function SignIn({ setIsAuth, isAuthBoolean }: SignInProps) {
 
         try {
             const authToken = await signInService.authorizationTwoFactor(data);
-            localStorageService.setTokenToStorage(authToken);
-            setIsAuth(isAuthBoolean());
-            navigate('/');
+            addTokenToStorage(authToken);
         } catch (error) {
             console.error('Error during sign in:', error);
         }

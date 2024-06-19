@@ -23,18 +23,53 @@ export default function App() {
   };
 
   const [isAuth, setIsAuth] = useState(isAuthBoolean());
+  
+  const [isTwoFactor, setIsTwoFactor] = useState(localStorageService.setIsTwoFactor(false));
 
   return (
     <div className="min-h-screen flex flex-col">
       <BrowserRouter>
-        <Navbar isAuth={isAuth} setIsAuth={setIsAuth} isAuthBoolean={isAuthBoolean}/>
+        <Navbar 
+          isAuth={isAuth} 
+          setIsAuth={setIsAuth} 
+          isAuthBoolean={isAuthBoolean}
+          isTwoFactor={isTwoFactor}
+        />
         <Routes>
-          <Route path="/" element={<SearchTicket/>}/> 
-          <Route path="/survey-creation" element={<Survey/>}/>
-          <Route path="/signin" element={<SignIn setIsAuth={setIsAuth} isAuthBoolean={isAuthBoolean}/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/twofactor" element={<AddTwoFactor/>}/>
-          <Route path="/favorites" element={<Favorites/>}/>
+          <Route 
+            path="/" 
+            element={<SearchTicket/>}
+          /> 
+          <Route 
+            path="/survey-creation" 
+            element={<Survey/>}
+          />
+          <Route 
+            path="/signin" 
+            element={
+              <SignIn 
+                setIsAuth={setIsAuth} 
+                isAuthBoolean={isAuthBoolean}
+                setIsTwoFactor={setIsTwoFactor}
+              />
+            }
+          />
+          <Route 
+            path="/signup" 
+            element={<SignUp/>}
+          />
+          <Route 
+            path="/twofactor" 
+            element={
+              <AddTwoFactor
+                setIsTwoFactor={setIsTwoFactor}
+              />
+            }
+          />
+          <Route 
+            path="/favorites" 
+            element={<Favorites/>}
+          />
         </Routes>
       </BrowserRouter>
     </div>
