@@ -5,6 +5,7 @@ import { DropdownButton } from "./components/DropdownButton.tsx";
 // Импорт компонентов из React
 import { SetStateAction } from "react";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Импорт сервисов
 import { localStorageService } from './services/LocalStorageService.ts';
@@ -40,6 +41,10 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
         setIsTwoFactor(localStorageService.setIsTwoFactor(false));
+        toast('Вы вышли из аккаунта!', {
+            type: 'success',
+            theme: 'light'
+        });
         navigate('/');
     };
 
@@ -70,8 +75,8 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
     return (
         <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} p-4 shadow-md`}>
             <div className="container mx-auto flex justify-between items-center">
-                <div className={`text-2xl ${colorsPresets.primaryTextOrange} font-bold`}>
-                    SkyWingsExpress
+                <div className={`text-2xl font-bold`}>
+                    <span className={`${colorsPresets.primaryTextWhite}`}>SkyWings</span><span className={`${colorsPresets.primaryTextOrange}`}>Express</span>
                 </div>
                 <div>
                     <div className={"flex space-x-4 p-4"}>

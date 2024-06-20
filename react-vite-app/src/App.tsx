@@ -11,6 +11,8 @@ import { Tickets } from "./pages/Tickets.tsx";
 
 // Импорт компонентов из React
 import { useState } from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Импорт сервисов
 import { localStorageService } from './services/LocalStorageService.ts';
@@ -82,6 +84,9 @@ export default function App() {
             element={<BuyTickets />}
           />
         </Routes>
+        <ToastContainer
+          position="bottom-right"
+        />
       </BrowserRouter>
     </div>
   )

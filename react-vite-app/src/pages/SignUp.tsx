@@ -7,6 +7,7 @@ import { LinkText } from "../components/LinkText.tsx";
 // Импорт компонентов из React
 import { useState, useCallback, FormEvent } from "react";
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
@@ -68,6 +69,10 @@ export function SignUp() {
         event.preventDefault();
 
         if (!validateForm()) {
+            toast('Заполните все поля!', {
+                type: 'warning',
+                theme: 'light'
+            });
             return;
         }
 
@@ -81,9 +86,17 @@ export function SignUp() {
         try {
             const response = await signInService.registration(data);
             console.log('Response:', response);
+            toast('Вы успешно зарегистрировались!', {
+                type: 'success',
+                theme: 'light'
+            });
             navigate('/signin');
         } catch (error) {
             console.error('Error during sign in:', error);
+            toast('Ошибка при регистрации!', {
+                type: 'error',
+                theme: 'light'
+            });
         }
     };
 

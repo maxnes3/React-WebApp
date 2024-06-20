@@ -1,6 +1,7 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Импорт сервисов
 import { googleAuthService } from '../services/GoogleAuthService.ts';
@@ -23,6 +24,10 @@ export function SignInGoogleButton({ setIsAuth, isAuthBoolean, setIsTwoFactor }:
             localStorageService.setTokenToStorage(authToken);
             setIsAuth(isAuthBoolean());
             setIsTwoFactor(localStorageService.setIsTwoFactor(true));
+            toast('Вы успешно вошли через Google!', {
+                type: 'success',
+                theme: 'light'
+            });
             navigate('/');
         },
         flow: 'auth-code',

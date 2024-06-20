@@ -7,7 +7,8 @@ import { IconButton } from "../components/IconButton.tsx";
 import { ListFlights } from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent, SetStateAction } from "react";
+import { useState, useCallback, FormEvent } from "react";
+import { toast } from "react-toastify";
 
 // Импорт сервисов
 import { flightService } from "../services/FlightService.ts";
@@ -90,6 +91,10 @@ export function SearchTicket() {
     event.preventDefault();
 
     if (!validateForm()) {
+      toast('Заполните все поля!', {
+        type: 'warning',
+        theme: 'light'
+      });
       return;
     }
 

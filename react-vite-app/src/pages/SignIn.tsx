@@ -9,6 +9,7 @@ import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
 import { useState, useCallback, FormEvent, SetStateAction } from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
@@ -78,6 +79,10 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
         localStorageService.setTokenToStorage(authToken);
         setIsAuth(isAuthBoolean());
         setIsTwoFactor(localStorageService.setIsTwoFactor(signInData.isTwoFactor));
+        toast('Вы успешно авторизировались!', {
+            type: 'success',
+            theme: 'light'
+        });
         navigate('/');
     }
 
@@ -86,6 +91,10 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
         event.preventDefault();
 
         if (!validateForm()) {
+            toast('Заполните все поля!', {
+                type: 'warning',
+                theme: 'light'
+            });
             return;
         }
 
@@ -110,6 +119,10 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                 addTokenToStorage(authToken);
             } catch (error) {
                 console.error('Error during sign in:', error);
+                toast('Ошибка при авторизации!', {
+                    type: 'error',
+                    theme: 'light'
+                });
             }
         }
         
@@ -125,6 +138,10 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
             addTokenToStorage(authToken);
         } catch (error) {
             console.error('Error during sign in:', error);
+            toast('Ошибка при авторизации!', {
+                type: 'error',
+                theme: 'light'
+            });
         }
     };
 

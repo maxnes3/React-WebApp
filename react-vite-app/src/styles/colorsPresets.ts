@@ -12,7 +12,7 @@ export const colorsPresets = {
     buttonBackgroundLight: 'bg-light',
     buttonHoverBackground: 'hover:bg-orange hover:text-white hover:border-transparent',
     buttonHoverBackgroundSimple: 'hover:bg-light',
-    buttonFocusRing: 'focus:ring-white',
+    buttonFocusRing: 'focus:ring-orange',
     errorText: 'text-errorRed',
     errorFocusRing: 'focus:ring-errorRed',
 };

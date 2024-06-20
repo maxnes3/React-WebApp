@@ -1,7 +1,8 @@
 // Импорт компонентов из React
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { IconButton } from "./IconButton.tsx";
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 // Импорт сервисов
 import { favoritesService } from "../services/FavoritesService.ts";
@@ -48,14 +49,41 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
 
     const handleAddToFavorite = async () => {
         if (inFavorite) {
-            const response = await favoritesService.removeFromFavorites(flight.id.toString());
-            console.log(response);
-            if (updateFavorites) 
-                updateFavorites();
+            try {
+                const response = await favoritesService.removeFromFavorites(flight.id.toString());
+                console.log(response);
+                if (updateFavorites) 
+                    updateFavorites();
+                checkFavorite();
+                toast('Рейс успешно удалён из избранного!', {
+                    type: 'success',
+                    theme: 'light'
+                });
+            } catch(error){
+                console.error('Error remove favorite:', error);
+                toast('Ошибка при удалении из избранного!', {
+                    type: 'error',
+                    theme: 'light'
+                });
+            }
             return;
         }
-        const response = await favoritesService.addToFavorites(flight.id.toString());
-        console.log(response);
+
+        try {
+            const response = await favoritesService.addToFavorites(flight.id.toString());
+            console.log(response);
+            checkFavorite();
+            toast('Рейс успешно добавлен в избранное!', {
+                type: 'success',
+                theme: 'light'
+            });
+        } catch(error){
+            console.error('Error remove favorite:', error);
+            toast('Ошибка при добавлении в избранное!', {
+                type: 'error',
+                theme: 'light'
+            });
+        }
     };
 
 

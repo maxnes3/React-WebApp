@@ -13,6 +13,7 @@ import { localStorageService } from "../services/LocalStorageService.ts";
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
+import { toast } from "react-toastify";
 
 interface AddTwoFactorProps{
     setIsTwoFactor: (e: SetStateAction<boolean>) => void
@@ -76,9 +77,17 @@ export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
             console.log(response);
             setIsTwoFactor(true);
             setIsTwoFactor(localStorageService.setIsTwoFactor(true));
+            toast('Двухфакторная аунтефикация добавлена!', {
+                type: 'success',
+                theme: 'light'
+            });
             navigate('/');
         } catch (error) {
             console.error('Error two factor:', error);
+            toast('Ошибка при добавлении двухфакторной аунтефикации!', {
+                type: 'error',
+                theme: 'light'
+            })
         }
     }
 
