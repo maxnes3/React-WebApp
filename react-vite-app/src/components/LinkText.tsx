@@ -8,7 +8,7 @@ interface LinkTextProps {
 
 export function LinkText({ link, label }: LinkTextProps) {
     return (
-        <a href={link} className={`${colorsPresets.primaryTextBlack}`}>
+        <a href={link} className={`${colorsPresets.primaryTextWhite}`}>
             {label}
         </a>
     );

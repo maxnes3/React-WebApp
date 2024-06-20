@@ -15,7 +15,7 @@ interface DateFieldProps {
 export function DateField({ id, label, placeholder, value, onChange }: DateFieldProps){
     return (
         <div className="flex-1">
-            <label htmlFor={id} className={`block mb-2 ${colorsPresets.primaryTextBlack} font-bold`}>
+            <label htmlFor={id} className={`block mb-2 ${colorsPresets.primaryTextWhite} font-bold`}>
                 {label}
             </label>
             <input

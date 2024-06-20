@@ -70,7 +70,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
     return (
         <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} p-4 shadow-md`}>
             <div className="container mx-auto flex justify-between items-center">
-                <div className={`text-2xl ${colorsPresets.primaryTextBlack} font-bold`}>
+                <div className={`text-2xl ${colorsPresets.primaryTextOrange} font-bold`}>
                     SkyWingsExpress
                 </div>
                 <div>

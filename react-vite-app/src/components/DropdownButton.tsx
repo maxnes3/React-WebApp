@@ -35,7 +35,7 @@ export function DropdownButton({ icon, list }: DropdownButtonProps){
             <button
                 ref={buttonRef}
                 onClick={toggleDropdown}
-                className={`inline-flex items-center space-x-2 ${colorsPresets.primaryTextBlack} text-l font-bold rounded-md`}
+                className={`inline-flex items-center space-x-2 ${colorsPresets.primaryTextWhite} text-l font-bold rounded-md`}
             >
                 <img src={icon} 
                     alt='alt' 
