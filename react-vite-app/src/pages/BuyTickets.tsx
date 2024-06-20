@@ -1,27 +1,35 @@
-// Импорт компонентов из ./components/
-import { FormHeader } from "../components/FormHeader.tsx";
-
-// Импорт компонентов из React
+import { FormHeader } from "../components/FormHeader";
+import { SeatLabel } from "../components/SeatLabel";
+import { SubmitButton } from "../components/SubmitButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-// Импорт сервисов
-import { ticketService } from "../services/TicketService.ts";
+import { ticketService } from "../services/TicketService";
 import { colorsPresets } from "../styles/colorsPresets";
+import { CheckboxDefault } from "../components/CheckboxDefault";
 
-export function BuyTickets(){
+export function BuyTickets() {
     const { flightId } = useParams<{ flightId: string }>();
-    
+
     const [seats, setSeats] = useState<Seat[]>([]);
     const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
+    const seatsLabels = [
+        {
+        label: 'Свободные места',
+        color: ''
+        },
+        {
+        label: 'Занятые места',
+        color: ''
+        },
+    ];
+
     const fetchTickets = async (flightId: string) => {
         try {
-            const response = await ticketService.getTicketOnFlight(flightId);
-            console.log(response);
-            setSeats(response);
+        const response = await ticketService.getTicketOnFlight(flightId);
+        setSeats(response);
         } catch (error) {
-            console.error('Error fetching favorites:', error);
+        console.error('Error fetching favorites:', error);
         }
     };
 
@@ -34,10 +42,11 @@ export function BuyTickets(){
     }, [flightId]);
 
     const handleSeatSelect = (seatId: string) => {
+        console.log(seatId);
         setSelectedSeats((prevSelectedSeats) =>
             prevSelectedSeats.includes(seatId)
-                ? prevSelectedSeats.filter((id) => id !== seatId)
-                : [...prevSelectedSeats, seatId]
+            ? prevSelectedSeats.filter((id) => id !== seatId)
+            : [...prevSelectedSeats, seatId]
         );
     };
 
@@ -58,25 +67,35 @@ export function BuyTickets(){
             <FormHeader label="Выбор мест" color={colorsPresets.primaryTextBlack} />
             <div className="grid grid-cols-9 gap-2">
                 {seats.map((seat) => (
-                    <div key={seat.seatNumber} className={`p-2 ${seat.isAvailible ? '' : 'opacity-50'}`}>
-                        <label className="flex items-center space-x-2">
-                            <input
-                                type="checkbox"
-                                disabled={!seat.isAvailible}
-                                checked={selectedSeats.includes(seat.seatNumber)}
-                                onChange={() => handleSeatSelect(seat.seatNumber)}
-                                className="form-checkbox"
-                            />
-                        </label>
-                    </div>
+                <div key={seat.seatNumber} className={`p-2 flex items-center space-x-2 ${seat.isAvailible ? '' : 'opacity-50'}`}>
+                    <CheckboxDefault
+                        onChange={() => handleSeatSelect(seat.seatNumber)}
+                        checked={selectedSeats.includes(seat.seatNumber)}
+                        disabled={!seat.isAvailible}
+                    />
+                </div>
                 ))}
             </div>
-            <button
+            <form className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+                {seatsLabels.map((seat) => (
+                <SeatLabel
+                    label={seat.label}
+                    color={seat.color}
+                />
+                ))}
+                <SubmitButton
+                label="Назад"
                 onClick={handlePurchase}
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
-            >
-                Purchase
-            </button>
+                />
+                <SubmitButton
+                label="Бронировать"
+                onClick={handlePurchase}
+                />
+                <SubmitButton
+                label="Купить"
+                onClick={handlePurchase}
+                />
+            </form>
         </div>
     );
 }
