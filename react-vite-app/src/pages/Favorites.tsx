@@ -1,11 +1,11 @@
 // Импорт компонентов из ./components/
-import { ListFlights } from "../components/ListFlights.tsx";
+import {ListFlights} from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
-import { useState, useEffect, SetStateAction } from "react";
+import {useEffect, useState} from "react";
 
 // Импорт сервисов
-import { favoritesService } from "../services/FavoritesService.ts";
+import {favoritesService} from "../services/FavoritesService.ts";
 
 export function Favorites(){
     const [favorites, setFavorites] = useState([]);

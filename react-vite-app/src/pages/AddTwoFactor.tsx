@@ -1,18 +1,18 @@
 // Импорт компонентов из ./components/
-import { InputField } from "../components/InputField.tsx";
-import { SubmitButton } from "../components/SubmitButton.tsx";
-import { FormHeader } from "../components/FormHeader.tsx";
+import {InputField} from "../components/InputField.tsx";
+import {SubmitButton} from "../components/SubmitButton.tsx";
+import {FormHeader} from "../components/FormHeader.tsx";
 
 // Импорт компонентов из React
-import { useState, useEffect, useCallback, FormEvent, SetStateAction } from "react";
-import { useNavigate } from 'react-router-dom';
+import {FormEvent, SetStateAction, useCallback, useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 
 // Импорт сервисов
-import { signInService } from "../services/SignInService.ts";
-import { localStorageService } from "../services/LocalStorageService.ts";
+import {signInService} from "../services/SignInService.ts";
+import {localStorageService} from "../services/LocalStorageService.ts";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface AddTwoFactorProps{
     setIsTwoFactor: (e: SetStateAction<boolean>) => void

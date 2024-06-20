@@ -24,13 +24,7 @@ export default class SurveyService extends CommonService{
       headers: {
         'Authorization': `Bearer ${localStorage.getItem("access")}`,
       }
-    })
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error('Ошибка создания опроса:', error);
-      });
+    });
   }
 
   static async getSurveysPage(page: number, size = 5) {
@@ -64,7 +58,6 @@ export default class SurveyService extends CommonService{
   }
 
   static async passSurvey(passedSurvey: SurveyPassingModel) {
-    console.log(Object.values(passedSurvey.answers));
     return axios.post(
       `${this.API_URL}/surveys`,
       {

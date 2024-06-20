@@ -40,4 +40,12 @@ export default class ProfileService extends CommonService {
       }
     });
   }
+
+  static async getChildMode() {
+    return await axios.get(`${this.API_URL}/profile/child-mode`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("access")}`,
+      }
+    });
+  }
 }

@@ -1,7 +1,5 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import ProfileService from "../services/ProfileService.ts";
-import SurveyService from "../services/SurveyService.ts";
-import SurveyCardComponent from "../components/surveys/SurveyCardComponent.tsx";
 import {colorsPresets} from "../styles/colorsPresets.ts";
 import {SubmitButton} from "../components/SubmitButton.tsx";
 import {useNavigate} from "react-router-dom";
@@ -23,7 +21,11 @@ interface PassedSurveys {
   correctAnswersCount: number;
 }
 
-export default function ProfilePage() {
+interface UserProfileProps {
+  setChildMode?: (newChildMode: boolean) => void;
+}
+
+export default function ProfilePage({setChildMode}: UserProfileProps) {
   const [profile, setProfile] = useState<UserProfile>({
     id: 0,
     name: '',
@@ -40,18 +42,19 @@ export default function ProfilePage() {
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const response = await ProfileService.getProfileData();
-      const profile = response.data;
-      setProfile({...profile});
-      const responseSurveys = await ProfileService.getPassedSurveys(currentPage, 2);
-      const surveys = responseSurveys.data.content;
-      setTotalPages(responseSurveys.data.totalPages);
-      setPassedSurveys(surveys)
-      console.log(surveys);
-    };
+  const getProfile = async () => {
+    const response = await ProfileService.getProfileData();
+    const profile = response.data;
+    setProfile({...profile});
+    console.log(profile);
+    const responseSurveys = await ProfileService.getPassedSurveys(currentPage, 2);
+    const surveys = responseSurveys.data.content;
+    setTotalPages(responseSurveys.data.totalPages);
+    setPassedSurveys(surveys)
+    console.log(surveys);
+  };
 
+  useEffect(() => {
     getProfile();
   }, []);
 
@@ -72,6 +75,10 @@ export default function ProfilePage() {
     const { id, ...profileData } = profile;
 
     await ProfileService.updateProfile(profileData);
+    await getProfile()
+    if (setChildMode) {
+      setChildMode(profile.childMode)
+    }
     // Дополнительные действия после обновления профиля
   };
 
@@ -182,21 +189,20 @@ export default function ProfilePage() {
             Включить детский режим
           </label>
         </div>
-        {showPasswordInput && (
-          <div className="mb-4">
-            <label htmlFor="childModePassword" className="block text-sm font-medium text-gray-700">
-              Пароль для детского режима
-            </label>
-            <input
-              type="childModePassword"
-              name="childModePassword"
-              id="childModePassword"
-              value={profile.childModePassword || ''}
-              onChange={handleChange}
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-            />
-          </div>
-        )}
+        <div className="mb-4">
+          <label htmlFor="childModePassword" className="block text-sm font-medium text-gray-700">
+            Пароль для детского режима
+          </label>
+          <input
+            type="childModePassword"
+            name="childModePassword"
+            id="childModePassword"
+            value={profile.childModePassword || ''}
+            onChange={handleChange}
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
         <div className="flex justify-between">
           <button
             type="submit"

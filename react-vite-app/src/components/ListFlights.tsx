@@ -1,9 +1,9 @@
 // Импорт компонентов из ./components/
-import { FormHeader } from "../components/FormHeader.tsx";
-import { ListFlightCard } from "./ListFlightCard.tsx";
+import {FormHeader} from "../components/FormHeader.tsx";
+import {ListFlightCard} from "./ListFlightCard.tsx";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface ListFlightsProps {
     flights: Flight[],

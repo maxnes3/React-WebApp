@@ -1,5 +1,3 @@
-import { ListTicketsCard } from "./ListTicketsCard";
-
 interface ListTicketsProps{
     tickets: Ticket[]
 }

@@ -1,19 +1,19 @@
 // Импорт компонентов из ./components/
-import { FormHeader } from "../components/FormHeader.tsx";
-import { InputField } from "../components/InputField.tsx";
-import { DateField } from "../components/DateField.tsx";
-import { SubmitButton } from "../components/SubmitButton.tsx";
-import { IconButton } from "../components/IconButton.tsx";
-import { ListFlights } from "../components/ListFlights.tsx";
+import {FormHeader} from "../components/FormHeader.tsx";
+import {InputField} from "../components/InputField.tsx";
+import {DateField} from "../components/DateField.tsx";
+import {SubmitButton} from "../components/SubmitButton.tsx";
+import {IconButton} from "../components/IconButton.tsx";
+import {ListFlights} from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent, SetStateAction } from "react";
+import {FormEvent, useCallback, useState} from "react";
 
 // Импорт сервисов
-import { flightService } from "../services/FlightService.ts";
+import {flightService} from "../services/FlightService.ts";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 // Получение текущей даты
 const getCurrentDate = () => {

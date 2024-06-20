@@ -1,5 +1,5 @@
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 export interface DropdownButtonItemProps{
     label: string,

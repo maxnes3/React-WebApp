@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { localStorageService } from "./LocalStorageService.ts";
+import {localStorageService} from "./LocalStorageService.ts";
 
 class FavoritesService{
     URL = 'http://localhost:8081/api/v1/favorites'

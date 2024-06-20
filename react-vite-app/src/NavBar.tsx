@@ -1,16 +1,16 @@
 // Импорт компонентов из ./components/
-import { LinkIcon } from "./components/LinkIcon.tsx";
-import { DropdownButton } from "./components/DropdownButton.tsx";
+import {LinkIcon} from "./components/LinkIcon.tsx";
+import {DropdownButton} from "./components/DropdownButton.tsx";
 
 // Импорт компонентов из React
-import { SetStateAction } from "react";
-import { useNavigate } from 'react-router-dom';
+import {SetStateAction} from "react";
+import {useNavigate} from 'react-router-dom';
 
 // Импорт сервисов
-import { localStorageService } from './services/LocalStorageService.ts';
+import {localStorageService} from './services/LocalStorageService.ts';
 
 // Импорт стилей
-import { colorsPresets } from "./styles/colorsPresets.ts";
+import {colorsPresets} from "./styles/colorsPresets.ts";
 
 interface NavbarProps{
     role: string,

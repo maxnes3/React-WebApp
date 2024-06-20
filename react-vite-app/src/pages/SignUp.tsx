@@ -1,18 +1,18 @@
 // Импорт компонентов из ./components/
-import { FormHeader } from "../components/FormHeader.tsx";
-import { InputField } from "../components/InputField.tsx";
-import { SubmitButton } from "../components/SubmitButton.tsx";
-import { LinkText } from "../components/LinkText.tsx";
+import {FormHeader} from "../components/FormHeader.tsx";
+import {InputField} from "../components/InputField.tsx";
+import {SubmitButton} from "../components/SubmitButton.tsx";
+import {LinkText} from "../components/LinkText.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent } from "react";
-import { useNavigate } from 'react-router-dom';
+import {FormEvent, useCallback, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 
 // Импорт сервисов
-import { signInService } from "../services/SignInService.ts";
+import {signInService} from "../services/SignInService.ts";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 // Регистрация
 export function SignUp() {

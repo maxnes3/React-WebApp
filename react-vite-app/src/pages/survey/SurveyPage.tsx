@@ -11,6 +11,7 @@ export default function SurveyPage() {
   const { surveyId } = useParams<{ surveyId: string }>();
   const [survey, setSurvey] = useState<SurveyApiDto | null>(null);
   const [surveyPassing, setSurveyPassing] = useState<SurveyPassingModel>({id: 0, answers: []});
+  const [error, setError] = useState('');
 
   const getSurvey = async (surveyId: string) => {
     const response = await SurveyService.getSurvey(surveyId!);
@@ -30,7 +31,16 @@ export default function SurveyPage() {
   }
 
   const handleSubmit = () => {
-    SurveyService.passSurvey(surveyPassing)
+      SurveyService.passSurvey(surveyPassing).then(
+        () => {
+          setError('');
+        }
+      ).catch(
+        err => {
+          console.error(err);
+          setError("Не удалось отправить запрос на прохождение опроса, проверьте Ваши ответы!");
+        }
+      );
   }
 
   const handleAnswerChange = (answer: AnswerPassingModel) => {
@@ -64,6 +74,10 @@ export default function SurveyPage() {
             </div>
           )
         })}
+        {error && (
+          <p className={`${colorsPresets.errorText}`}>{error}</p>
+        )
+        }
         <div className={`m-2 flex ${colorsPresets.primaryBackground}`}>
           <SubmitButton label="Отправить" onClick={handleSubmit}/>
         </div>

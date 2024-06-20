@@ -1,10 +1,10 @@
-import { useGoogleLogin } from '@react-oauth/google';
-import { SetStateAction } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useGoogleLogin} from '@react-oauth/google';
+import {SetStateAction} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 // Импорт сервисов
-import { googleAuthService } from '../services/GoogleAuthService.ts';
-import { localStorageService } from '../services/LocalStorageService.ts';
+import {googleAuthService} from '../services/GoogleAuthService.ts';
+import {localStorageService} from '../services/LocalStorageService.ts';
 
 interface SignInGoogleButtonProps{
     setIsAuth: (e: SetStateAction<boolean>) => void,

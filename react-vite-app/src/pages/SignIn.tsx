@@ -1,21 +1,21 @@
 // Импорт компонентов из ./components/
-import { FormHeader } from "../components/FormHeader.tsx";
-import { InputField } from "../components/InputField.tsx";
-import { SubmitButton } from "../components/SubmitButton.tsx";
-import { LinkText } from "../components/LinkText.tsx";
-import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
+import {FormHeader} from "../components/FormHeader.tsx";
+import {InputField} from "../components/InputField.tsx";
+import {SubmitButton} from "../components/SubmitButton.tsx";
+import {LinkText} from "../components/LinkText.tsx";
+import {SignInGoogleButton} from "../components/SignInGoogleButton.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent, SetStateAction } from "react";
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { useNavigate } from 'react-router-dom';
+import {FormEvent, SetStateAction, useCallback, useState} from "react";
+import {GoogleOAuthProvider} from '@react-oauth/google'
+import {useNavigate} from 'react-router-dom';
 
 // Импорт сервисов
-import { signInService } from "../services/SignInService.ts";
-import { localStorageService } from '../services/LocalStorageService.ts';
+import {signInService} from "../services/SignInService.ts";
+import {localStorageService} from '../services/LocalStorageService.ts';
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface SignInProps{
     setRole:  (e: SetStateAction<string>) => void,

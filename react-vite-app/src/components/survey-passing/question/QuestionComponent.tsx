@@ -1,9 +1,5 @@
 import './Question.css'
-import {
-  AnswerApiDto,
-  QuestionApiProps,
-  QuestionTypeEnum
-} from "../../../types/Survey.ts";
+import {AnswerApiDto, QuestionApiProps, QuestionTypeEnum} from "../../../types/Survey.ts";
 import TextQuestionComponent from './TextQuestionComponent.tsx';
 import {colorsPresets} from "../../../styles/colorsPresets.ts";
 import TableQuestionComponent from "./TableQuestionComponent.tsx";

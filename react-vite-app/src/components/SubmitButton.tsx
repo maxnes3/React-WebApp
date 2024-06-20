@@ -1,8 +1,8 @@
 // Импорт компонентов из React
-import { FormEvent } from "react";
+import {FormEvent} from "react";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface SubmitButtonProps {
     label: string;

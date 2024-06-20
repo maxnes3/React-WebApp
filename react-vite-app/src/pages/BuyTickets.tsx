@@ -1,15 +1,19 @@
 // Импорт компонентов из ./components/
-import { FormHeader } from "../components/FormHeader.tsx";
+import {FormHeader} from "../components/FormHeader.tsx";
 
 // Импорт компонентов из React
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
 // Импорт сервисов
-import { ticketService } from "../services/TicketService.ts";
-import { colorsPresets } from "../styles/colorsPresets";
+import {ticketService} from "../services/TicketService.ts";
+import {colorsPresets} from "../styles/colorsPresets";
 
-export function BuyTickets(){
+interface BuyTicketsProps {
+    childMode: boolean;
+}
+
+export function BuyTickets({childMode}: BuyTicketsProps){
     const { flightId } = useParams<{ flightId: string }>();
     
     const [seats, setSeats] = useState<Seat[]>([]);
@@ -32,6 +36,13 @@ export function BuyTickets(){
             console.error('No flight ID provided');
         }
     }, [flightId]);
+
+    if (childMode){
+        console.log(childMode);
+        return (
+          <h1>У вас недостаточно прав</h1>
+        );
+    }
 
     const handleSeatSelect = (seatId: string) => {
         setSelectedSeats((prevSelectedSeats) =>

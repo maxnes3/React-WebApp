@@ -1,5 +1,5 @@
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 interface IconButtonProps {
     icon: string;

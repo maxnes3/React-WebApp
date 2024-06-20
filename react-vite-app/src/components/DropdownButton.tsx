@@ -1,14 +1,14 @@
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets.ts";
+import {colorsPresets} from "../styles/colorsPresets.ts";
 
 // Импорт компонентов из ./components/
-import { DropdownButtonItem, DropdownButtonItemProps } from "./DropdownButtonItem.tsx";
+import {DropdownButtonItem, DropdownButtonItemProps} from "./DropdownButtonItem.tsx";
 
 // Импорт компонентов из React
-import { useState, useRef, useEffect } from "react";
+import {useEffect, useRef, useState} from "react";
 
 // Импорт сервисов
-import { localStorageService } from '../services/LocalStorageService.ts';
+import {localStorageService} from '../services/LocalStorageService.ts';
 
 interface DropdownButtonProps {
     icon: string,

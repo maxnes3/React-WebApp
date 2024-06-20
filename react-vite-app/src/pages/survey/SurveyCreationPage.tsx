@@ -13,6 +13,7 @@ import {useNavigate} from "react-router-dom";
 export default function SurveyCreationPage() {
   const [survey, setSurvey]
     = useState<SurveyModel>({ title: '', questions: [] });
+  const [error, setError] = useState<string>('');
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSurvey({ ...survey, title: e.target.value });
@@ -49,6 +50,10 @@ export default function SurveyCreationPage() {
   };
 
   const handleSubmit = async () => {
+    if (survey.title.length === 0 || survey.questions.length === 0) {
+      setError("Проверьте заполненность всех полей!")
+      return;
+    }
     const surveyToSubmit: Omit<SurveyModel, 'questions'> & { questions: Omit<QuestionModel, 'id'>[] } = {
       ...survey,
       questions: survey.questions
@@ -57,6 +62,9 @@ export default function SurveyCreationPage() {
     };
     navigate("/surveys")
     await SurveyService.create(surveyToSubmit)
+      .then(() => {
+        setError('')
+      })
   }
 
   return (
@@ -96,6 +104,10 @@ export default function SurveyCreationPage() {
           <SubmitButton label='+'
                         onClick={addQuestion}/>
         </div>
+        {error && (
+          <p className={`${colorsPresets.errorText}`}>{error}</p>
+        )
+        }
         <div className={`m-2 p-2 flex ${colorsPresets.primaryBackground}`}>
           <SubmitButton label="Создать опрос" onClick={handleSubmit}/>
         </div>

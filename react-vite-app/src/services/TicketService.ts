@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { localStorageService } from "./LocalStorageService";
+import {localStorageService} from "./LocalStorageService";
 
 class TicketService{
     URL = 'http://localhost:8081/api/v1/buy'

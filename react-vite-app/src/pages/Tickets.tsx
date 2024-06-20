@@ -1,11 +1,11 @@
 // Импорт компонентов из ./components/
-import { ListTickets } from "../components/ListTickets";
+import {ListTickets} from "../components/ListTickets";
 
 // Импорт компонентов из React
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 
 // Импорт сервисов
-import { ticketService } from "../services/TicketService";
+import {ticketService} from "../services/TicketService";
 
 export function Tickets(){
     const [tickets, setTickets] = useState([]);

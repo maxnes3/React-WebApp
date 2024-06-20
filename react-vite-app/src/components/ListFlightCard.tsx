@@ -1,11 +1,11 @@
 // Импорт компонентов из React
-import { SetStateAction, useState } from "react";
-import { IconButton } from "./IconButton.tsx";
-import { useNavigate } from 'react-router-dom';
+import {useState} from "react";
+import {IconButton} from "./IconButton.tsx";
+import {useNavigate} from 'react-router-dom';
 
 // Импорт сервисов
-import { favoritesService } from "../services/FavoritesService.ts";
-import { localStorageService } from "../services/LocalStorageService.ts";
+import {favoritesService} from "../services/FavoritesService.ts";
+import {localStorageService} from "../services/LocalStorageService.ts";
 
 interface ListFlightCardProps {
     flight: Flight,
