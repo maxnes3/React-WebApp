@@ -12,7 +12,6 @@ export default {
       'black': '#272727',
       'orange': '#FF652F',
       'dark': '#25274D',
-      'aqua': '#3AAFA9',
       'gray': '#464866',
       'light': '#F2F2F2',
       'errorRed': '#DC2626',

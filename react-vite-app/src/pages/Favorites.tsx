@@ -2,7 +2,7 @@
 import { ListFlights } from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 
 // Импорт сервисов
 import { favoritesService } from "../services/FavoritesService.ts";
@@ -13,6 +13,7 @@ export function Favorites(){
     const fetchFavorites = async () => {
         try {
             const response = await favoritesService.getFavorites();
+            console.log(response);
             setFavorites(response);
         } catch (error) {
             console.error('Error fetching favorites:', error);

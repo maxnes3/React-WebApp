@@ -107,8 +107,17 @@ export function SearchTicket() {
       );
       setFlights(flights)
       console.log('Flights:', flights);
+      if (flights.departureFlights.length > 0 || flights.returnFlights.length > 0)
+        toast('Рейсы по запросу найдены!', {
+          type: 'success',
+          theme: 'light'
+        });
     } catch (error) {
       console.error('Error fetching flights:', error);
+      toast('Ошибка при запросе к серверу!', {
+        type: 'error',
+        theme: 'light'
+      });
     }
   };
 
@@ -176,11 +185,9 @@ export function SearchTicket() {
       </div>
       <ListFlights 
         flights={flights.departureFlights}
-        exception="Прямые рейсы не найдены"
       />
       <ListFlights
         flights={flights.returnFlights}
-        exception="Обратные рейсы не найдены"
       />
     </div>
   );
