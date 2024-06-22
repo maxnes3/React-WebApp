@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 .env
-.png
+
+*.jpg\n*.jpeg\n*.png\n*.gif\n

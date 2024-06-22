@@ -26,7 +26,7 @@ export function ListFlights({ flights, exception, updateFavorites }: ListFlights
 
     return (
         <div className="space-y-4">
-            {exception && flights !== null && flights.length == 0 ? (
+            {exception && flights && flights.length == 0 ? (
                 <FormHeader 
                     label={exception}
                     color={colorsPresets.primaryTextBlack}

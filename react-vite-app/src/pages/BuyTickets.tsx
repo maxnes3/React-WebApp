@@ -5,6 +5,7 @@ import { SubmitButton } from "../components/SubmitButton";
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { ticketService } from "../services/TicketService";
 import { CheckboxDefault } from "../components/CheckboxDefault";
@@ -85,7 +86,7 @@ export function BuyTickets() {
                 reservationTicket: selectedSeats
             };
             await ticketService.buyTicket(data);
-            alert('Tickets purchased successfully!');
+            toast('')
         } catch (error) {
             console.error('Error purchasing tickets:', error);
         }

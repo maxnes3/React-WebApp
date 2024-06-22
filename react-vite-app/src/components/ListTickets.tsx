@@ -14,7 +14,8 @@ export function ListTickets({ tickets, exception }: ListTicketsProps){
         <div className="space-y-4">
             {tickets !== null && tickets.length > 0 ? (
                 tickets.map((ticket) => (
-                    <ListTicketsCard 
+                    <ListTicketsCard
+                        key={ticket.id}
                         ticket={ticket}
                     />
                 ))
