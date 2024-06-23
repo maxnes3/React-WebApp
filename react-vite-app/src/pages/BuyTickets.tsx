@@ -2,14 +2,17 @@
 import { FormHeader } from "../components/FormHeader";
 import { SeatLabel } from "../components/SeatLabel";
 import { SubmitButton } from "../components/SubmitButton";
+import { CheckboxDefault } from "../components/CheckboxDefault";
 
+// Импорт компонентов из React
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
+// Импорт сервисов
 import { ticketService } from "../services/TicketService";
-import { CheckboxDefault } from "../components/CheckboxDefault";
 
+// Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets";
 
 interface SeatWithPosition extends Seat {
@@ -80,8 +83,24 @@ export function BuyTickets() {
         navigate('/');
     };
 
-    const handleReservation = () => {
-
+    const handleReservation = async () => {
+        try {
+            const data: ReservationDto = {
+                reservationTicket: selectedSeats
+            };
+            await ticketService.reservationTicket(data);
+            toast('Билеты забронированы!', {
+                type: 'success',
+                theme: 'light'
+            });
+            navigate('/tickets');
+        } catch (error) {
+            console.error('Error purchasing tickets:', error);
+            toast('Ошибка при бронировании билета!', {
+                type: 'error',
+                theme: 'light'
+            });
+        }
     };
 
     const handlePurchase = async () => {
@@ -140,7 +159,7 @@ export function BuyTickets() {
                     />
                     <SubmitButton
                         label="Бронировать"
-                        onClick={handleBackToSearch}
+                        onClick={handleReservation}
                     />
                     <SubmitButton
                         label="Купить"

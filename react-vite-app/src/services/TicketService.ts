@@ -29,6 +29,20 @@ class TicketService{
         }
     }
 
+    async reservationTicket(dto: ReservationDto){
+        try {
+            const response = await axios.post(`${this.URL}/reservation`, dto, {
+                headers: {
+                    'Authorization': `Bearer ${localStorageService.getAccessToken()}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching tickets:', error);
+            throw error;
+        }
+    }
+
     async getUserBuyTicket(){
         try {
             const response = await axios.get(`${this.URL}/getUserBuyTicket`, {

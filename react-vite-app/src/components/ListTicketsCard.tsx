@@ -25,12 +25,12 @@ export function ListTicketsCard({ ticket }: ListTicketsCardProps){
         const element = document.getElementById(`ticket-card-${ticketNumber}`);
         if (element) {
             try {
-            html2pdf()
-                .from(element)
-                .save();
-            toast('Билет успешно сохранён в pdf!', {
-                type: 'success',
-                theme: 'light'
+                html2pdf()
+                    .from(element)
+                    .save();
+                toast('Билет успешно сохранён в pdf!', {
+                    type: 'success',
+                    theme: 'light'
             });
             } catch (error) {
                 console.error('Error save ticket:', error);
@@ -58,12 +58,11 @@ export function ListTicketsCard({ ticket }: ListTicketsCardProps){
                     theme: 'light'
                 });
             });
-
     };
 
     const listTicketShare = [
         {
-            label: 'Сохранить pdf',
+            label: 'Сохранить',
             onClick: handleSaveToPDF
         },
         {
