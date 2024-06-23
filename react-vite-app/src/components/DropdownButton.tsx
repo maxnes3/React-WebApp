@@ -7,15 +7,13 @@ import { DropdownButtonItem, DropdownButtonItemProps } from "./DropdownButtonIte
 // Импорт компонентов из React
 import { useState, useRef, useEffect } from "react";
 
-// Импорт сервисов
-import { localStorageService } from '../services/LocalStorageService.ts';
-
 interface DropdownButtonProps {
     icon: string,
+    label: string,
     list: DropdownButtonItemProps[]
 }
 
-export function DropdownButton({ icon, list }: DropdownButtonProps){
+export function DropdownButton({ icon, label, list }: DropdownButtonProps){
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownWidth, setDropdownWidth] = useState<number | undefined>(undefined);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -39,9 +37,9 @@ export function DropdownButton({ icon, list }: DropdownButtonProps){
             >
                 <img src={icon} 
                     alt='alt' 
-                    className={`h-8 w-8`}
+                    className={`h-8 w-8 mr-1`}
                 />
-                {localStorageService.getEmailFromToken()}
+                {label}
             </button>
             {isOpen && (
                 <div

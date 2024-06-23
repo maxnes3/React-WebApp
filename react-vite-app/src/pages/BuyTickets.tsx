@@ -76,8 +76,12 @@ export function BuyTickets() {
         );
     };
 
-    const handleBackToSearch = () =>{
+    const handleBackToSearch = () => {
         navigate('/');
+    };
+
+    const handleReservation = () => {
+
     };
 
     const handlePurchase = async () => {
@@ -86,9 +90,17 @@ export function BuyTickets() {
                 reservationTicket: selectedSeats
             };
             await ticketService.buyTicket(data);
-            toast('')
+            toast('Билеты куплены!', {
+                type: 'success',
+                theme: 'light'
+            });
+            navigate('/tickets');
         } catch (error) {
             console.error('Error purchasing tickets:', error);
+            toast('Ошибка при покупке билета!', {
+                type: 'error',
+                theme: 'light'
+            });
         }
     };
 

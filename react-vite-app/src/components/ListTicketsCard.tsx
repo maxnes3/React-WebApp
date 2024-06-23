@@ -1,4 +1,10 @@
+import { DropdownButton } from './DropdownButton.tsx';
+
+import html2pdf from 'html2pdf.js';
+import { toast } from 'react-toastify';
+
 import { localStorageService } from "../services/LocalStorageService";
+
 import { colorsPresets } from "../styles/colorsPresets";
 
 interface ListTicketsCardProps{
@@ -6,16 +12,78 @@ interface ListTicketsCardProps{
 }
 
 export function ListTicketsCard({ ticket }: ListTicketsCardProps){
-    const { flight, ticketNumber, finalPrice, isCheckedIn } = ticket;
-    const { flightNumber, route, departureTime, arrivalTime } = flight;
+    const { flight, ticketNumber, finalPrice, isBuy } = ticket;
+    const { flightNumber, route, departureTime } = flight;
+
+    // Опции для отображения времени без секунд
+    const timeOptions: Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+    };
+
+    const handleSaveToPDF = () => {
+        const element = document.getElementById(`ticket-card-${ticketNumber}`);
+        if (element) {
+            try {
+            html2pdf()
+                .from(element)
+                .save();
+            toast('Билет успешно сохранён в pdf!', {
+                type: 'success',
+                theme: 'light'
+            });
+            } catch (error) {
+                console.error('Error save ticket:', error);
+                toast('Ошибка при сохранении билета в pdf!', {
+                    type: 'error',
+                    theme: 'light'
+                });
+            }
+        }
+    };
+
+    const handleCopyHref = () => {
+        const url = `http://localhost:5173/share-ticket/${ticketNumber}`;
+        navigator.clipboard.writeText(url)
+            .then(() => {
+                toast('Ссылка успешно скопирована!', {
+                    type: 'success',
+                    theme: 'light'
+                });
+            })
+            .catch((error) => {
+                console.error('Error copying link:', error);
+                toast('Ошибка при копировании ссылки!', {
+                    type: 'error',
+                    theme: 'light'
+                });
+            });
+
+    };
+
+    const listTicketShare = [
+        {
+            label: 'Сохранить pdf',
+            onClick: handleSaveToPDF
+        },
+        {
+            label: 'Ссылкой',
+            onClick: handleCopyHref
+        }
+    ];
 
     return (
-        <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden" id={`ticket-card-${ticketNumber}`}>
             <div className={`flex justify-between p-4 bg-googleBlue ${colorsPresets.primaryTextWhite} border-b`}>
                 <div>
                     <h1 className="text-lg font-semibold">BOARDING PASS</h1>
                     <p className="text-xs text-gray-500">Номер рейса: {flightNumber}</p>
                 </div>
+                <DropdownButton
+                    icon='/share-icon.svg'
+                    label='Поделиться'
+                    list={listTicketShare}
+                />
             </div>
             <div className="flex justify-between">
                 <div className="p-4 space-y-4">
@@ -46,7 +114,7 @@ export function ListTicketsCard({ ticket }: ListTicketsCardProps){
                         </div>
                         <div className="space-y-1">
                             <p className="text-sm font-semibold">TIME:</p>
-                            <p className="text-xs text-gray">{new Date(departureTime).toLocaleTimeString()}</p>
+                            <p className="text-xs text-gray">{new Date(departureTime).toLocaleTimeString([], timeOptions)}</p>
                         </div>
                     </div>
                 </div>
@@ -66,7 +134,11 @@ export function ListTicketsCard({ ticket }: ListTicketsCardProps){
                     </div>
                     <div className="space-y-1">
                         <p className="text-sm font-semibold">BOARDING TIME:</p>
-                        <p className="text-xs text-gray">{new Date(departureTime).toLocaleTimeString()}</p>
+                        <p className="text-xs text-gray">{new Date(departureTime).toLocaleTimeString([], timeOptions)}</p>
+                    </div>
+                    <div className="space-y-1">
+                        <p className="text-sm font-semibold">STATUS:</p>
+                        <p className="text-xs text-gray">{isBuy ? 'ОПЛАЧЕН' : 'НЕ ОПЛАЧЕН'}</p>
                     </div>
                     <div className="space-y-1">
                         <p className="text-sm font-semibold">PRICE:</p>

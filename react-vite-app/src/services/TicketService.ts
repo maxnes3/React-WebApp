@@ -42,6 +42,16 @@ class TicketService{
             throw error;
         }
     }
+
+    async getTicketByNumber(ticketNumber: string){
+        try {
+            const response = await axios.get(`http://localhost:8081/api/v1/tickets/${ticketNumber}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching tickets:', error);
+            throw error;
+        }
+    }
 }
 
 export const ticketService = new TicketService()
