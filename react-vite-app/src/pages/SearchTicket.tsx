@@ -7,7 +7,7 @@ import { IconButton } from "../components/IconButton.tsx";
 import { ListFlights } from "../components/ListFlights.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent, useEffect } from "react";
+import { useState, useCallback, FormEvent } from "react";
 import { toast } from "react-toastify";
 
 // Импорт сервисов
@@ -120,7 +120,8 @@ export function SearchTicket() {
       }
       setFlights(response);
       console.log('Flights:', flights);
-      if (flights.departureFlights.length > 0 || flights.returnFlights.length > 0)
+      if ((flights.departureFlights != null && flights.departureFlights.length > 0) || 
+          (flights.returnFlights != null && flights.returnFlights.length > 0))
         toast('Рейсы по запросу найдены!', {
           type: 'success',
           theme: 'light'
@@ -150,6 +151,7 @@ export function SearchTicket() {
               onChange={(e) => handleInputChange('fromCity', e.target.value)}
               value={searchData.fromCity}
               error={errors.fromCity}
+              isPassword={false}
             />
             <div className="mt-8">
               <IconButton
@@ -165,6 +167,7 @@ export function SearchTicket() {
               onChange={(e) => handleInputChange('toCity', e.target.value)}
               value={searchData.toCity}
               error={errors.toCity}
+              isPassword={false}
             />
           </div>
           <div className="flex space-x-4">

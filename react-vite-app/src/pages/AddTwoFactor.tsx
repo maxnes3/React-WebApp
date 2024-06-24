@@ -119,6 +119,7 @@ export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
                         onChange={(e) => handleInputChange('codeTwoFactor', e.target.value)}
                         value={twoFactorData.codeTwoFactor}
                         error={errors.codeTwoFactor}
+                        isPassword={false}
                     />
                     <div className="flex justify-center space-y-4">
                         <SubmitButton

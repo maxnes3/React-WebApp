@@ -17,6 +17,8 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
 
     const [inFavorite, setInFavorite] = useState(false);
 
+    const [isExpand, setIsExpand] = useState(false);
+
     const departureDate = new Date(flight.departureTime);
     const arrivalDate = new Date(flight.arrivalTime);
 
@@ -28,8 +30,13 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
     };
 
-    const durationHours = Math.floor((arrivalDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60));
-    const durationMinutes = Math.round(((arrivalDate.getTime() - departureDate.getTime()) % (1000 * 60 * 60)) / (1000 * 60));
+    const durationHours = (departureDate: Date, arrivalDate: Date) => {
+        return Math.floor((arrivalDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60));
+    };
+
+    const durationMinutes = (departureDate: Date, arrivalDate: Date) => {
+        return Math.round(((arrivalDate.getTime() - departureDate.getTime()) % (1000 * 60 * 60)) / (1000 * 60));
+    };
 
     // Проверка на наличие в избранном
     const checkFavorite = async () => {
@@ -44,6 +51,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         checkFavorite();
     }, []);
 
+    // Добавление/удаление полёта в/из избранное
     const handleAddToFavorite = async () => {
         if (inFavorite) {
             try {
@@ -106,14 +114,14 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                 </div>
                 <div className="flex flex-col items-center justify-center relative">
                     <div className="absolute -top-0.5 text-xs mt-4 font-bold">
-                        В пути: {durationHours}ч {durationMinutes}м
+                        В пути: {durationHours(new Date(flight.departureTime), new Date(flight.arrivalTime))}ч {durationMinutes(new Date(flight.departureTime), new Date(flight.arrivalTime))}м
                     </div>
                     <div className="flex items-center space-x-2">
                         <img src="/start-icon.svg" 
                             alt="start_icon" 
                             className="h-4 w-4"
                         />
-                        <div className="border-t-2 border-gray-400 w-32"></div>
+                        <div className="border-t-2 w-32"></div>
                         <img src="/end-icon.svg" 
                             alt="end_icon" 
                             className="h-4 w-4"
@@ -132,17 +140,67 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                     </div>
                 </div>
             </div>
-            <div className="p-4 bg-gray-100 border-t">
-                <div className="flex justify-end space-x-2 items-end">
-                    {localStorageService.getAccessToken() ? (
+            {isExpand && 
+                flight.flightIn.map((item) => (
+                    <div className="flex justify-between space-x-4 ml-8 mr-8 mt-4 mb-8 p-4 border-t">
+                        <div className="flex flex-col items-center">
+                            <div className="text-2xl font-bold">
+                                {formatTime(new Date(item.departureTime))}
+                            </div>
+                            <div className="text-sm">
+                                {formatDate(new Date(item.departureTime))}
+                            </div>
+                            <div className="text-sm">
+                                {item.route.origin}
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center justify-center relative">
+                            <div className="absolute -top-0.5 text-xs mt-4 font-bold">
+                                В пути: {durationHours(new Date(item.departureTime), new Date(item.arrivalTime))}ч {durationMinutes(new Date(item.departureTime), new Date(item.arrivalTime))}м
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <img src="/start-icon.svg" 
+                                    alt="start_icon" 
+                                    className="h-4 w-4"
+                                />
+                                <div className="border-t-2 w-32"></div>
+                                <img src="/end-icon.svg" 
+                                    alt="end_icon" 
+                                    className="h-4 w-4"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <div className="text-2xl font-bold">
+                                {formatTime(new Date(item.arrivalTime))}
+                            </div>
+                            <div className="text-sm">
+                                {formatDate(new Date(item.arrivalTime))}
+                            </div>
+                            <div className="text-sm">
+                                {item.route.destination}
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+            <div className="p-4 border-t">
+                <div className={`flex ${flight.flightIn != null && flight.flightIn.length > 0 ? 'justify-between' : 'justify-end space-x-2 items-end'}`}>
+                    {flight.flightIn != null && flight.flightIn.length > 0 && (
+                        <IconButton 
+                        icon={isExpand ? "/visibility-off-icon.svg" : "/visibility-icon.svg"}
+                        size="6"  
+                        name="Expand"
+                        onClick={() => {setIsExpand(!isExpand)}}
+                        text={isExpand ? 'Скрыть' : 'Подробнее'} />
+                    )}
+                    {localStorageService.getAccessToken() && (
                         <IconButton 
                         icon={inFavorite ? "/remove-icon.svg" : "/favorite-icon.svg"}
                         size="6"  
                         name="favorite"
                         onClick={handleAddToFavorite}
-                        text="Избраное"
-                    />) : (
-                        <span></span>
+                        text="Избраное" />
                     )}
                     <IconButton 
                         icon="/buy-icon.svg"

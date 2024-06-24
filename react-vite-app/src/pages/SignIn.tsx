@@ -160,6 +160,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         value={signInData.email}
                         error={errors.email}
+                        isPassword={false}
                     />
                     <InputField
                         id="password" label="Пароль"
@@ -167,6 +168,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                         onChange={(e) => handleInputChange('password', e.target.value)}
                         value={signInData.password}
                         error={errors.password}
+                        isPassword={true}
                     />
                     {signInData.isTwoFactor && (
                         <InputField
@@ -175,6 +177,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                             onChange={(e) => handleInputChange('codeTwoFactor', e.target.value)}
                             value={signInData.codeTwoFactor}
                             error={errors.codeTwoFactor}
+                            isPassword={false}
                         />
                     )}
                     <div className="flex justify-center space-y-4">

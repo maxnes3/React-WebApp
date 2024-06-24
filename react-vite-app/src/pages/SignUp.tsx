@@ -116,6 +116,7 @@ export function SignUp() {
                             onChange={(e) => handleInputChange('email', e.target.value)}
                             value={signUpData.email}
                             error={errors.email}
+                            isPassword={false}
                         />
                         <InputField
                             id="password" label="Пароль"
@@ -123,6 +124,7 @@ export function SignUp() {
                             onChange={(e) => handleInputChange('password', e.target.value)}
                             value={signUpData.password}
                             error={errors.password}
+                            isPassword={true}
                         />
                         <InputField
                             id="confirmPassword" label="Подтверждение"
@@ -130,6 +132,7 @@ export function SignUp() {
                             onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                             value={signUpData.confirmPassword}
                             error={errors.confirmPassword}
+                            isPassword={true}
                         />
                         <div className="flex justify-center space-y-4">
                             <SubmitButton

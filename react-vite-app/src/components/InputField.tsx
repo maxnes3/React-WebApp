@@ -12,9 +12,10 @@ interface InputFieldProps {
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     error?: string;
+    isPassword: boolean;
 }
   
-export function InputField({ id, label, placeholder, value, onChange, error }: InputFieldProps){
+export function InputField({ id, label, placeholder, value, onChange, error, isPassword }: InputFieldProps){
     // Вёрстка компонента
     return (
         <div className="flex-1">
@@ -22,7 +23,7 @@ export function InputField({ id, label, placeholder, value, onChange, error }: I
                 {label}
             </label>
             <input
-                type="text"
+                type={isPassword ? "password" : "text"}
                 id={id}
                 className={`w-full p-3 rounded-md ${colorsPresets.inputBackground} ${colorsPresets.primaryTextWhite} border-none focus:outline-none focus:ring-2 ${error ? colorsPresets.errorFocusRing : colorsPresets.inputFocusRing}`}
                 placeholder={placeholder}
