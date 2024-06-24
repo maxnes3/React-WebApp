@@ -21,6 +21,7 @@ interface NavbarProps{
     setIsTwoFactor: (e: SetStateAction<boolean>) => void
 }
 
+// Навигационная панель
 export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwoFactor }: NavbarProps){
     // Навигация
     const navigate = useNavigate();
@@ -45,6 +46,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
         navigate('/tickets/false');
     };
 
+    // Выход из аккаунта
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
         setIsAuth(isAuthBoolean());
@@ -56,6 +58,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
         navigate('/');
     };
 
+    // Добавление двухфакторной авторизации если нет
     const listIsNotTwoFactor = () => {
         const newList = listIsTwoFactor;
         newList.unshift({
@@ -65,6 +68,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
         return newList;
     }
 
+    // 
     const listIsTwoFactor = [
         {
             label: 'Избранное',
@@ -84,6 +88,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
         },
     ];
 
+    // Вёрстка компонента
     return (
         <nav className={`w-full ${colorsPresets.primaryBackground} ${colorsPresets.primaryTextBlack} p-4 shadow-md`}>
             <div className="container mx-auto flex justify-between items-center">

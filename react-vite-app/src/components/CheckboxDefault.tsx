@@ -1,3 +1,4 @@
+// Иницализация входных веременных
 interface CheckboxDefaultProps {
   onChange: () => void,
   checked: boolean,
@@ -5,6 +6,7 @@ interface CheckboxDefaultProps {
 }
 
 export function CheckboxDefault({ onChange, checked, disabled }: CheckboxDefaultProps) {
+  // Вёрстка компонента
   return (
       <input 
           id="checkbox"

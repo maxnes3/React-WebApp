@@ -7,6 +7,7 @@ import { DropdownButtonItem, DropdownButtonItemProps } from "./DropdownButtonIte
 // Импорт компонентов из React
 import { useState, useRef, useEffect } from "react";
 
+// Иницализация входных веременных
 interface DropdownButtonProps {
     icon: string,
     label: string,
@@ -22,12 +23,14 @@ export function DropdownButton({ icon, label, list }: DropdownButtonProps){
         setIsOpen(!isOpen);
     };
 
+    // Выполнение действий при рендере
     useEffect(() => {
         if (buttonRef.current) {
             setDropdownWidth(buttonRef.current.offsetWidth);
         }
     }, []);
 
+    // Вёрстка компонента
     return (
         <div className="relative inline-block text-left">
             <button

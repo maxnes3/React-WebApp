@@ -1,12 +1,14 @@
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+// Иницализация входных веременных
 export interface DropdownButtonItemProps{
     label: string,
     onClick: () => void
 }
 
 export function DropdownButtonItem({ label, onClick }: DropdownButtonItemProps){
+    // Вёрстка компонента
     return (
         <button
             onClick={onClick}

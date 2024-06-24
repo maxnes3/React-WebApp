@@ -4,6 +4,7 @@ import { ChangeEvent } from "react";
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+// Иницализация входных веременных
 interface InputFieldProps {
     id: string;
     label: string;
@@ -14,6 +15,7 @@ interface InputFieldProps {
 }
   
 export function InputField({ id, label, placeholder, value, onChange, error }: InputFieldProps){
+    // Вёрстка компонента
     return (
         <div className="flex-1">
             <label htmlFor={id} className={`block mb-2 ${colorsPresets.primaryTextWhite} font-bold`}>

@@ -7,6 +7,7 @@ import { localStorageService } from "../services/LocalStorageService";
 
 import { colorsPresets } from "../styles/colorsPresets";
 
+// Иницализация входных веременных
 interface ListTicketsCardProps{
     ticket: Ticket
 }
@@ -71,6 +72,7 @@ export function ListTicketsCard({ ticket }: ListTicketsCardProps){
         }
     ];
 
+    // Вёрстка компонента
     return (
         <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden" id={`ticket-card-${ticketNumber}`}>
             <div className={`flex justify-between p-4 bg-googleBlue ${colorsPresets.primaryTextWhite} border-b`}>

@@ -6,6 +6,7 @@ import { favoritesService } from "../services/FavoritesService.ts";
 import { localStorageService } from "../services/LocalStorageService.ts";
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+// Иницализация входных веременных
 interface ListFlightCardProps {
     flight: Flight,
     updateFavorites?: () => void
@@ -37,6 +38,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         setInFavorite(response);
     };
 
+    // Выполнение действий при рендере
     useEffect(() => {
         checkFavorite();
     }, []);
@@ -83,6 +85,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         navigate(`/buyticket/${flight.id}`);
     };
 
+    // Вёрстка компонента
     return (
         <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
             <div className={`flex justify-between p-4 bg-googleBlue ${colorsPresets.primaryTextWhite} border-b`}>

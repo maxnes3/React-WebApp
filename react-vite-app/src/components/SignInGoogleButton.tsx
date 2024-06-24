@@ -1,3 +1,4 @@
+// Импорт компонентов из React
 import { useGoogleLogin } from '@react-oauth/google';
 import { SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { toast } from 'react-toastify';
 import { googleAuthService } from '../services/GoogleAuthService.ts';
 import { localStorageService } from '../services/LocalStorageService.ts';
 
+// Иницализация входных веременных
 interface SignInGoogleButtonProps{
     setIsAuth: (e: SetStateAction<boolean>) => void,
     isAuthBoolean: () => boolean,
@@ -33,11 +35,13 @@ export function SignInGoogleButton({ setIsAuth, isAuthBoolean, setIsTwoFactor }:
         flow: 'auth-code',
     });
 
+    // Предотвращаем обновление страницы при нажатии
     const handleButtonClick = (event: any) => {
         event.preventDefault();
         login();
     };
 
+    // Вёрстка компонента
     return (
         <button
             onClick={handleButtonClick}

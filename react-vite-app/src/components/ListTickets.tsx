@@ -4,12 +4,14 @@ import { FormHeader } from "./FormHeader";
 
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+// Иницализация входных веременных
 interface ListTicketsProps{
     tickets: Ticket[],
     exception: string
 }
 
 export function ListTickets({ tickets, exception }: ListTicketsProps){
+    // Вёрстка компонента
     return (
         <div className="space-y-4">
             {tickets !== null && tickets.length > 0 ? (

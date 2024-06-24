@@ -1,3 +1,4 @@
+// Иницализация входных веременных
 interface LinkIconProps {
     link: string,
     icon: string,
@@ -5,6 +6,7 @@ interface LinkIconProps {
 }
 
 export function LinkIcon({ link, icon, name }: LinkIconProps){
+    // Вёрстка компонента
     return (
         <a href={link}>
             <img src={icon} 

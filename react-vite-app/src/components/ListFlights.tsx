@@ -2,12 +2,14 @@
 import { FormHeader } from "../components/FormHeader.tsx";
 import { ListFlightCard } from "./ListFlightCard.tsx";
 
+// Импорт из React
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+// Иницализация входных веременных
 interface ListFlightsProps {
     flights: Flight[] | null;
     exception?: string;
@@ -15,6 +17,7 @@ interface ListFlightsProps {
 }
 
 export function ListFlights({ flights, exception, updateFavorites }: ListFlightsProps) {
+    // Выполнение действий при рендере
     useEffect(() => {
         if (flights !== null && flights.length === 0 && !exception) {
             toast('Рейсы по запросу не найдены!', {
@@ -24,6 +27,7 @@ export function ListFlights({ flights, exception, updateFavorites }: ListFlights
         }
     }, [flights, exception]);
 
+    // Вёрстка компонента
     return (
         <div className="space-y-4">
             {exception && flights && flights.length == 0 ? (

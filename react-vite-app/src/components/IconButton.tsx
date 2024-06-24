@@ -1,6 +1,7 @@
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+// Иницализация входных веременных
 interface IconButtonProps {
     icon: string;
     size: string;
@@ -10,6 +11,7 @@ interface IconButtonProps {
 }
 
 export function IconButton({ icon, size, name, onClick, text }: IconButtonProps) {
+    // Вёрстка компонента
     return (
         <button
             type="button"

@@ -4,6 +4,7 @@ import { ChangeEvent } from "react";
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
+// Иницализация входных веременных
 interface DateFieldProps {
     id: string;
     label: string;
@@ -13,6 +14,7 @@ interface DateFieldProps {
 }
 
 export function DateField({ id, label, placeholder, value, onChange }: DateFieldProps){
+    // Вёрстка компонента
     return (
         <div className="flex-1">
             <label htmlFor={id} className={`block mb-2 ${colorsPresets.primaryTextWhite} font-bold`}>
