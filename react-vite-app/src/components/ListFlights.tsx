@@ -11,7 +11,7 @@ import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Иницализация входных веременных
 interface ListFlightsProps {
-    flights: Flight[] | null;
+    flights: ExtebdedFlight[] | null;
     exception?: string;
     updateFavorites?: () => void;
 }

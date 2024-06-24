@@ -8,7 +8,7 @@ import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Иницализация входных веременных
 interface ListFlightCardProps {
-    flight: Flight,
+    flight: ExtebdedFlight,
     updateFavorites?: () => void
 }
 
