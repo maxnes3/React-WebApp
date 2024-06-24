@@ -15,6 +15,7 @@ import { flightService } from "../services/FlightService.ts";
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
+import { ListConnectedFlights } from "../components/ListConnectedFlights.tsx";
 
 // Получение текущей даты
 const getCurrentDate = () => {
@@ -47,7 +48,10 @@ export function SearchTicket() {
     returnFlights: [],
   });
 
-  const [isConnectedSearh, setIsConnectedSearh] = useState(false);
+  // Состояние для хранения найденных рейсов
+  const [connectedFlights, setConnectedFlights] = useState<ConnectingFlight>();
+
+  const [isConnectedSearch, setIsConnectedSearch] = useState(false);
 
   // Валидация формы
   const validateForm = () => {
@@ -101,16 +105,31 @@ export function SearchTicket() {
     }
 
     try {
-      const flights = await flightService.searchFlight(
-        searchData.fromCity,
-        searchData.toCity,
-        searchData.departureDate,
-        searchData.returnDate
-      );
-      setFlights(flights)
-      console.log('Flights:', flights);
-      if (flights.departureFlights.length > 0 || flights.returnFlights.length > 0)
-        toast('Рейсы по запросу найдены!', {
+      var response;
+      if (!isConnectedSearch){
+        response = await flightService.searchFlight(
+          searchData.fromCity,
+          searchData.toCity,
+          searchData.departureDate,
+          searchData.returnDate
+        );
+        setFlights(response);
+      } else {
+        response = await flightService.searchConnectedFlight(
+          searchData.fromCity,
+          searchData.toCity,
+          searchData.departureDate,
+          searchData.returnDate
+        );
+        console.log(response.departureFlights);
+        setConnectedFlights({
+          departureFlights: response.departureFlights,
+          returnFlights: response.returnFlights
+        });
+      }
+      console.log('Flights:', connectedFlights);
+      if (!isConnectedSearch && (flights.departureFlights.length > 0 || flights.returnFlights.length > 0))
+        toast('Прямые рейсы по запросу найдены!', {
           type: 'success',
           theme: 'light'
         });
@@ -178,7 +197,13 @@ export function SearchTicket() {
               value={searchData.returnDate}
             />
           </div>
-          <div className="flex justify-center space-y-4">
+          <div className="flex justify-center space-x-4">
+            <IconButton
+              icon={!isConnectedSearch ? '/straight-icon.svg' : '/connected-icon.svg'}
+              size="8"
+              name="switch"
+              onClick={() => {setIsConnectedSearch(!isConnectedSearch)}}
+            />
             <SubmitButton
               label="Поиск"
               onClick={handleSubmit}
@@ -186,12 +211,25 @@ export function SearchTicket() {
           </div>
         </form>
       </div>
-      <ListFlights 
-        flights={flights.departureFlights}
-      />
-      <ListFlights
-        flights={flights.returnFlights}
-      />
+      {isConnectedSearch && connectedFlights ? (
+        <>
+          <ListConnectedFlights
+            connectedFlights={connectedFlights.departureFlights}
+          />
+          <ListConnectedFlights
+            connectedFlights={connectedFlights.returnFlights}
+          />
+        </>
+      ) : (
+        <>
+          <ListFlights 
+            flights={flights.departureFlights}
+          />
+          <ListFlights
+            flights={flights.returnFlights}
+          />
+        </>
+      )}
     </div>
   );
 }

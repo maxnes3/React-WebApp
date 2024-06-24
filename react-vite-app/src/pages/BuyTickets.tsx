@@ -139,7 +139,7 @@ export function BuyTickets() {
 
     // Вёрстка компонента
     return (
-        <div className="container mx-auto p-4 relative flex flex-col">
+        <div className="container mx-auto p-4 relative flex flex-col items-center justify-center">
             <FormHeader label="Выбор мест" color={colorsPresets.primaryTextBlack} />
             <div className="relative flex-1">
                 <img src="/airplane-img.png" alt="Seat Map" className="w-full h-auto" />
