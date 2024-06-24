@@ -145,6 +145,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
         }
     };
 
+    // Вёрстка компонента
     return (
         <div className="flex-grow flex items-center justify-center">
             <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>

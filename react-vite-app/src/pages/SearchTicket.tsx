@@ -121,6 +121,7 @@ export function SearchTicket() {
     }
   };
 
+  // Вёрстка компонента
   return (
     <div className="flex-grow flex flex-col items-center justify-center space-y-8">
       <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>

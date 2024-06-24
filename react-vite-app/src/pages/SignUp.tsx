@@ -100,6 +100,7 @@ export function SignUp() {
         }
     };
 
+    // Вёрстка компонента
     return (
         <div className="flex-grow flex items-center justify-center">
             <div className={`${colorsPresets.primaryBackground} p-8 rounded-lg shadow-lg max-w-lg w-full`}>

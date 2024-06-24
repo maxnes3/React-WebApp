@@ -19,6 +19,7 @@ interface AddTwoFactorProps{
     setIsTwoFactor: (e: SetStateAction<boolean>) => void
 }
 
+// Добавление двухфакторной авторизации
 export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
     // Навигация
     const navigate = useNavigate();
@@ -91,6 +92,7 @@ export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
         }
     }
 
+    // Вёрстка компонента
     return (
         <div className="flex-grow flex items-center justify-center">
             <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>

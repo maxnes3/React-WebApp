@@ -28,6 +28,7 @@ const calculateGridColumn = (index: number): number => {
     return ((index - 1) % 31) + 1;
 };
 
+// Покупка и бронирование билетов
 export function BuyTickets() {
     // Навигация
     const navigate = useNavigate();
@@ -38,14 +39,8 @@ export function BuyTickets() {
     const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
     const seatsLabels = [
-        {
-            label: 'Свободные места',
-            color: ''
-        },
-        {
-            label: 'Занятые места',
-            color: ''
-        },
+        { label: 'Свободные места', color: colorsPresets.primaryBackground },
+        { label: 'Занятые места', color: 'gray' },
     ];
 
     const fetchTickets = async (flightId: string) => {
@@ -69,6 +64,7 @@ export function BuyTickets() {
         }
     };
 
+    // Выполнение действий при рендере
     useEffect(() => {
         if (flightId) {
             fetchTickets(flightId);
@@ -86,10 +82,12 @@ export function BuyTickets() {
         );
     };
 
+    // Возвращение обратно к поиску
     const handleBackToSearch = () => {
         navigate('/');
     };
 
+    // Оправка выбранных мест для бронирования
     const handleReservation = async () => {
         try {
             const data: ReservationDto = {
@@ -110,6 +108,7 @@ export function BuyTickets() {
         }
     };
 
+    // Оправка выбранных мест для покупки
     const handlePurchase = async () => {
         try {
             const data: ReservationDto = {
@@ -130,6 +129,7 @@ export function BuyTickets() {
         }
     };
 
+    // Вёрстка компонента
     return (
         <div className="container mx-auto p-4 relative flex flex-col">
             <FormHeader label="Выбор мест" color={colorsPresets.primaryTextBlack} />

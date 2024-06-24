@@ -20,10 +20,12 @@ export function Favorites(){
         }
     };
 
+    // Выполнение действий при рендере
     useEffect(() => {
         fetchFavorites();
     }, []);
 
+    // Вёрстка компонента
     return (
         <div className="flex-grow flex flex-col items-center justify-center space-y-8">
             <ListFlights 

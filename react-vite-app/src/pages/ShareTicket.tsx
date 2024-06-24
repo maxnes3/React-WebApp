@@ -29,10 +29,12 @@ export function ShareTicket(){
         }
     };
 
+    // Выполнение действий при рендере
     useEffect(() => {
         fetchTicket();
     }, []);
 
+    // Вёрстка компонента
     return (
         <div className="flex-grow flex flex-col items-center justify-center">
             {ticket ? (

@@ -57,6 +57,20 @@ class TicketService{
         }
     }
 
+    async getUserReservedTicket(){
+        try {
+            const response = await axios.get(`${this.URL}/getUserReservedTicket`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorageService.getAccessToken()}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching tickets:', error);
+            throw error;
+        }
+    }
+
     async getTicketByNumber(ticketNumber: string){
         try {
             const response = await axios.get(`http://localhost:8081/api/v1/tickets/${ticketNumber}`);

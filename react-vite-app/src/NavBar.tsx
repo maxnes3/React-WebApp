@@ -25,16 +25,24 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
     // Навигация
     const navigate = useNavigate();
 
+    // Переход к избранному
     const handleFavorites = () => {
         navigate('/favorites');
     };
 
+    // Переход к добавлению двухфакторной авторизации
     const handleTwoFactor = () => {
         navigate('/twofactor');
     };
+    
+    // Пеход к купленным билетам
+    const handlePurchasedTickets = () => {
+        navigate('/tickets/true');
+    };
 
-    const handleTickets = () => {
-        navigate('/tickets');
+    // Пеход к забронированным билетам
+    const handleReservationTickets = () => {
+        navigate('/tickets/false');
     };
 
     const handleLogout = () => {
@@ -64,7 +72,11 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
         },
         {
             label: 'Купленные Билеты',
-            onClick: handleTickets
+            onClick: handlePurchasedTickets
+        },
+        {
+            label: 'Забронированные',
+            onClick: handleReservationTickets
         },
         {
             label: 'Выйти',
