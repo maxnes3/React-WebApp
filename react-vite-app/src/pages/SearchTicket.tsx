@@ -47,6 +47,8 @@ export function SearchTicket() {
     returnFlights: [],
   });
 
+  const [isConnectedSearh, setIsConnectedSearh] = useState(false);
+
   // Валидация формы
   const validateForm = () => {
     const newErrors = {

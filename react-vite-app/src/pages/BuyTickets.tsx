@@ -1,8 +1,8 @@
 // Импорт компонентов из ./components/
-import { FormHeader } from "../components/FormHeader";
-import { SeatLabel } from "../components/SeatLabel";
-import { SubmitButton } from "../components/SubmitButton";
-import { CheckboxDefault } from "../components/CheckboxDefault";
+import { FormHeader } from "../components/FormHeader.tsx";
+import { SeatLabel } from "../components/SeatLabel.tsx";
+import { SubmitButton } from "../components/SubmitButton.tsx";
+import { CheckboxDefault } from "../components/CheckboxDefault.tsx";
 
 // Импорт компонентов из React
 import { useEffect, useState } from "react";
@@ -10,10 +10,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // Импорт сервисов
-import { ticketService } from "../services/TicketService";
+import { ticketService } from "../services/TicketService.ts";
 
 // Импорт стилей
-import { colorsPresets } from "../styles/colorsPresets";
+import { colorsPresets } from "../styles/colorsPresets.ts";
+import { localStorageService } from "../services/LocalStorageService.ts";
 
 interface SeatWithPosition extends Seat {
     gridRow: number,
@@ -110,6 +111,13 @@ export function BuyTickets() {
 
     // Оправка выбранных мест для покупки
     const handlePurchase = async () => {
+        if (!localStorageService.getAccessToken){
+            toast('Авторизируйтесь чтобы купить билет!', {
+
+            });
+            return;
+        }
+
         try {
             const data: ReservationDto = {
                 reservationTicket: selectedSeats

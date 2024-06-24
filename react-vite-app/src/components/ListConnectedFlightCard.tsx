@@ -1,24 +1,20 @@
-import { useState, useEffect } from "react";
 import { IconButton } from "./IconButton.tsx";
-import { useNavigate } from 'react-router-dom';
-import { toast } from "react-toastify";
-import { favoritesService } from "../services/FavoritesService.ts";
+
 import { localStorageService } from "../services/LocalStorageService.ts";
+
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Иницализация входных веременных
-interface ListFlightCardProps {
-    flight: Flight,
-    updateFavorites?: () => void
+interface ListConnectedFlightCardProps{
+    flights: Flight[]
 }
 
-export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps) {
-    const navigate = useNavigate();
+export function ListConnectedFlightCard({ flights }: ListConnectedFlightCardProps){
+    const departurePoint = flights[0];
+    const arrivalPoint = flights[-1];
 
-    const [inFavorite, setInFavorite] = useState(false);
-
-    const departureDate = new Date(flight.departureTime);
-    const arrivalDate = new Date(flight.arrivalTime);
+    const departureDate = new Date(departurePoint.departureTime);
+    const arrivalDate = new Date(arrivalPoint.arrivalTime);
 
     const formatDate = (date: Date) => {
         return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }).toUpperCase();
@@ -31,66 +27,14 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
     const durationHours = Math.floor((arrivalDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60));
     const durationMinutes = Math.round(((arrivalDate.getTime() - departureDate.getTime()) % (1000 * 60 * 60)) / (1000 * 60));
 
-    // Проверка на наличие в избранном
-    const checkFavorite = async () => {
-        const token = localStorageService.getAccessToken();
-        if(!token) return;
-        const response = await favoritesService.checkInFavorites(flight.id.toString());
-        setInFavorite(response);
-    };
+    const totalTicketPrice = flights.reduce((accumulator, currentFlight) => {
+        return accumulator + currentFlight.ticketPrice;
+    }, 0);
 
-    // Выполнение действий при рендере
-    useEffect(() => {
-        checkFavorite();
-    }, []);
-
-    const handleAddToFavorite = async () => {
-        if (inFavorite) {
-            try {
-                const response = await favoritesService.removeFromFavorites(flight.id.toString());
-                console.log(response);
-                if (updateFavorites) updateFavorites();
-                checkFavorite();
-                toast('Рейс успешно удалён из избранного!', {
-                    type: 'success',
-                    theme: 'light'
-                });
-            } catch(error){
-                console.error('Error remove favorite:', error);
-                toast('Ошибка при удалении из избранного!', {
-                    type: 'error',
-                    theme: 'light'
-                });
-            }
-            return;
-        }
-
-        try {
-            const response = await favoritesService.addToFavorites(flight.id.toString());
-            console.log(response);
-            checkFavorite();
-            toast('Рейс успешно добавлен в избранное!', {
-                type: 'success',
-                theme: 'light'
-            });
-        } catch(error){
-            console.error('Error add favorite:', error);
-            toast('Ошибка при добавлении в избранное!', {
-                type: 'error',
-                theme: 'light'
-            });
-        }
-    };
-
-    const handleSetBuyFlight = () => {
-        navigate(`/buyticket/${flight.id}`);
-    };
-
-    // Вёрстка компонента
     return (
         <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
             <div className={`flex justify-between p-4 bg-googleBlue ${colorsPresets.primaryTextWhite} border-b`}>
-                <div className="text-3xl font-bold">{flight.ticketPrice} ₽</div>
+                <div className="text-3xl font-bold">{totalTicketPrice} ₽</div>
             </div>
             <div className="flex justify-between space-x-4 ml-8 mr-8 mt-4 mb-8">
                 <div className="flex flex-col items-center">
@@ -101,7 +45,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                         {formatDate(departureDate)}
                     </div>
                     <div className="text-sm">
-                        {flight.route.origin}
+                        {departurePoint.route.origin}
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center relative">
@@ -128,13 +72,13 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                         {formatDate(arrivalDate)}
                     </div>
                     <div className="text-sm">
-                        {flight.route.destination}
+                        {arrivalPoint.route.destination}
                     </div>
                 </div>
             </div>
             <div className="p-4 bg-gray-100 border-t">
                 <div className="flex justify-end space-x-2 items-end">
-                    {localStorageService.getAccessToken() ? (
+                    {/* {localStorageService.getAccessToken() ? (
                         <IconButton 
                         icon={inFavorite ? "/remove-icon.svg" : "/favorite-icon.svg"}
                         size="6"  
@@ -150,7 +94,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                         name="buy"
                         onClick={handleSetBuyFlight}
                         text="Купить"
-                    />
+                    /> */}
                 </div>
             </div>
         </div>

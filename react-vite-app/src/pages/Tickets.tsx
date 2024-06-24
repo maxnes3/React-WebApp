@@ -1,12 +1,12 @@
 // Импорт компонентов из ./components/
-import { ListTickets } from "../components/ListTickets";
+import { ListTickets } from "../components/ListTickets.tsx";
 
 // Импорт компонентов из React
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 // Импорт сервисов
-import { ticketService } from "../services/TicketService";
+import { ticketService } from "../services/TicketService.ts";
 
 // Отображает купленные и зарезирвированные билеты
 export function Tickets(){

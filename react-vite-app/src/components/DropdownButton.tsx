@@ -19,6 +19,7 @@ export function DropdownButton({ icon, label, list }: DropdownButtonProps){
     const [dropdownWidth, setDropdownWidth] = useState<number | undefined>(undefined);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
+    // Выпадающий список
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
@@ -54,6 +55,7 @@ export function DropdownButton({ icon, label, list }: DropdownButtonProps){
                             key={index}
                             label={item.label}
                             onClick={item.onClick}
+                            toggleDropdown={toggleDropdown}
                         />
                     ))}
                 </div>
