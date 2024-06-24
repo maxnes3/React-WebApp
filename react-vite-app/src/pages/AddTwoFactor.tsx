@@ -98,7 +98,7 @@ export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
                     label="Инструкция:"
                     color={colorsPresets.primaryTextWhite}
                 />
-                <div className={`text-xl ${colorsPresets.primaryTextBlack} font-bold mb-10`}>
+                <div className={`text-l ${colorsPresets.primaryTextWhite} font-bold mb-10`}>
                     <p>1. Отсканируйте QRcode с помощью Google Authefication</p>
                     <p>2. Введите код в поле</p>
                     <p>3. Нажмите "Подтвердить"</p>

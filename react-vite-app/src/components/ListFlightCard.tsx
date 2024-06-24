@@ -13,7 +13,7 @@ interface ListFlightCardProps {
 
 export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps) {
     const navigate = useNavigate();
-    const [isExpanded, setIsExpanded] = useState(false);
+
     const [inFavorite, setInFavorite] = useState(false);
 
     const departureDate = new Date(flight.departureTime);
@@ -101,7 +101,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center relative">
-                    <div className="absolute -top-0.5 text-xs mt-4">
+                    <div className="absolute -top-0.5 text-xs mt-4 font-bold">
                         В пути: {durationHours}ч {durationMinutes}м
                     </div>
                     <div className="flex items-center space-x-2">
@@ -116,7 +116,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                         />
                     </div>
                 </div>
-                <div className="flex flex-col items-center mr-4">
+                <div className="flex flex-col items-center">
                     <div className="text-2xl font-bold">
                         {formatTime(arrivalDate)}
                     </div>
@@ -130,13 +130,16 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
             </div>
             <div className="p-4 bg-gray-100 border-t">
                 <div className="flex justify-end space-x-2 items-end">
-                    <IconButton 
+                    {localStorageService.getAccessToken() ? (
+                        <IconButton 
                         icon={inFavorite ? "/remove-icon.svg" : "/favorite-icon.svg"}
                         size="6"  
                         name="favorite"
                         onClick={handleAddToFavorite}
                         text="Избраное"
-                    />
+                    />) : (
+                        <span></span>
+                    )}
                     <IconButton 
                         icon="/buy-icon.svg"
                         size="6" 
