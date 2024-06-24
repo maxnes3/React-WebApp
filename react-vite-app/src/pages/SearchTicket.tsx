@@ -10,6 +10,9 @@ import { ListFlights } from "../components/ListFlights.tsx";
 import { useState, useCallback, FormEvent } from "react";
 import { toast } from "react-toastify";
 
+// Импорт framer-motion
+import { motion } from "framer-motion";
+
 // Импорт сервисов
 import { flightService } from "../services/FlightService.ts";
 
@@ -135,10 +138,29 @@ export function SearchTicket() {
     }
   };
 
+  // Анимация для формы
+  const searchFormAnimation = {
+    hidden: {
+      y: +250,
+      opacity: 0
+    },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
   // Вёрстка компонента
   return (
-    <div className="flex-grow flex flex-col items-center justify-center space-y-8">
-      <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      className="flex-grow flex flex-col items-center justify-center space-y-8"
+    >
+      <motion.div
+        variants={searchFormAnimation} 
+        className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}
+      >
         <FormHeader 
           label="Найти авиабилеты" 
           color={colorsPresets.primaryTextWhite}
@@ -205,13 +227,13 @@ export function SearchTicket() {
             />
           </div>
         </form>
-      </div>
+      </motion.div>
       <ListFlights 
         flights={flights.departureFlights}
       />
       <ListFlights
         flights={flights.returnFlights}
       />
-    </div>
+    </motion.div>
   );
 }

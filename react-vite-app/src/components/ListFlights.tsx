@@ -36,7 +36,7 @@ export function ListFlights({ flights, exception, updateFavorites }: ListFlights
                     color={colorsPresets.primaryTextBlack}
                 />
             ) : (
-                flights && flights.length > 0 ? (
+                flights && flights.length > 0 && (
                     flights.map((flight) => (
                         <ListFlightCard 
                             key={flight.id} 
@@ -44,8 +44,6 @@ export function ListFlights({ flights, exception, updateFavorites }: ListFlights
                             updateFavorites={updateFavorites}
                         />
                     ))
-                ) : (
-                    <span></span>
                 )
             )}
         </div>

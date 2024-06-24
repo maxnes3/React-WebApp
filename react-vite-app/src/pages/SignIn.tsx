@@ -11,6 +11,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+// Импорт framer-motion
+import { motion } from "framer-motion";
+
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
 import { localStorageService } from '../services/LocalStorageService.ts';
@@ -145,10 +148,29 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
         }
     };
 
+    // Анимация для формы
+    const signInFormAnimation = {
+        hidden: {
+            y: +250,
+            opacity: 0
+        },
+          visible: {
+            y: 0,
+            opacity: 1
+        }
+    };
+
     // Вёрстка компонента
     return (
-        <div className="flex-grow flex items-center justify-center">
-            <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            className="flex-grow flex items-center justify-center"
+        >
+            <motion.div
+                variants={signInFormAnimation}
+                className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}
+            >
                 <FormHeader 
                     label="Авторизация"
                     color={colorsPresets.primaryTextWhite}
@@ -202,7 +224,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                         </GoogleOAuthProvider>
                     </div>
                 </form>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }

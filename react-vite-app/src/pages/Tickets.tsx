@@ -42,7 +42,7 @@ export function Tickets(){
         <div className="flex-grow flex flex-col items-center justify-center space-y-8">
             <ListTickets
                 tickets={tickets}
-                exception="Нет пока купленных билетов!"
+                exception={isPurchased && JSON.parse(isPurchased) ? 'Нет пока купленных билетов!' : 'Нет пока забронированных билетов!'}
             />
         </div>
     );

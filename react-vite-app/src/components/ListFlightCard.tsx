@@ -1,9 +1,14 @@
-import { useState, useEffect } from "react";
 import { IconButton } from "./IconButton.tsx";
+
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+
+import { motion } from "framer-motion";
+
 import { favoritesService } from "../services/FavoritesService.ts";
 import { localStorageService } from "../services/LocalStorageService.ts";
+
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Иницализация входных веременных
@@ -12,6 +17,7 @@ interface ListFlightCardProps {
     updateFavorites?: () => void
 }
 
+// Отображение рейса
 export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps) {
     const navigate = useNavigate();
 
@@ -48,7 +54,8 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
 
     // Выполнение действий при рендере
     useEffect(() => {
-        checkFavorite();
+        if (flight.id != null)
+            checkFavorite();
     }, []);
 
     // Добавление/удаление полёта в/из избранное
@@ -94,9 +101,26 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         navigate(`/buyticket/${flight.id}`);
     };
 
+    // Анимация при Expand = true
+    const expandAnimation = {
+        hidden: {
+            x: -100,
+            opacity: 0
+        },
+        visible: {
+            x: 0,
+            opacity: 1
+        }
+    };
+
     // Вёрстка компонента
     return (
-        <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={expandAnimation}
+            className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden"
+        >
             <div className={`flex justify-between p-4 bg-googleBlue ${colorsPresets.primaryTextWhite} border-b`}>
                 <div className="text-3xl font-bold">{flight.ticketPrice} ₽</div>
             </div>
@@ -211,6 +235,6 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
                     />
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

@@ -9,6 +9,9 @@ import { useState, useCallback, FormEvent } from "react";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
+// Импорт framer-motion
+import { motion } from "framer-motion";
+
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
 
@@ -100,10 +103,29 @@ export function SignUp() {
         }
     };
 
+    // Анимация для формы
+    const signUpFormAnimation = {
+        hidden: {
+            y: +250,
+            opacity: 0
+        },
+          visible: {
+            y: 0,
+            opacity: 1
+        }
+    };
+
     // Вёрстка компонента
     return (
-        <div className="flex-grow flex items-center justify-center">
-            <div className={`${colorsPresets.primaryBackground} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            className="flex-grow flex items-center justify-center"
+        >
+            <motion.div
+                variants={signUpFormAnimation}
+                className={`${colorsPresets.primaryBackground} p-8 rounded-lg shadow-lg max-w-lg w-full`}
+            >
                 <FormHeader 
                     label="Регистрация"
                     color={colorsPresets.primaryTextWhite}
@@ -148,7 +170,7 @@ export function SignUp() {
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }

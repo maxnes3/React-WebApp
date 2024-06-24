@@ -3,16 +3,19 @@ import { DropdownButton } from './DropdownButton.tsx';
 import html2pdf from 'html2pdf.js';
 import { toast } from 'react-toastify';
 
+import { motion } from "framer-motion";
+
 import { localStorageService } from "../services/LocalStorageService";
 
 import { colorsPresets } from "../styles/colorsPresets";
 
 // Иницализация входных веременных
 interface ListTicketsCardProps{
-    ticket: Ticket
+    ticket: Ticket,
+    delayAnimation: number
 }
 
-export function ListTicketsCard({ ticket }: ListTicketsCardProps){
+export function ListTicketsCard({ ticket, delayAnimation }: ListTicketsCardProps){
     const { flight, ticketNumber, finalPrice, isBuy } = ticket;
     const { flightNumber, route, departureTime } = flight;
 
@@ -72,9 +75,28 @@ export function ListTicketsCard({ ticket }: ListTicketsCardProps){
         }
     ];
 
+    // Анимация появления билета
+    const ticketAnimation = {
+        hidden: {
+            x: -100,
+            opacity: 0
+        },
+        visible: (custom: number) => ({
+            x: 0,
+            opacity: 1,
+            transition: { delay: custom * 0.2 }
+        })
+    };
+
     // Вёрстка компонента
     return (
-        <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden" id={`ticket-card-${ticketNumber}`}>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            custom={delayAnimation}
+            variants={ticketAnimation}
+            className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden" id={`ticket-card-${ticketNumber}`}
+        >
             <div className={`flex justify-between p-4 bg-googleBlue ${colorsPresets.primaryTextWhite} border-b`}>
                 <div>
                     <h1 className="text-lg font-semibold">BOARDING PASS</h1>
@@ -147,6 +169,6 @@ export function ListTicketsCard({ ticket }: ListTicketsCardProps){
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

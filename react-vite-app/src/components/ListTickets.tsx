@@ -15,10 +15,11 @@ export function ListTickets({ tickets, exception }: ListTicketsProps){
     return (
         <div className="space-y-4">
             {tickets !== null && tickets.length > 0 ? (
-                tickets.map((ticket) => (
+                tickets.map((ticket, index) => (
                     <ListTicketsCard
                         key={ticket.id}
                         ticket={ticket}
+                        delayAnimation={index + 1}
                     />
                 ))
             ) : (
