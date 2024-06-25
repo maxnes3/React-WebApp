@@ -82,7 +82,11 @@ export default function App() {
           />
           <Route 
             path="/buyticket/:flightId"
-            element={<BuyTickets />}
+            element={
+              <BuyTickets 
+                isAuth={isAuth}
+              />
+            }
           />
           <Route
             path="/share-ticket/:ticketNumber"

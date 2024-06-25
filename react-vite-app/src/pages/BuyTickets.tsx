@@ -5,7 +5,7 @@ import { SubmitButton } from "../components/SubmitButton.tsx";
 import { CheckboxDefault } from "../components/CheckboxDefault.tsx";
 
 // Импорт компонентов из React
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -31,8 +31,12 @@ const calculateGridColumn = (index: number): number => {
     return ((index - 1) % 31) + 1;
 };
 
+interface BuyTicketsProps{
+    isAuth: boolean
+}
+
 // Покупка и бронирование билетов
-export function BuyTickets() {
+export function BuyTickets({ isAuth }: BuyTicketsProps) {
     // Навигация
     const navigate = useNavigate();
     
@@ -86,12 +90,23 @@ export function BuyTickets() {
     };
 
     // Возвращение обратно к поиску
-    const handleBackToSearch = () => {
+    const handleBackToSearch = (event: FormEvent) => {
+        event.preventDefault();
         navigate('/');
     };
 
     // Оправка выбранных мест для бронирования
-    const handleReservation = async () => {
+    const handleReservation = async (event: FormEvent) => {
+        event.preventDefault();
+
+        if (!isAuth){
+            toast('Авторизируйтесь чтобы забронировать билет!', {
+                type: 'warning',
+                theme: 'light'
+            });
+            return;
+        }
+
         try {
             const data: ReservationDto = {
                 reservationTicket: selectedSeats
@@ -112,10 +127,13 @@ export function BuyTickets() {
     };
 
     // Оправка выбранных мест для покупки
-    const handlePurchase = async () => {
-        if (!localStorageService.getAccessToken){
-            toast('Авторизируйтесь чтобы купить билет!', {
+    const handlePurchase = async (event: FormEvent) => {
+        event.preventDefault();
 
+        if (!isAuth){
+            toast('Авторизируйтесь чтобы купить билет!', {
+                type: 'warning',
+                theme: 'light'
             });
             return;
         }
