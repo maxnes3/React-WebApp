@@ -101,8 +101,8 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         navigate(`/buyticket/${flight.id}`);
     };
 
-    // Анимация при Expand = true
-    const expandAnimation = {
+    // Анимация появления билета
+    const flightAnimation = {
         hidden: {
             x: -100,
             opacity: 0
@@ -118,7 +118,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         <motion.div
             initial="hidden"
             whileInView="visible"
-            variants={expandAnimation}
+            variants={flightAnimation}
             className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden"
         >
             <div className={`flex justify-between p-4 bg-googleBlue ${colorsPresets.primaryTextWhite} border-b`}>
