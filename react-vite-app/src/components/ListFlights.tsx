@@ -95,7 +95,7 @@ export function ListFlights({ flights, exception, updateFavorites, header, updat
             {header && flights && flights.length > 0 && (
                 <div className="flex justify-between">
                     <div className="text-xl font-bold">{header}</div>
-                    {flights.length > 1 && (
+                    {updateFlights && flights.length > 1 && (
                         <DropdownButton
                             icon='/filter-icon.svg'
                             label='Сортировать'
