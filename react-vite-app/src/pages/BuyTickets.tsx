@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { motion } from "framer-motion";
+
 // Импорт сервисов
 import { ticketService } from "../services/TicketService.ts";
 
@@ -137,9 +139,26 @@ export function BuyTickets() {
         }
     };
 
+    // Анимация появления билета
+    const buyFormAnimation = {
+        hidden: {
+            y: +250,
+            opacity: 0
+        },
+        visible: (custom: number) => ({
+            y: 0,
+            opacity: 1,
+            transition: { delay: custom * 0.2 }
+        })
+    };
+
     // Вёрстка компонента
     return (
-        <div className="container mx-auto p-4 relative flex flex-col items-center justify-center">
+        <motion.div
+            initial='hidden'
+            whileInView='visible'
+            className="container mx-auto p-4 relative flex flex-col items-center justify-center"
+        >
             <FormHeader label="Выбор мест" color={colorsPresets.primaryTextBlack} />
             <div className="relative flex-1">
                 <img src="/airplane-img.png" alt="Seat Map" className="w-full h-auto" />
@@ -159,7 +178,11 @@ export function BuyTickets() {
                     ))}
                 </div>
             </div>
-            <form className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full mt-4 flex flex-col`}>
+            <motion.form
+                custom={1}
+                variants={buyFormAnimation} 
+                className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full mt-4 flex flex-col`}
+            >
                 {seatsLabels.map((seat) => (
                     <SeatLabel
                         key={seat.label}
@@ -181,7 +204,7 @@ export function BuyTickets() {
                         onClick={handlePurchase}
                     />
                 </div>
-            </form>
-        </div>
+            </motion.form>
+        </motion.div>
     );
 }
