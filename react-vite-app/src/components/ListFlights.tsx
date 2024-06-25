@@ -37,11 +37,12 @@ export function ListFlights({ flights, exception, updateFavorites }: ListFlights
                 />
             ) : (
                 flights && flights.length > 0 && (
-                    flights.map((flight) => (
+                    flights.map((flight, index) => (
                         <ListFlightCard 
                             key={flight.id} 
                             flight={flight} 
                             updateFavorites={updateFavorites}
+                            delayAnimation={index + 1}
                         />
                     ))
                 )

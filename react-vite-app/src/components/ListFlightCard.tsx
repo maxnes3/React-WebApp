@@ -1,24 +1,29 @@
+// Импорт компонентов из ./components/
 import { IconButton } from "./IconButton.tsx";
 
+// Импорт из React
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 import { motion } from "framer-motion";
 
+// Импорт сервисов
 import { favoritesService } from "../services/FavoritesService.ts";
 import { localStorageService } from "../services/LocalStorageService.ts";
 
+// Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
 // Иницализация входных веременных
 interface ListFlightCardProps {
     flight: ExtebdedFlight,
-    updateFavorites?: () => void
+    updateFavorites?: () => void,
+    delayAnimation: number
 }
 
 // Отображение рейса
-export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps) {
+export function ListFlightCard({ flight, updateFavorites, delayAnimation }: ListFlightCardProps) {
     const navigate = useNavigate();
 
     const [inFavorite, setInFavorite] = useState(false);
@@ -107,10 +112,11 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
             x: -100,
             opacity: 0
         },
-        visible: {
+        visible: (custom: number) => ({
             x: 0,
-            opacity: 1
-        }
+            opacity: 1,
+            transition: { delay: custom * 0.2 }
+        })
     };
 
     // Вёрстка компонента
@@ -118,6 +124,7 @@ export function ListFlightCard({ flight, updateFavorites }: ListFlightCardProps)
         <motion.div
             initial="hidden"
             whileInView="visible"
+            custom={delayAnimation}
             variants={flightAnimation}
             className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden"
         >

@@ -40,10 +40,12 @@ export function Tickets(){
     // Вёрстка компонента
     return (
         <div className="flex-grow flex flex-col items-center justify-center space-y-8">
-            <ListTickets
-                tickets={tickets}
-                exception={isPurchased && JSON.parse(isPurchased) ? 'Нет пока купленных билетов!' : 'Нет пока забронированных билетов!'}
-            />
+            <div className="overflow-auto max-h-[90vh] w-full">
+                <ListTickets
+                    tickets={tickets}
+                    exception={isPurchased && JSON.parse(isPurchased) ? 'Нет пока купленных билетов!' : 'Нет пока забронированных билетов!'}
+                />
+            </div>
         </div>
     );
 }

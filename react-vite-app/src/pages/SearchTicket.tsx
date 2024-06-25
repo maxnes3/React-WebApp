@@ -155,7 +155,7 @@ export function SearchTicket() {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      className="flex-grow flex flex-col items-center justify-center space-y-8"
+      className="flex-grow flex flex-row items-center justify-center space-x-16"
     >
       <motion.div
         variants={searchFormAnimation} 
@@ -228,12 +228,14 @@ export function SearchTicket() {
           </div>
         </form>
       </motion.div>
-      <ListFlights 
-        flights={flights.departureFlights}
-      />
-      <ListFlights
-        flights={flights.returnFlights}
-      />
+      <div className="flex flex-col space-y-4 overflow-auto max-h-[90vh]">
+        <ListFlights 
+          flights={flights.departureFlights}
+        />
+        <ListFlights
+          flights={flights.returnFlights}
+        />
+      </div>
     </motion.div>
   );
 }
