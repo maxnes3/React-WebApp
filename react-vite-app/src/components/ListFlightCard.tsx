@@ -147,6 +147,11 @@ export function ListFlightCard({ flight, updateFavorites, delayAnimation }: List
                     <div className="absolute -top-0.5 text-xs mt-4 font-bold">
                         В пути: {durationHours(new Date(flight.departureTime), new Date(flight.arrivalTime))}ч {durationMinutes(new Date(flight.departureTime), new Date(flight.arrivalTime))}м
                     </div>
+                    {flight.flightIn && (
+                        <div className="absolute -bottom-0 text-xs mb-4 font-bold">
+                            Пересадка: {durationHours(new Date(flight.flightIn[0].arrivalTime), new Date(flight.flightIn[1].departureTime))}ч {durationMinutes(new Date(flight.flightIn[0].arrivalTime), new Date(flight.flightIn[1].departureTime))}м
+                        </div>
+                    )}
                     <div className="flex items-center space-x-2">
                         <img src="/start-icon.svg" 
                             alt="start_icon" 

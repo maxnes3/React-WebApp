@@ -116,7 +116,7 @@ export function BuyTickets({ isAuth }: BuyTicketsProps) {
                 type: 'success',
                 theme: 'light'
             });
-            navigate('/tickets');
+            navigate('/tickets/false');
         } catch (error) {
             console.error('Error purchasing tickets:', error);
             toast('Ошибка при бронировании билета!', {
@@ -147,7 +147,7 @@ export function BuyTickets({ isAuth }: BuyTicketsProps) {
                 type: 'success',
                 theme: 'light'
             });
-            navigate('/tickets');
+            navigate('/tickets/true');
         } catch (error) {
             console.error('Error purchasing tickets:', error);
             toast('Ошибка при покупке билета!', {
