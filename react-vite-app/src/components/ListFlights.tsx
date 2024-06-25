@@ -7,8 +7,6 @@ import { DropdownButton } from "./DropdownButton.tsx";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-import { motion } from "framer-motion";
-
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
 
