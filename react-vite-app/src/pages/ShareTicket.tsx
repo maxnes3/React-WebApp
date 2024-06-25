@@ -40,6 +40,7 @@ export function ShareTicket(){
             {ticket ? (
                 <ListTicketsCard 
                     ticket={ticket}
+                    delayAnimation={1}
                 />
             ) : (
                 <FormHeader 

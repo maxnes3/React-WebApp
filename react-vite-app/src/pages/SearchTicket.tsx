@@ -50,6 +50,22 @@ export function SearchTicket() {
     returnFlights: [],
   });
 
+  // Функция для обновления departureFlights
+  const updateDepartureFlights = (newDepartureFlights: []) => {
+    setFlights((prevState) => ({
+      ...prevState,
+      departureFlights: newDepartureFlights,
+    }));
+  };
+
+  // Функция для обновления returnFlights
+  const updateReturnFlights = (newReturnFlights: []) => {
+    setFlights((prevState) => ({
+      ...prevState,
+      returnFlights: newReturnFlights,
+    }));
+  };
+
   const [isConnectedSearch, setIsConnectedSearch] = useState(false);
 
   // Валидация формы
@@ -231,9 +247,13 @@ export function SearchTicket() {
       <div className="flex flex-col space-y-4 overflow-auto max-h-[90vh]">
         <ListFlights 
           flights={flights.departureFlights}
+          header={isConnectedSearch ? 'Рейсы с пересадкой' : 'Прямые рейсы'}
+          updateFlights={updateDepartureFlights}
         />
         <ListFlights
           flights={flights.returnFlights}
+          header="Обратные рейсы"
+          updateFlights={updateReturnFlights}
         />
       </div>
     </motion.div>

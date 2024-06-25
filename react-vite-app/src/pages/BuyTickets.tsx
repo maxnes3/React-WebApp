@@ -9,6 +9,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
+// Импорт framer-motion
 import { motion } from "framer-motion";
 
 // Импорт сервисов
@@ -16,7 +17,6 @@ import { ticketService } from "../services/TicketService.ts";
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
-import { localStorageService } from "../services/LocalStorageService.ts";
 
 interface SeatWithPosition extends Seat {
     gridRow: number,

@@ -7,6 +7,9 @@ import { FormHeader } from "../components/FormHeader.tsx";
 import { useState, useEffect, useCallback, FormEvent, SetStateAction } from "react";
 import { useNavigate } from 'react-router-dom';
 
+// Импорт framer-motion
+import { motion } from "framer-motion";
+
 // Импорт сервисов
 import { signInService } from "../services/SignInService.ts";
 import { localStorageService } from "../services/LocalStorageService.ts";
@@ -92,10 +95,29 @@ export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
         }
     }
 
+    // Анимация для формы
+    const twoFactorFormAnimation = {
+        hidden: {
+            y: +250,
+            opacity: 0
+        },
+          visible: {
+            y: 0,
+            opacity: 1
+        }
+    };
+
     // Вёрстка компонента
     return (
-        <div className="flex-grow flex items-center justify-center">
-            <div className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}>
+        <motion.div
+            initial='hidden'
+            whileInView='visible'
+            className="flex-grow flex items-center justify-center"
+        >
+            <motion.div
+                variants={twoFactorFormAnimation} 
+                className={`${colorsPresets.primaryBackground} ${colorsPresets.primaryTextWhite} p-8 rounded-lg shadow-lg max-w-lg w-full`}
+            >
                 <FormHeader 
                     label="Инструкция:"
                     color={colorsPresets.primaryTextWhite}
@@ -128,7 +150,7 @@ export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
                         />
                     </div>
                 </form>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }

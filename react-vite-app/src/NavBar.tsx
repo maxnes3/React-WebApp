@@ -107,6 +107,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
                             <DropdownButton 
                                 icon={isTwoFactor ? "/verified-icon.svg" : "/user-icon.svg"}
                                 label={localStorageService.getEmailFromToken() ?? 'Unknown User'}
+                                color={colorsPresets.primaryTextWhite}
                                 list={isTwoFactor ? listIsTwoFactor : listIsNotTwoFactor()}
                             />
                         )}

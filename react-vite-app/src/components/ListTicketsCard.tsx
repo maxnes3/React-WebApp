@@ -105,6 +105,7 @@ export function ListTicketsCard({ ticket, delayAnimation }: ListTicketsCardProps
                 <DropdownButton
                     icon='/share-icon.svg'
                     label='Поделиться'
+                    color={colorsPresets.primaryTextWhite}
                     list={listTicketShare}
                 />
             </div>

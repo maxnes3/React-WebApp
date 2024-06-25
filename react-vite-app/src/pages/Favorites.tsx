@@ -32,6 +32,8 @@ export function Favorites(){
                 flights={favorites}
                 exception="В избранном ничего нет"
                 updateFavorites={fetchFavorites}
+                header="Избранные рейсы"
+                updateFlights={setFavorites}
             />
         </div>
     );

@@ -11,10 +11,11 @@ import { useState, useRef, useEffect } from "react";
 interface DropdownButtonProps {
     icon: string,
     label: string,
+    color: string,
     list: DropdownButtonItemProps[]
 }
 
-export function DropdownButton({ icon, label, list }: DropdownButtonProps){
+export function DropdownButton({ icon, label, color, list }: DropdownButtonProps){
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownWidth, setDropdownWidth] = useState<number | undefined>(undefined);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -37,7 +38,7 @@ export function DropdownButton({ icon, label, list }: DropdownButtonProps){
             <button
                 ref={buttonRef}
                 onClick={toggleDropdown}
-                className={`inline-flex items-center space-x-2 ${colorsPresets.primaryTextWhite} text-l font-bold rounded-md`}
+                className={`inline-flex items-center space-x-2 ${color} text-l font-bold rounded-md`}
             >
                 <img src={icon} 
                     alt='alt' 
