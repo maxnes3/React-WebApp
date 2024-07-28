@@ -3,7 +3,6 @@ import { ListTickets } from "../components/ListTickets.tsx";
 
 // Импорт компонентов из React
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 // Импорт сервисов
 import { ticketService } from "../services/TicketService.ts";
@@ -13,20 +12,39 @@ export function Tickets(){
     // State с билетами
     const [tickets, setTickets] = useState([]);
 
-    const { isPurchased } = useParams<{ isPurchased: string }>();
+    const [isPurchased, setIsPurchased] = useState(true);
+
+    const setIsPurchasedTrue = () => {
+        setIsPurchased(true);
+        fetchTickets();
+    };
+
+    const setIsPurchasedFalse = () => {
+        setIsPurchased(false);
+        fetchTickets();
+    };
+
+    const ticketsList = [
+        {
+            label: 'Купленные',
+            onClick: setIsPurchasedTrue
+        },
+        {
+            label: 'Бронированные',
+            onClick: setIsPurchasedFalse
+        },
+    ];
 
     // Получение данных с бд
     const fetchTickets = async () => {
         try {
-            if (isPurchased) {
-                if (JSON.parse(isPurchased)){
-                    const response = await ticketService.getUserBuyTicket();
-                    setTickets(response);
-                    return;
-                }
-                const response = await ticketService.getUserReservedTicket();
+            if (isPurchased){
+                const response = await ticketService.getUserBuyTicket();
                 setTickets(response);
+                return;
             }
+            const response = await ticketService.getUserReservedTicket();
+            setTickets(response);
         } catch (error) {
             console.error('Error fetching favorites:', error);
         }
@@ -39,11 +57,13 @@ export function Tickets(){
 
     // Вёрстка компонента
     return (
-        <div className="flex-grow flex flex-col items-center justify-center space-y-8">
-            <div className={`${tickets && tickets.length > 0 && 'overflow-auto max-h-[90vh] w-full'}`}>
+        <div className="flex-grow flex flex-col items-center justify-center">
+            <div className={`flex flex-col items-center space-y-8 ${tickets && tickets.length > 0 && 'overflow-y-auto max-h-[90vh] w-full'}`}>
                 <ListTickets
                     tickets={tickets}
-                    exception={isPurchased && JSON.parse(isPurchased) ? 'Нет пока купленных билетов!' : 'Нет пока забронированных билетов!'}
+                    exception={isPurchased ? 'Нет пока купленных билетов!' : 'Нет пока забронированных билетов!'}
+                    header={isPurchased ? 'Купленные билеты' : 'Забронированные билеты'}
+                    list={ticketsList}
                 />
             </div>
         </div>

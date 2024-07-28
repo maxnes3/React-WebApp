@@ -38,12 +38,7 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
     
     // Пеход к купленным билетам
     const handlePurchasedTickets = () => {
-        navigate('/tickets/true');
-    };
-
-    // Пеход к забронированным билетам
-    const handleReservationTickets = () => {
-        navigate('/tickets/false');
+        navigate('/tickets');
     };
 
     // Выход из аккаунта
@@ -75,12 +70,8 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
             onClick: handleFavorites
         },
         {
-            label: 'Купленные Билеты',
+            label: 'Билеты',
             onClick: handlePurchasedTickets
-        },
-        {
-            label: 'Забронированные',
-            onClick: handleReservationTickets
         },
         {
             label: 'Выйти',

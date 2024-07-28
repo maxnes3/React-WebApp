@@ -27,14 +27,16 @@ export function Favorites(){
 
     // Вёрстка компонента
     return (
-        <div className="flex-grow flex flex-col items-center justify-center space-y-8">
-            <ListFlights 
-                flights={favorites}
-                exception="В избранном ничего нет"
-                updateFavorites={fetchFavorites}
-                header="Избранные рейсы"
-                updateFlights={setFavorites}
-            />
+        <div className="flex-grow flex flex-col items-center justify-center">
+            <div className={`flex flex-col items-center space-y-8 ${favorites && favorites.length > 0 && 'overflow-y-auto max-h-[90vh] w-full'}`}>
+                <ListFlights 
+                    flights={favorites}
+                    exception="В избранном ничего нет"
+                    updateFavorites={fetchFavorites}
+                    header="Избранные рейсы"
+                    updateFlights={setFavorites}
+                />
+            </div>
         </div>
     );
 }

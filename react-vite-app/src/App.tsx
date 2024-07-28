@@ -77,7 +77,7 @@ export default function App() {
             element={<Favorites />}
           />
           <Route 
-            path="/tickets/:isPurchased"
+            path="/tickets"
             element={<Tickets />}
           />
           <Route 
