@@ -4,8 +4,10 @@ import { SubmitButton } from "../components/SubmitButton.tsx";
 import { FormHeader } from "../components/FormHeader.tsx";
 
 // Импорт компонентов из React
-import { useState, useEffect, useCallback, FormEvent, SetStateAction } from "react";
+import { useState, useEffect, useCallback, FormEvent, } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setIsTwoFactor } from "../store/isTwoFactorSlice.ts";
 
 // Импорт framer-motion
 import { motion } from "framer-motion";
@@ -18,14 +20,16 @@ import { localStorageService } from "../services/LocalStorageService.ts";
 import { colorsPresets } from "../styles/colorsPresets.ts";
 import { toast } from "react-toastify";
 
-interface AddTwoFactorProps{
-    setIsTwoFactor: (e: SetStateAction<boolean>) => void
-}
 
 // Добавление двухфакторной авторизации
-export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
+export function AddTwoFactor(){
+
     // Навигация
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const setIsTwoFactorSatus = (twoFactorStatus: boolean) => dispatch(setIsTwoFactor(twoFactorStatus));
 
     const [twoFactorData, setTwoFactorData] = useState({
         secret: '',
@@ -79,8 +83,7 @@ export function AddTwoFactor({ setIsTwoFactor }: AddTwoFactorProps){
 
             const response = await signInService.submitTwoFactorCode(data);
             console.log(response);
-            setIsTwoFactor(true);
-            setIsTwoFactor(localStorageService.setIsTwoFactor(true));
+            setIsTwoFactorSatus(localStorageService.setIsTwoFactor(true));
             toast('Двухфакторная аунтефикация добавлена!', {
                 type: 'success',
                 theme: 'light'

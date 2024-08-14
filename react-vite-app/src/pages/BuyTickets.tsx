@@ -3,11 +3,13 @@ import { FormHeader } from "../components/FormHeader.tsx";
 import { SeatLabel } from "../components/SeatLabel.tsx";
 import { SubmitButton } from "../components/SubmitButton.tsx";
 import { CheckboxDefault } from "../components/CheckboxDefault.tsx";
+import { RootStateTypes } from "../store/types.ts";
 
 // Импорт компонентов из React
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 // Импорт framer-motion
 import { motion } from "framer-motion";
@@ -31,14 +33,15 @@ const calculateGridColumn = (index: number): number => {
     return ((index - 1) % 31) + 1;
 };
 
-interface BuyTicketsProps{
-    isAuth: boolean
-}
 
 // Покупка и бронирование билетов
-export function BuyTickets({ isAuth }: BuyTicketsProps) {
+export function BuyTickets() {
+    
     // Навигация
     const navigate = useNavigate();
+
+    // Получение состояния isAuth с типизацией
+    const isAuth = useSelector((state: RootStateTypes) => state.isAuth.isAuth);
     
     const { flightId } = useParams<{ flightId: string }>();
 

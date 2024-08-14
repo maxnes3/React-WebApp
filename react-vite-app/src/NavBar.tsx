@@ -1,30 +1,37 @@
 // Импорт компонентов из ./components/
 import { LinkIcon } from "./components/LinkIcon.tsx";
 import { DropdownButton } from "./components/DropdownButton.tsx";
+import { RootStateTypes } from "./store/types.ts";
+import { setIsAuth } from "./store/isAuthSlice.ts";
 
 // Импорт компонентов из React
-import { SetStateAction } from "react";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from "react-redux";
 
 // Импорт сервисов
 import { localStorageService } from './services/LocalStorageService.ts';
 
 // Импорт стилей
 import { colorsPresets } from "./styles/colorsPresets.ts";
+import { setIsTwoFactor } from "./store/isTwoFactorSlice.ts";
 
-interface NavbarProps{
-    isAuth: boolean,
-    setIsAuth: (e: SetStateAction<boolean>) => void,
-    isAuthBoolean: () => boolean,
-    isTwoFactor: boolean,
-    setIsTwoFactor: (e: SetStateAction<boolean>) => void
-}
 
 // Навигационная панель
-export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwoFactor }: NavbarProps){
+export function Navbar(){
     // Навигация
     const navigate = useNavigate();
+
+    // Получение состояния isAuth с типизацией
+    const isAuth = useSelector((state: RootStateTypes) => state.isAuth.isAuth);
+
+    const isTwoFactor = useSelector((state: RootStateTypes) => state.isTwoFactor.isTwoFactor);
+
+    const dispatch = useDispatch();
+
+    const setIsAuthSatus = (authStatus: boolean) => dispatch(setIsAuth(authStatus));
+
+    const setIsTwoFactorSatus = (twoFactorStatus: boolean) => dispatch(setIsTwoFactor(twoFactorStatus));
 
     // Переход к избранному
     const handleFavorites = () => {
@@ -44,8 +51,8 @@ export function Navbar({ isAuth, setIsAuth, isAuthBoolean, isTwoFactor, setIsTwo
     // Выход из аккаунта
     const handleLogout = () => {
         localStorageService.removeTokenFromStorage();
-        setIsAuth(isAuthBoolean());
-        setIsTwoFactor(localStorageService.setIsTwoFactor(false));
+        setIsAuthSatus(false);
+        setIsTwoFactorSatus(localStorageService.setIsTwoFactor(false));
         toast('Вы вышли из аккаунта!', {
             type: 'success',
             theme: 'light'

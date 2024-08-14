@@ -1,31 +1,34 @@
+import { setIsAuth } from '../store/isAuthSlice.ts';
+import { setIsTwoFactor } from '../store/isTwoFactorSlice.ts';
+
 // Импорт компонентов из React
 import { useGoogleLogin } from '@react-oauth/google';
-import { SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 // Импорт сервисов
 import { googleAuthService } from '../services/GoogleAuthService.ts';
 import { localStorageService } from '../services/LocalStorageService.ts';
 
-// Иницализация входных веременных
-interface SignInGoogleButtonProps{
-    setIsAuth: (e: SetStateAction<boolean>) => void,
-    isAuthBoolean: () => boolean,
-    setIsTwoFactor: (e: SetStateAction<boolean>) => void
-}
 
-export function SignInGoogleButton({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInGoogleButtonProps){
+export function SignInGoogleButton(){
     // Навигация
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const setIsAuthSatus = (authStatus: boolean) => dispatch(setIsAuth(authStatus));
+
+    const setIsTwoFactorSatus = (twoFactorStatus: boolean) => dispatch(setIsTwoFactor(twoFactorStatus));
 
     // Функция для работы с @react-oauth/google
     const login = useGoogleLogin({
         onSuccess: async codeResponse => {
             const authToken = await googleAuthService.authorizationWithGoogle(codeResponse.code);
             localStorageService.setTokenToStorage(authToken);
-            setIsAuth(isAuthBoolean());
-            setIsTwoFactor(localStorageService.setIsTwoFactor(true));
+            setIsAuthSatus(true);
+            setIsTwoFactorSatus(localStorageService.setIsTwoFactor(true));
             toast('Вы успешно вошли через Google!', {
                 type: 'success',
                 theme: 'light'

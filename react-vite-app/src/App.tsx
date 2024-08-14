@@ -12,35 +12,15 @@ import { ShareTicket } from "./pages/ShareTicket.tsx";
 
 // Импорт компонентов из React
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Импорт сервисов
-import { localStorageService } from './services/LocalStorageService.ts';
-
 export default function App() {
-  const isAuthBoolean = () => {
-    const token = localStorageService.getAccessToken();
-    if(!token)
-        return false;
-    return true;
-  };
-
-  const [isAuth, setIsAuth] = useState(isAuthBoolean());
-  
-  const [isTwoFactor, setIsTwoFactor] = useState(localStorageService.getIsTwoFactor());
 
   return (
     <div className="min-h-screen flex flex-col">
       <BrowserRouter>
-        <Navbar 
-          isAuth={isAuth} 
-          setIsAuth={setIsAuth} 
-          isAuthBoolean={isAuthBoolean}
-          isTwoFactor={isTwoFactor}
-          setIsTwoFactor={setIsTwoFactor}
-        />
+        <Navbar />
         <Routes>
           <Route 
             path="/" 
@@ -53,11 +33,7 @@ export default function App() {
           <Route 
             path="/signin" 
             element={
-              <SignIn 
-                setIsAuth={setIsAuth} 
-                isAuthBoolean={isAuthBoolean}
-                setIsTwoFactor={setIsTwoFactor}
-              />
+              <SignIn />
             }
           />
           <Route 
@@ -67,9 +43,7 @@ export default function App() {
           <Route 
             path="/twofactor" 
             element={
-              <AddTwoFactor
-                setIsTwoFactor={setIsTwoFactor}
-              />
+              <AddTwoFactor />
             }
           />
           <Route 
@@ -83,9 +57,7 @@ export default function App() {
           <Route 
             path="/buyticket/:flightId"
             element={
-              <BuyTickets 
-                isAuth={isAuth}
-              />
+              <BuyTickets />
             }
           />
           <Route

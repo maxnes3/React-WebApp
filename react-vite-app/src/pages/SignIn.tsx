@@ -6,10 +6,11 @@ import { LinkText } from "../components/LinkText.tsx";
 import { SignInGoogleButton } from "../components/SignInGoogleButton.tsx";
 
 // Импорт компонентов из React
-import { useState, useCallback, FormEvent, SetStateAction } from "react";
+import { useState, useCallback, FormEvent } from "react";
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch } from "react-redux";
 
 // Импорт framer-motion
 import { motion } from "framer-motion";
@@ -20,17 +21,21 @@ import { localStorageService } from '../services/LocalStorageService.ts';
 
 // Импорт стилей
 import { colorsPresets } from "../styles/colorsPresets.ts";
+import { setIsAuth } from "../store/isAuthSlice.ts";
+import { setIsTwoFactor } from "../store/isTwoFactorSlice.ts";
 
-interface SignInProps{
-    setIsAuth: (e: SetStateAction<boolean>) => void,
-    isAuthBoolean: () => boolean,
-    setIsTwoFactor: (e: SetStateAction<boolean>) => void
-}
 
 // Авторизация
-export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps) {
+export function SignIn() {
+
     // Навигация
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const setIsAuthSatus = (authStatus: boolean) => dispatch(setIsAuth(authStatus));
+
+    const setIsTwoFactorSatus = (twoFactorStatus: boolean) => dispatch(setIsTwoFactor(twoFactorStatus));
 
     // Дата для авторизации
     const [signInData, setSignInData] = useState({
@@ -80,8 +85,8 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
     // Добавление токенов в storage и обнавлении данных в App.tsx
     const addTokenToStorage = (authToken: any) => {
         localStorageService.setTokenToStorage(authToken);
-        setIsAuth(isAuthBoolean());
-        setIsTwoFactor(localStorageService.setIsTwoFactor(signInData.isTwoFactor));
+        setIsAuthSatus(true);
+        setIsTwoFactorSatus(localStorageService.setIsTwoFactor(signInData.isTwoFactor));
         toast('Вы успешно авторизировались!', {
             type: 'success',
             theme: 'light'
@@ -216,11 +221,7 @@ export function SignIn({ setIsAuth, isAuthBoolean, setIsTwoFactor }: SignInProps
                     </div>
                     <div className="flex justify-center space-y-4">
                         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-                            <SignInGoogleButton 
-                                setIsAuth={setIsAuth} 
-                                isAuthBoolean={isAuthBoolean}
-                                setIsTwoFactor={setIsTwoFactor}
-                            />
+                            <SignInGoogleButton />
                         </GoogleOAuthProvider>
                     </div>
                 </form>
